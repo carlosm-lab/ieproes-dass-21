@@ -525,7 +525,7 @@
   </div>
 
   <!-- TOAST DE NOTIFICACIÓN -->
-  <div id="toast" class="fixed bottom-4 left-4 right-4 max-w-md mx-auto z-50 hidden items-start gap-3 p-4 rounded-xl shadow-lg border text-sm font-medium transition-all backdrop-blur-md">
+  <div id="toast" class="fixed top-4 sm:top-6 left-4 right-4 max-w-md mx-auto z-50 hidden items-start gap-3 p-4 rounded-xl shadow-xl border text-sm font-medium transition-all backdrop-blur-md">
     <span id="toast-icon-wrap" class="shrink-0 mt-0.5"></span>
     <div class="flex-1">
       <p id="toast-title" class="font-display font-bold"></p>
@@ -643,10 +643,10 @@
         dom.toastMsg.textContent = msg;
 
         if (type === 'error') {
-          dom.toast.className = 'fixed bottom-4 left-4 right-4 max-w-md mx-auto z-50 flex items-start gap-3 p-4 rounded-xl shadow-lg border text-sm font-medium bg-rose-50/95 border-rose-300 text-rose-950 backdrop-blur-md';
+          dom.toast.className = 'fixed top-4 sm:top-6 left-4 right-4 max-w-md mx-auto z-50 flex items-start gap-3 p-4 rounded-xl shadow-xl border text-sm font-medium bg-rose-50/95 border-rose-300 text-rose-950 backdrop-blur-md';
           dom.toastIconWrap.innerHTML = '<i data-lucide="alert-triangle" class="w-5 h-5 text-rose-600"></i>';
         } else {
-          dom.toast.className = 'fixed bottom-4 left-4 right-4 max-w-md mx-auto z-50 flex items-start gap-3 p-4 rounded-xl shadow-lg border text-sm font-medium bg-emerald-50/95 border-emerald-300 text-emerald-950 backdrop-blur-md';
+          dom.toast.className = 'fixed top-4 sm:top-6 left-4 right-4 max-w-md mx-auto z-50 flex items-start gap-3 p-4 rounded-xl shadow-xl border text-sm font-medium bg-emerald-50/95 border-emerald-300 text-emerald-950 backdrop-blur-md';
           dom.toastIconWrap.innerHTML = '<i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>';
         }
 
