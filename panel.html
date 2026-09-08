@@ -615,9 +615,9 @@
             placeholder="Escribe aquí el criterio clínico, acuerdos o plan de seguimiento para este caso..."
             class="glass-input w-full p-4 text-sm leading-relaxed"></textarea>
 
-          <div class="flex items-center justify-between">
-            <span id="eval-feedback" class="text-xs font-semibold"></span>
-            <button type="submit" id="btn-guardar-eval" class="btn-glass-sage">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+            <div id="eval-feedback" class="text-xs font-semibold min-h-[24px] flex items-center"></div>
+            <button type="submit" id="btn-guardar-eval" class="btn-glass-sage w-full sm:w-auto shrink-0 justify-center">
               <i data-lucide="save" class="w-4 h-4"></i>
               <span>Guardar evaluación</span>
             </button>
@@ -1597,14 +1597,45 @@
         }
       }
 
-      dom.formEval.addEventListener('submit', async function (e) {
-        e.preventDefault();
+      async function procesarGuardarEvaluacion(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        if (!state.sesionActual) {
+          dom.evalFeedback.innerHTML = '<span class="text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 shadow-xs"><i data-lucide="alert-circle" class="w-4 h-4 text-rose-600"></i> No hay una evaluación seleccionada.</span>';
+          if (window.refreshIcons) window.refreshIcons();
+          return;
+        }
+
         var texto = dom.evalComentario.value.trim();
-        if (!texto || !state.sesionActual) return;
+        if (!texto) {
+          dom.evalFeedback.innerHTML = '<span class="text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 shadow-xs"><i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i> Por favor escribe una observación o criterio clínico antes de guardar.</span>';
+          if (window.refreshIcons) window.refreshIcons();
+          dom.evalComentario.focus();
+          dom.evalComentario.classList.add('border-amber-400', 'ring-2', 'ring-amber-200');
+          setTimeout(function () {
+            dom.evalComentario.classList.remove('border-amber-400', 'ring-2', 'ring-amber-200');
+          }, 3000);
+          return;
+        }
+
+        // Obtener ID del encargado de forma robusta
+        var userId = (state.user && state.user.id) ? state.user.id : null;
+        if (!userId && state.token) {
+          try {
+            var b64 = state.token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+            while (b64.length % 4) b64 += '=';
+            var payload = JSON.parse(atob(b64));
+            userId = payload.sub || null;
+          } catch (err) {}
+        }
 
         dom.btnGuardarEval.disabled = true;
-        dom.btnGuardarEval.innerHTML = '<span>Guardando...</span>';
+        dom.btnGuardarEval.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Guardando...</span>';
         dom.evalFeedback.textContent = '';
+        if (window.refreshIcons) window.refreshIcons();
 
         try {
           var res = await authFetch(SUPA_URL + '/rest/v1/evaluaciones_profesional', {
@@ -1615,7 +1646,7 @@
             },
             body: JSON.stringify({
               sesion_id: state.sesionActual.id,
-              encargado_id: state.user.id,
+              encargado_id: userId,
               comentario: texto
             })
           });
@@ -1623,28 +1654,39 @@
           if (!res.ok) throw new Error('HTTP ' + res.status);
 
           dom.evalComentario.value = '';
-          dom.evalFeedback.textContent = '✓ Nota guardada correctamente';
-          dom.evalFeedback.className = 'text-xs font-semibold text-emerald-700';
+          dom.evalFeedback.innerHTML = '<span class="text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 shadow-xs"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> Nota clínica guardada correctamente</span>';
+          if (window.refreshIcons) window.refreshIcons();
 
           // Recargar lista de notas para reflejar la nueva inmediatamente
-          await cargarEvaluaciones(state.sesionActual.id);
+          try {
+            await cargarEvaluaciones(state.sesionActual.id);
+          } catch (loadErr) {
+            console.warn('Error recargando notas tras guardar:', loadErr);
+          }
 
-          // Scroll a la sección de notas para que el usuario vea el resultado
+          // Scroll suave a la sección de notas para confirmar visualmente
           if (dom.listaEvaluaciones) {
             dom.listaEvaluaciones.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }
         } catch (err) {
           console.error('Error guardando evaluación:', err);
           if (err.message && err.message.indexOf('Sesión expirada') !== -1) return;
-          dom.evalFeedback.textContent = 'Error al guardar la nota. Intenta de nuevo.';
-          dom.evalFeedback.className = 'text-xs font-semibold text-rose-700';
+          dom.evalFeedback.innerHTML = '<span class="text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 shadow-xs"><i data-lucide="alert-circle" class="w-4 h-4 text-rose-600"></i> Error al guardar la nota. Intenta de nuevo.</span>';
+          if (window.refreshIcons) window.refreshIcons();
         } finally {
           dom.btnGuardarEval.disabled = false;
           dom.btnGuardarEval.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i><span>Guardar evaluación</span>';
           if (window.refreshIcons) window.refreshIcons();
-          setTimeout(function () { dom.evalFeedback.textContent = ''; }, 4000);
+          setTimeout(function () {
+            if (dom.evalFeedback) dom.evalFeedback.innerHTML = '';
+          }, 5000);
         }
-      });
+      }
+
+      dom.formEval.addEventListener('submit', procesarGuardarEvaluacion);
+      if (dom.btnGuardarEval) {
+        dom.btnGuardarEval.addEventListener('click', procesarGuardarEvaluacion);
+      }
 
       // 4. Notificaciones en Tiempo Real y Auto-Refresh Sincronizado
       function mostrarToastNuevaEvaluacion(s) {

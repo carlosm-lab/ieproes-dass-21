@@ -444,6 +444,8 @@ tbody tr.tbl-row.is-critical-row:hover {
   position: relative;
   overflow: hidden;
   text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-liquid-primary:hover:not(:disabled),
