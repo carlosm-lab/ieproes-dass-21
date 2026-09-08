@@ -840,13 +840,13 @@
 
           slide.innerHTML =
             '<div class="py-1 px-3 sm:px-4">' +
-              '<div class="flex items-center mb-2">' +
+              '<div class="flex items-center justify-center sm:justify-start mb-2">' +
                 '<span class="sev-badge-glass ' + escalaData.cls + ' text-xs">' +
                   '<i data-lucide="activity" class="w-3.5 h-3.5"></i>' +
                   '<span>' + escalaData.label + ' — Ítem ' + p.num + ' de 7</span>' +
                 '</span>' +
               '</div>' +
-              '<p class="font-display text-lg sm:text-xl font-bold text-charcoal leading-snug mb-3">' +
+              '<p class="font-display text-lg sm:text-xl font-bold text-charcoal leading-snug mb-3 text-center sm:text-left">' +
                 '&ldquo;' + p.texto + '&rdquo;' +
               '</p>' +
               '<div class="flex flex-col gap-2" role="radiogroup" aria-label="Opciones para ítem ' + (index + 1) + '">' +
