@@ -9,8 +9,7 @@ body,
 .liquid-canvas,
 .ambient-bg {
   background: var(--mesh-gradient);
-  background-attachment: fixed;
-  min-height: 100vh;
+  min-height: 100%;
   min-height: 100dvh;
   min-height: -webkit-fill-available;
   position: relative;
@@ -21,7 +20,7 @@ body,
 
 .panel-ambient-bg {
   background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 35%, #EEF2F7 100%) !important;
-  min-height: 100vh;
+  min-height: 100%;
   min-height: 100dvh;
   min-height: -webkit-fill-available;
   position: relative;
