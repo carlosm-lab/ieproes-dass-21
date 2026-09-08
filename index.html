@@ -962,6 +962,16 @@
         }, 2000);
       });
 
+      function irAPregunta(index) {
+        if (index < 0 || index >= PREGUNTAS.length) return;
+        if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+        document.querySelectorAll('.test-option-card.auto-advancing').forEach(function (c) {
+          c.classList.remove('auto-advancing');
+        });
+
+        state.preguntaActual = index;
+        guardarProgresoLocal();
+
         dom.slideTrack.style.transform = 'translateX(-' + (index * 100) + '%)';
 
         var p = PREGUNTAS[index];
