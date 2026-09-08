@@ -59,8 +59,8 @@
     }
     h1, h2, h3, .font-display { font-family: var(--font-family-display); }
 
-    .screen { display: none; }
-    .screen.active { display: flex; flex-direction: column; flex: 1; width: 100%; }
+    .screen { display: none !important; }
+    .screen.active { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
 
     .slide-viewport { 
       overflow: hidden; 
@@ -406,7 +406,7 @@
   </div>
 
   <!-- PANTALLA 2: CARRUSEL DE PREGUNTAS (1 A LA VEZ) -->
-  <div id="screen-test" class="screen relative z-10 flex-1 flex flex-col justify-center">
+  <div id="screen-test" class="screen relative z-10">
     <main class="flex-1 max-w-2xl mx-auto w-full px-3 sm:px-4 py-2 sm:py-6 flex flex-col justify-center">
       <div class="apple-liquid-window w-full p-4 sm:p-6">
         <!-- Carrusel -->
