@@ -398,7 +398,7 @@
         </div>
 
         <!-- LISTADO DE BANDEJA (Filas compactas en Desktop y Móvil) -->
-        <div id="inbox-list" class="divide-y divide-slate-100 bg-white">
+        <div id="inbox-list" class="divide-y divide-slate-300 bg-white shadow-xs">
           <div class="p-8 text-center text-xs font-semibold text-slate-400">Cargando evaluaciones...</div>
         </div>
 
@@ -1203,37 +1203,37 @@
 
           return (
             '<!-- Fila Desktop (hidden md:flex) -->' +
-            '<div class="inbox-row group hidden md:flex items-center px-5 py-3 border-b border-slate-100/80 cursor-pointer transition-colors ' + (esLeido ? 'is-read' : 'is-unread') + '" data-id="' + s.id + '">' +
+            '<div class="inbox-row group hidden md:flex items-center px-5 py-3.5 border-b border-slate-300 cursor-pointer transition-colors ' + (esLeido ? 'is-read' : 'is-unread') + '" data-id="' + s.id + '">' +
             '<!-- Indicadores de Estado: Prioridad clínica + Estado de lectura -->' +
             '<div class="w-8 shrink-0 flex items-center gap-1.5" title="' + prio.title + ' · ' + readDot.title + '">' +
-            '<span class="w-2 h-2 rounded-full ' + prio.color + ' shrink-0 shadow-xs" title="' + prio.title + '"></span>' +
-            '<span class="w-2 h-2 rounded-full ' + readDot.color + ' shrink-0 shadow-xs" title="' + readDot.title + '"></span>' +
+            '<span class="w-2.5 h-2.5 rounded-full ' + prio.color + ' shrink-0 shadow-xs" title="' + prio.title + '"></span>' +
+            '<span class="w-2.5 h-2.5 rounded-full ' + readDot.color + ' shrink-0 shadow-xs" title="' + readDot.title + '"></span>' +
             '</div>' +
 
             '<!-- 1. Remitente -->' +
-            '<div class="w-52 shrink-0 ' + (esLeido ? 'font-medium text-slate-700' : 'font-bold text-slate-950') + ' text-sm truncate pr-3 tracking-tight" title="' + remitente + '">' +
+            '<div class="w-52 shrink-0 ' + (esLeido ? 'font-bold text-slate-800' : 'font-extrabold text-slate-950') + ' text-sm truncate pr-3 tracking-tight" title="' + remitente + '">' +
             remitente +
             '</div>' +
 
             '<!-- 2 y 3. Asunto + Preview breve inline -->' +
             '<div class="flex-1 min-w-0 flex items-center text-sm truncate pr-4">' +
-            '<span class="' + (esLeido ? 'font-normal text-slate-600' : 'font-semibold text-slate-900') + ' shrink-0">' + asunto + '</span>' +
-            '<span class="' + (esLeido ? 'text-slate-400 font-normal' : 'text-slate-500 font-medium') + ' truncate ml-2">' + snippet + '</span>' +
+            '<span class="' + (esLeido ? 'font-semibold text-slate-700' : 'font-bold text-slate-900') + ' shrink-0">' + asunto + '</span>' +
+            '<span class="' + (esLeido ? 'text-slate-600 font-normal' : 'text-slate-800 font-semibold') + ' truncate ml-2">' + snippet + '</span>' +
             '</div>' +
 
             '<!-- 4. Fecha / Acciones Rápidas en Hover -->' +
             '<div class="shrink-0 text-right min-w-[140px] flex items-center justify-end">' +
-            '<span class="text-xs ' + (esLeido ? 'font-normal text-slate-400' : 'font-bold text-slate-800') + ' group-hover:hidden transition-opacity whitespace-nowrap">' +
+            '<span class="text-xs ' + (esLeido ? 'font-medium text-slate-500' : 'font-bold text-slate-800') + ' group-hover:hidden transition-opacity whitespace-nowrap">' +
             fechaStr +
             '</span>' +
-            '<div class="hidden group-hover:flex items-center gap-1">' +
-            '<button type="button" class="btn-hover-action" data-action="view" data-id="' + s.id + '" title="Ver evaluación completa">' +
+            '<div class="hidden group-hover:flex items-center gap-1.5">' +
+            '<button type="button" class="btn-hover-action bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg p-1.5 transition-colors" data-action="view" data-id="' + s.id + '" title="Ver evaluación completa">' +
             '<i data-lucide="eye" class="w-4 h-4"></i>' +
             '</button>' +
-            '<button type="button" class="btn-hover-action" data-action="print" data-id="' + s.id + '" title="Imprimir reporte">' +
+            '<button type="button" class="btn-hover-action bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg p-1.5 transition-colors" data-action="print" data-id="' + s.id + '" title="Imprimir reporte">' +
             '<i data-lucide="printer" class="w-4 h-4"></i>' +
             '</button>' +
-            '<button type="button" class="btn-hover-action is-danger" data-action="delete" data-id="' + s.id + '" title="Eliminar reporte (Protegido)">' +
+            '<button type="button" class="btn-hover-action is-danger bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg p-1.5 transition-colors" data-action="delete" data-id="' + s.id + '" title="Eliminar reporte (Protegido)">' +
             '<i data-lucide="trash-2" class="w-4 h-4"></i>' +
             '</button>' +
             '</div>' +
@@ -1241,7 +1241,7 @@
             '</div>' +
 
             '<!-- Fila Móvil (md:hidden) -->' +
-            '<div class="inbox-row-mobile md:hidden px-4 py-3.5 border-b border-slate-100/80 cursor-pointer transition-colors flex flex-col gap-2 ' + (esLeido ? 'is-read' : 'is-unread') + '" data-id="' + s.id + '">' +
+            '<div class="inbox-row-mobile md:hidden px-4 py-3.5 border-b-2 border-slate-300 cursor-pointer transition-colors flex flex-col gap-2.5 ' + (esLeido ? 'is-read' : 'is-unread') + '" data-id="' + s.id + '">' +
             '<div class="flex items-center justify-between gap-2">' +
             '<div class="flex items-center gap-2 min-w-0 flex-1">' +
             '<!-- Burbujas de Estado: Prioridad clínica + Estado de lectura -->' +
@@ -1249,34 +1249,34 @@
             '<span class="w-2.5 h-2.5 rounded-full ' + prio.color + ' shrink-0 shadow-xs" title="' + prio.title + '"></span>' +
             '<span class="w-2.5 h-2.5 rounded-full ' + readDot.color + ' shrink-0 shadow-xs" title="' + readDot.title + '"></span>' +
             '</div>' +
-            '<span class="' + (esLeido ? 'font-medium text-slate-700' : 'font-bold text-slate-950') + ' text-sm truncate">' + remitente + '</span>' +
+            '<span class="' + (esLeido ? 'font-bold text-slate-800' : 'font-extrabold text-slate-950') + ' text-sm truncate tracking-tight">' + remitente + '</span>' +
             '</div>' +
             '<div class="flex items-center gap-1.5 shrink-0">' +
-            (!esLeido ? '<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">Nuevo</span>' : '') +
-            '<span class="text-[11px] ' + (esLeido ? 'font-normal text-slate-400' : 'font-bold text-slate-700') + ' whitespace-nowrap">' + fechaStr + '</span>' +
+            (!esLeido ? '<span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 border border-blue-200 shadow-xs">Nuevo</span>' : '') +
+            '<span class="text-[11px] ' + (esLeido ? 'font-medium text-slate-500' : 'font-bold text-slate-800') + ' whitespace-nowrap">' + fechaStr + '</span>' +
             '</div>' +
             '</div>' +
 
-            '<div class="text-xs text-slate-500 truncate pl-6 flex items-center gap-1.5">' +
-            '<span class="' + (esLeido ? 'font-normal text-slate-600' : 'font-semibold text-slate-800') + '">' + asunto + '</span> ' +
-            '<span class="text-slate-300 font-normal">·</span>' +
-            '<span class="' + (esLeido ? 'text-slate-400' : 'text-slate-600 font-medium') + ' truncate">' + snippet + '</span>' +
+            '<div class="text-xs text-slate-600 truncate pl-6 flex items-center gap-1.5 font-medium">' +
+            '<span class="' + (esLeido ? 'font-semibold text-slate-700' : 'font-bold text-slate-900') + '">' + asunto + '</span> ' +
+            '<span class="text-slate-400 font-bold">·</span>' +
+            '<span class="' + (esLeido ? 'text-slate-600' : 'text-slate-800 font-semibold') + ' truncate">' + snippet + '</span>' +
             '</div>' +
 
             '<!-- Acciones Rápidas en Móvil -->' +
-            '<div class="flex items-center justify-between pt-1.5 border-t border-slate-100/80 pl-6">' +
-            '<span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1.5">' +
-            '<span class="w-1.5 h-1.5 rounded-full ' + prio.color + '"></span>' +
+            '<div class="flex items-center justify-between pt-2 border-t border-slate-200/90 pl-6">' +
+            '<span class="text-[11px] font-bold text-slate-600 flex items-center gap-1.5">' +
+            '<span class="w-2 h-2 rounded-full ' + prio.color + '"></span>' +
             '<span>' + prio.label + '</span>' +
             '</span>' +
-            '<div class="flex items-center gap-1">' +
-            '<button type="button" class="btn-hover-action !w-8 !h-8 text-slate-600 hover:text-slate-900 active:bg-slate-200 rounded-lg transition-colors" data-action="view" data-id="' + s.id + '" title="Ver evaluación completa">' +
+            '<div class="flex items-center gap-1.5">' +
+            '<button type="button" class="btn-hover-action !w-8 !h-8 text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-lg transition-colors flex items-center justify-center" data-action="view" data-id="' + s.id + '" title="Ver evaluación completa">' +
             '<i data-lucide="eye" class="w-4 h-4"></i>' +
             '</button>' +
-            '<button type="button" class="btn-hover-action !w-8 !h-8 text-slate-600 hover:text-slate-900 active:bg-slate-200 rounded-lg transition-colors" data-action="print" data-id="' + s.id + '" title="Imprimir reporte">' +
+            '<button type="button" class="btn-hover-action !w-8 !h-8 text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-lg transition-colors flex items-center justify-center" data-action="print" data-id="' + s.id + '" title="Imprimir reporte">' +
             '<i data-lucide="printer" class="w-4 h-4"></i>' +
             '</button>' +
-            '<button type="button" class="btn-hover-action is-danger !w-8 !h-8 text-slate-400 hover:text-rose-600 active:bg-rose-100 rounded-lg transition-colors" data-action="delete" data-id="' + s.id + '" title="Eliminar reporte (Protegido)">' +
+            '<button type="button" class="btn-hover-action is-danger !w-8 !h-8 text-rose-600 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 active:bg-rose-200 rounded-lg transition-colors flex items-center justify-center" data-action="delete" data-id="' + s.id + '" title="Eliminar reporte (Protegido)">' +
             '<i data-lucide="trash-2" class="w-4 h-4"></i>' +
             '</button>' +
             '</div>' +

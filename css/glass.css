@@ -869,25 +869,27 @@ tbody tr.tbl-row.is-critical-row:hover {
   position: relative;
   transition: background-color 0.18s ease, box-shadow 0.18s ease;
   user-select: none;
+  border-bottom: 1.5px solid #CBD5E1 !important;
 }
 
 .inbox-row:hover {
-  background-color: #F8FAFC !important;
-  box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.4);
+  background-color: #F1F5F9 !important;
+  box-shadow: inset 0 0 0 1px rgba(203, 213, 225, 0.6);
 }
 
 .inbox-row-mobile {
   position: relative;
   transition: background-color 0.18s ease;
   user-select: none;
+  border-bottom: 2px solid #CBD5E1 !important;
 }
 
 .inbox-row-mobile:hover {
-  background-color: #F8FAFC !important;
+  background-color: #F1F5F9 !important;
 }
 
 .inbox-row-mobile:active {
-  background-color: #F1F5F9 !important;
+  background-color: #E2E8F0 !important;
 }
 
 /* Pestañas de Conteo / Filtro (KPI Tabs — Refinadas) */
@@ -993,26 +995,26 @@ tbody tr.tbl-row.is-critical-row:hover {
 
 .inbox-row.is-unread {
   background-color: #FFFFFF !important;
-  border-left: 3px solid #2563EB;
+  border-left: 4px solid #1D4ED8 !important;
 }
 
 .inbox-row.is-read {
-  background-color: rgba(248, 250, 252, 0.65) !important;
-  border-left: 3px solid transparent;
+  background-color: #F8FAFC !important;
+  border-left: 4px solid #94A3B8 !important;
 }
 
 .inbox-row.is-read:hover {
-  background-color: rgba(241, 245, 249, 0.9) !important;
+  background-color: #EEF2F6 !important;
 }
 
 .inbox-row-mobile.is-unread {
   background-color: #FFFFFF !important;
-  border-left: 3px solid #2563EB;
+  border-left: 4px solid #1D4ED8 !important;
 }
 
 .inbox-row-mobile.is-read {
-  background-color: rgba(248, 250, 252, 0.65) !important;
-  border-left: 3px solid transparent;
+  background-color: #F8FAFC !important;
+  border-left: 4px solid #94A3B8 !important;
 }
 
 /* Contenedor de Toasts de Notificación en Tiempo Real */
