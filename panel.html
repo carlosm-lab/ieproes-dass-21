@@ -52,11 +52,16 @@
     html {
       font-size: 16px;
       scroll-behavior: smooth;
+      height: 100%;
+      height: -webkit-fill-available;
     }
 
     body {
       font-family: var(--font-family-body);
       color: var(--color-text-main);
+      min-height: 100vh;
+      min-height: 100dvh;
+      min-height: -webkit-fill-available;
     }
 
     h1,
@@ -243,7 +248,7 @@
   </style>
 </head>
 
-<body class="panel-ambient-bg flex flex-col min-h-screen relative overflow-x-hidden">
+<body class="panel-ambient-bg flex flex-col min-h-screen min-h-[100dvh] relative overflow-x-hidden">
   <!-- BARRA DE NAVEGACIÓN HOMOLOGADA (PERSISTENTE EN TODAS LAS PANTALLAS DEL PANEL) -->
   <header id="main-panel-navbar" class="glass-header sticky top-0 z-30 w-full no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
@@ -1451,6 +1456,9 @@
       dom.btnVolverLista.addEventListener('click', function () {
         dom.vistaDetalle.classList.add('hidden');
         dom.vistaLista.classList.remove('hidden');
+        renderTablaYCards();
+        renderKPIs();
+        pendientesDeRenderizar = false;
         window.scrollTo(0, 0);
         if (window.refreshIcons) window.refreshIcons();
       });
@@ -1721,6 +1729,7 @@
       }
 
       var autoRefreshInterval = null;
+      var pendientesDeRenderizar = false;
 
       function iniciarAutoRefresh() {
         detenerAutoRefresh();
@@ -1772,11 +1781,18 @@
                 });
               }
 
-              // Re-renderizar si estamos en la vista de lista
+              // Re-renderizar si estamos en la vista de lista, o marcar como pendiente
               if (!dom.vistaLista.classList.contains('hidden')) {
                 renderTablaYCards();
+                pendientesDeRenderizar = false;
+              } else {
+                pendientesDeRenderizar = true;
               }
               renderKPIs();
+            } else if (pendientesDeRenderizar && !dom.vistaLista.classList.contains('hidden')) {
+              renderTablaYCards();
+              renderKPIs();
+              pendientesDeRenderizar = false;
             }
           } catch (e) {
             // Silencioso

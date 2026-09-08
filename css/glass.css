@@ -11,6 +11,8 @@ body,
   background: var(--mesh-gradient);
   background-attachment: fixed;
   min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   position: relative;
   color: var(--color-text-main);
   font-family: var(--font-family-body);
@@ -20,6 +22,8 @@ body,
 .panel-ambient-bg {
   background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 35%, #EEF2F7 100%) !important;
   min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   position: relative;
   color: #0F172A;
   font-family: var(--font-family-body);
@@ -28,10 +32,10 @@ body,
 
 .ambient-orbs-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;

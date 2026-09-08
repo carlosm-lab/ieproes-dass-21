@@ -45,14 +45,35 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    html { font-size: 16px; scroll-behavior: smooth; }
-    body { font-family: var(--font-family-body); color: var(--color-text-main); }
+    html { 
+      font-size: 16px; 
+      scroll-behavior: smooth; 
+      height: 100%;
+      height: -webkit-fill-available;
+    }
+    body { 
+      font-family: var(--font-family-body); 
+      color: var(--color-text-main); 
+      min-height: 100vh;
+      min-height: 100dvh;
+      min-height: -webkit-fill-available;
+    }
     h1, h2, h3, .font-display { font-family: var(--font-family-display); }
 
     .screen { display: none; }
-    .screen.active { display: flex; flex-direction: column; flex: 1 0 auto; width: 100%; }
+    .screen.active { display: flex; flex-direction: column; flex: 1 1 auto; width: 100%; }
 
-    .slide-viewport { overflow: hidden; width: 100%; position: relative; transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1); padding-top: 0.35rem; padding-bottom: 1.25rem; margin-top: -0.35rem; margin-bottom: -0.75rem; }
+    .slide-viewport { 
+      overflow: hidden; 
+      width: 100%; 
+      position: relative; 
+      box-sizing: border-box;
+      transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1); 
+      padding-top: 0.25rem; 
+      padding-bottom: 0.5rem; 
+      margin-top: -0.25rem; 
+      margin-bottom: 0; 
+    }
     .slide-track { display: flex; align-items: flex-start; transition: transform 0.32s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform; width: 100%; }
     .slide-item { flex: 0 0 100%; width: 100%; min-width: 100%; box-sizing: border-box; }
 
@@ -181,7 +202,7 @@
     }
   </style>
 </head>
-<body class="ambient-bg flex flex-col min-h-screen relative overflow-x-hidden">
+<body class="ambient-bg flex flex-col min-h-screen min-h-[100dvh] relative overflow-x-hidden">
   <!-- SCREEN LOADER / SPLASH SCREEN INICIAL (1.8s) -->
   <div id="screen-loader" class="fixed inset-0 z-50 flex items-center justify-center p-4">
     <!-- Orbes Ambientales del Loader -->
@@ -379,8 +400,8 @@
 
   <!-- PANTALLA 2: CARRUSEL DE PREGUNTAS (1 A LA VEZ) -->
   <div id="screen-test" class="screen relative z-10">
-    <main class="flex-1 max-w-2xl mx-auto w-full px-4 py-3 sm:py-5 flex flex-col justify-center">
-      <div class="apple-liquid-window w-full p-4 sm:p-6">
+    <main class="flex-1 max-w-2xl mx-auto w-full px-3 sm:px-4 py-1.5 sm:py-5 flex flex-col justify-center">
+      <div class="apple-liquid-window w-full p-3.5 sm:p-6">
         <!-- Carrusel -->
         <div class="slide-viewport">
           <div id="slide-track" class="slide-track"></div>
@@ -458,7 +479,7 @@
   </div>
 
   <!-- FOOTER HOMOLOGADO (PERSISTENTE EN TODAS LAS PANTALLAS) -->
-  <footer class="text-center py-4 text-xs text-muted border-t border-slate-200/60 glass-header mt-auto w-full relative z-20">
+  <footer class="text-center py-2.5 sm:py-4 text-xs text-muted border-t border-slate-200/60 glass-header mt-auto w-full relative z-20">
     Seguridad, diseño y desarrollo por: Carlos Molina.
   </footer>
 
@@ -946,7 +967,7 @@
           if (inner) {
             var h = Math.max(inner.scrollHeight || 0, inner.offsetHeight || 0);
             if (h > 0) {
-              dom.slideViewport.style.height = (h + 16) + 'px';
+              dom.slideViewport.style.height = (h + 6) + 'px';
             }
           }
         }
