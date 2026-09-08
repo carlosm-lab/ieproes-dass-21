@@ -1,0 +1,25 @@
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Credenciales y Secretos
+.env
+*.env
+*.env.*
+*credential*
+*credenciales*
+*secret*
+
+# Temporales y Pruebas
+scratch/
+temp/
+tmp/
+*.log
+
+# Entornos y Editores
+.vscode/
+.idea/
+.agents/
+.vercel
+skills-lock.json

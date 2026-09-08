@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel del Encargado — DASS-21 IEPROES Centro Regional de San Miguel</title>
+  <meta name="description"
+    content="Panel privado del Encargado de la Unidad de Psicopedagogía para la revisión clínica de resultados del test DASS-21." />
+
+  <!-- Tipografía: Plus Jakarta Sans para títulos + Inter para cuerpo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#F8F6F2',
+            primary: { DEFAULT: '#143067', dark: '#0E2147', light: '#EBF0FA' },
+            sage: { DEFAULT: '#143067', dark: '#0E2147', light: '#EBF0FA' },
+            charcoal: '#1E293B',
+            muted: '#64748B'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- Sistema de Diseño Glassmorphism y Tokens -->
+  <link rel="stylesheet" href="css/tokens.css?v=2.1.0_septiembre_amarillo" />
+  <link rel="stylesheet" href="css/glass.css?v=2.1.0_septiembre_amarillo" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family-body);
+      color: var(--color-text-main);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-display {
+      font-family: var(--font-family-display);
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      flex: 1 0 auto;
+      width: 100%;
+    }
+
+    .logo-capsule {
+      background: #FFFFFF;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .logo-img {
+      max-height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    @media (min-width: 640px) {
+      .logo-img {
+        max-height: 60px;
+      }
+    }
+
+    .tbl-row {
+      transition: all 0.15s ease;
+    }
+
+    .tbl-row:hover td {
+      background-color: rgba(241, 245, 249, 0.85);
+    }
+
+    .fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Estilos de Impresión / PDF Oficial de Alta Fidelidad (Sin Espacio Arriba) */
+    @media print {
+      @page {
+        size: letter portrait;
+        margin: 10mm 15mm 12mm 15mm;
+      }
+
+      /* 1. Ocultar absolutamente todo lo que no sea el reporte clínico */
+      nav,
+      header,
+      footer,
+      .no-print,
+      .ambient-orbs-container,
+      #screen-login,
+      #screen-loader,
+      #vista-lista,
+      #modal-evaluacion,
+      #modal-loading,
+      #toast {
+        display: none !important;
+        height: 0 !important;
+        width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+      }
+
+      /* 2. Resetear body y html a flujo de bloque estándar sin flex ni alturas mínimas de pantalla */
+      html,
+      body {
+        background: #FFFFFF !important;
+        color: #0F172A !important;
+        display: block !important;
+        min-height: 0 !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* 3. Contenedores de pantallas */
+      .screen {
+        display: none !important;
+      }
+
+      #screen-dashboard {
+        display: block !important;
+        min-height: 0 !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: static !important;
+        transform: none !important;
+        animation: none !important;
+      }
+
+      /* 4. Encabezado Oficial Institucional para Impresión */
+      .print-header {
+        display: block !important;
+        margin: 0 0 1rem 0 !important;
+        padding: 0 0 0.75rem 0 !important;
+        border-bottom: 2px solid #143067 !important;
+      }
+
+      /* 5. Vista de Detalle Clínico */
+      #vista-detalle {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        animation: none !important;
+        transform: none !important;
+        position: static !important;
+      }
+
+      /* 6. Optimización de Tarjetas y Secciones Clínicas */
+      .glass-panel,
+      .glass-card,
+      .apple-liquid-window {
+        box-shadow: none !important;
+        border: 1px solid #CBD5E1 !important;
+        background: #FFFFFF !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border-radius: 0.75rem !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* 7. Alerta Crítica en Impresión */
+      #alerta-critica {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border: 1.5px solid #E11D48 !important;
+        background: #FFF1F2 !important;
+      }
+
+      /* 8. Evitar cortes indeseados en tablas y formularios de evaluación */
+      table,
+      tr,
+      td,
+      th {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+
+    .print-header {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="panel-ambient-bg flex flex-col min-h-screen relative overflow-x-hidden">
+  <!-- BARRA DE NAVEGACIÓN HOMOLOGADA (PERSISTENTE EN TODAS LAS PANTALLAS DEL PANEL) -->
+  <header id="main-panel-navbar" class="glass-header sticky top-0 z-30 w-full no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="logo-capsule !p-1 !border-0 shadow-xs">
+          <img src="logo-ieproes.png" alt="IEPROES" class="h-7 w-auto object-contain" />
+        </div>
+        <div>
+          <p class="font-display font-bold text-sm text-slate-800 tracking-tight">Panel DASS-21 IEPROES</p>
+          <p class="text-[11px] text-slate-400 hidden sm:block font-medium">Unidad de Psicopedagogía — San Miguel</p>
+        </div>
+      </div>
+
+      <!-- Controles de autenticación (visibles al iniciar sesión en el dashboard) -->
+      <div id="nav-auth-controls" class="flex items-center gap-2.5 hidden">
+        <span id="user-display"
+          class="text-xs font-mono font-medium text-slate-500 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-lg hidden md:inline"></span>
+        <button id="btn-logout" type="button" class="btn-glass-secondary !py-1.5 !px-3 !min-h-[36px] text-xs">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="screen-login" class="screen active relative z-10">
+
+    <main class="flex-1 flex items-center justify-center px-4 py-10 sm:py-16">
+      <div class="w-full max-w-md fade-in">
+        <div class="text-center mb-6">
+          <div
+            class="inline-flex items-center gap-1.5 bg-white/75 text-slate-800 text-xs font-bold px-3.5 py-1 rounded-full mb-2.5 shadow-xs border border-white/90 backdrop-blur-md">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-slate-700"></i>
+            <span>Acceso Restringido</span>
+          </div>
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-charcoal">
+            Panel del Encargado
+          </h1>
+          <p class="text-muted text-sm mt-1 font-medium">Unidad de Psicopedagogía — DASS-21</p>
+        </div>
+
+        <div class="apple-liquid-window p-8 sm:p-10 shadow-2xl">
+          <form id="form-login" class="space-y-4">
+            <div>
+              <label for="login-email" class="block text-xs sm:text-sm font-semibold text-charcoal mb-1">
+                Correo institucional
+              </label>
+              <div class="relative">
+                <input type="email" id="login-email" required autocomplete="email"
+                  placeholder="psicopedagogia@ieproes.edu.sv" class="liquid-input w-full px-4 py-3 pl-10" />
+                <i data-lucide="mail" class="w-4 h-4 text-muted absolute left-3.5 top-3.5"></i>
+              </div>
+            </div>
+
+            <div>
+              <label for="login-pass" class="block text-xs sm:text-sm font-semibold text-charcoal mb-1">
+                Contraseña
+              </label>
+              <div class="relative">
+                <input type="password" id="login-pass" required autocomplete="current-password" placeholder="••••••••"
+                  class="liquid-input w-full px-4 py-3 pl-10" />
+                <i data-lucide="lock" class="w-4 h-4 text-muted absolute left-3.5 top-3.5"></i>
+              </div>
+            </div>
+
+            <div id="login-error"
+              class="hidden p-3.5 rounded-xl bg-rose-50 border border-rose-300 text-rose-950 text-xs sm:text-sm font-medium flex items-start gap-2">
+              <i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 shrink-0 mt-0.5"></i>
+              <span id="login-error-text">Correo o contraseña incorrectos.</span>
+            </div>
+
+            <button type="submit" id="btn-login-submit"
+              class="btn-liquid-primary w-full py-3 text-base font-bold shadow-md">
+              <span>Iniciar sesión</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PANTALLA 2: DASHBOARD CLÍNICO -->
+  <div id="screen-dashboard" class="screen relative z-10">
+
+    <!-- Encabezado para impresión -->
+    <div class="print-header px-8 pt-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-800">IEPROES — Centro Regional de San Miguel</h1>
+          <p class="text-sm text-gray-600">Unidad de Psicopedagogía — Reporte Oficial de Tamizaje DASS-21</p>
+        </div>
+        <p class="text-xs text-gray-500 font-mono">Confidencial — Uso Clínico Exclusivo</p>
+      </div>
+    </div>
+
+    <!-- VISTA A: BANDEJA DE EVALUACIONES (MINIMALISTA ESTILO GMAIL) -->
+    <div id="vista-lista" class="flex-1 max-w-7xl mx-auto w-full px-3 sm:px-6 py-5">
+      <!-- Encabezado sutil con Pestañas de Conteo y Filtro Rápido -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+        <div>
+          <h2 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Bandeja de
+            Evaluaciones</h2>
+          <p class="text-xs text-slate-400 mt-0.5 font-medium">
+            Tamizajes psicológicos DASS-21 recibidos
+          </p>
+        </div>
+        <!-- Pestañas discretas tipo Gmail (KPI counter + quick filter) -->
+        <div id="kpi-container" class="flex items-center gap-2 overflow-x-auto no-scrollbar p-1.5"></div>
+      </div>
+
+      <!-- BANDEJA UNIFICADA (Alta densidad, baja saturación visual) -->
+      <div class="inbox-container">
+        <!-- Toolbar Integrada: Búsqueda y Acciones Rápidas -->
+        <div
+          class="p-3 sm:p-4 border-b border-slate-200/60 bg-slate-50/50 flex flex-col md:flex-row gap-2.5 items-stretch md:items-center justify-between">
+          <!-- Búsqueda rápida estilo Gmail -->
+          <div class="flex-1 relative flex items-center">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3 pointer-events-none"></i>
+            <input type="search" id="filtro-buscar" placeholder="Buscar por estudiante, carnet o código de sesión..."
+              class="w-full bg-white hover:bg-white focus:bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm font-medium rounded-lg pl-9 pr-4 py-2.5 border border-slate-200 focus:border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/15 transition-all shadow-sm" />
+          </div>
+
+          <!-- Filtros de apoyo y botones de acción -->
+          <div class="flex items-center gap-2 shrink-0 justify-between md:justify-end">
+            <select id="filtro-severidad"
+              class="bg-white border border-slate-200 text-slate-600 font-medium text-xs rounded-lg px-2.5 py-2 focus:outline-none focus:border-slate-300 shadow-sm">
+              <option value="">Severidad: Todas</option>
+              <option value="criticas">Solo críticas</option>
+              <option value="Extremadamente severa">Extremadamente severa</option>
+              <option value="Severa">Severa</option>
+              <option value="Moderada">Moderada</option>
+              <option value="Leve">Leve</option>
+              <option value="Normal">Normal</option>
+            </select>
+
+            <button id="btn-refrescar" type="button" title="Actualizar bandeja"
+              class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors shrink-0">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            </button>
+
+            <button id="btn-borrar-evaluaciones" type="button" title="Borrar evaluaciones"
+              class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors shrink-0">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- LISTADO DE BANDEJA (Filas compactas en Desktop y Móvil) -->
+        <div id="inbox-list" class="divide-y divide-slate-100 bg-white">
+          <div class="p-8 text-center text-xs font-semibold text-slate-400">Cargando evaluaciones...</div>
+        </div>
+
+        <!-- Estado vacío -->
+        <div id="sin-resultados" class="hidden p-12 text-center text-slate-400">
+          <div
+            class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200/80 text-slate-400 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="inbox" class="w-6 h-6"></i>
+          </div>
+          <p class="font-semibold text-slate-700 text-sm">Bandeja vacía</p>
+          <p class="text-xs text-slate-400 mt-0.5">No hay evaluaciones que coincidan con los filtros aplicados.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTA B: DETALLE DE SESIÓN -->
+    <div id="vista-detalle" class="hidden flex-1 max-w-5xl mx-auto w-full px-4 py-6 fade-in">
+      <!-- Barra superior de navegación y acciones (Mobile-First Optimizada) -->
+      <div class="flex items-center justify-between gap-2.5 mb-5 no-print">
+        <button id="btn-volver-lista" type="button"
+          class="btn-liquid-secondary !min-h-[38px] !py-2 !px-3 sm:!px-4 text-xs sm:text-sm font-semibold flex items-center gap-1.5 shrink-0 rounded-xl shadow-xs">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>Volver<span class="hidden sm:inline"> al listado</span></span>
+        </button>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="btn-eliminar-reporte" type="button"
+            class="btn-liquid-danger !min-h-[38px] !py-2 !px-3 sm:!px-3.5 text-xs sm:text-sm font-semibold flex items-center gap-1.5 rounded-xl shadow-xs"
+            title="Eliminar reporte (Protegido)">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Eliminar</span>
+          </button>
+          <button id="btn-imprimir" type="button"
+            class="btn-liquid-primary !min-h-[38px] !py-2 !px-3.5 sm:!px-4 text-xs sm:text-sm font-semibold flex items-center gap-1.5 rounded-xl shadow-xs"
+            onclick="window.print()" title="Imprimir reporte oficial">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            <span>Imprimir<span class="hidden sm:inline"> reporte</span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Banner de Alerta Crítica (Ruby Liquid Glass) -->
+      <div id="alerta-critica" class="hidden critical-banner-liquid mb-6 flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+          <i data-lucide="alert-octagon" class="w-6 h-6"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-display font-bold text-rose-950 text-base sm:text-lg mb-1">
+            Atención prioritaria requerida
+          </h3>
+          <p id="alerta-critica-txt" class="text-xs sm:text-sm text-rose-900 leading-relaxed font-medium"></p>
+        </div>
+      </div>
+
+      <!-- Ficha de Datos Generales -->
+      <div class="glass-panel p-5 sm:p-6 mb-6 shadow-sm">
+        <div
+          class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200/70 pb-4 mb-4">
+          <div class="flex items-center gap-2">
+            <span id="det-modalidad-badge" class="sev-badge-glass"></span>
+            <span id="det-leido-badge" class="sev-badge-glass"></span>
+            <span class="text-xs text-muted font-mono font-semibold" id="det-codigo-sesion"></span>
+          </div>
+          <p class="text-xs text-muted font-medium" id="det-fecha"></p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div>
+            <p class="text-xs text-muted font-semibold uppercase tracking-wider">Estudiante</p>
+            <p class="text-base font-display font-bold text-charcoal mt-0.5" id="det-nombre">—</p>
+          </div>
+          <div>
+            <p class="text-xs text-muted font-semibold uppercase tracking-wider">Código de estudiante</p>
+            <p class="text-base font-mono font-bold text-charcoal mt-0.5" id="det-codigo-est">—</p>
+          </div>
+          <div>
+            <p class="text-xs text-muted font-semibold uppercase tracking-wider">Instrumento Oficial</p>
+            <p class="text-base font-medium text-charcoal mt-0.5">DASS-21 (Lovibond & Lovibond)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjetas de Resultados (3 Escalas Clínicas) -->
+      <div class="mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <i data-lucide="bar-chart-3" class="w-5 h-5 text-primary"></i>
+          <h3 class="font-display text-lg font-bold text-charcoal">
+            Resultados Calculados por Escala
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Tarjeta Depresión -->
+          <div class="glass-panel p-5 shadow-sm border border-slate-200/80 bg-white rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-display font-bold text-slate-900 text-base">Depresión</span>
+                <span class="text-[11px] font-semibold text-slate-400 font-mono">DASS-21</span>
+              </div>
+              <div class="my-2.5 flex items-baseline gap-1.5">
+                <span class="font-display text-3xl font-black text-slate-950" id="card-dep-score">0</span>
+                <span class="text-xs text-slate-500 font-medium"> / 42 pts</span>
+              </div>
+              <div class="mb-3.5">
+                <span id="card-dep-badge"></span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 leading-tight border-t border-slate-100 pt-2.5 mt-auto">
+              Cortes oficiales: Normal 0-9, Leve 10-13, Mod. 14-20, Sev. 21-27, Extrema 28+
+            </p>
+          </div>
+
+          <!-- Tarjeta Ansiedad -->
+          <div class="glass-panel p-5 shadow-sm border border-slate-200/80 bg-white rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-display font-bold text-slate-900 text-base">Ansiedad</span>
+                <span class="text-[11px] font-semibold text-slate-400 font-mono">DASS-21</span>
+              </div>
+              <div class="my-2.5 flex items-baseline gap-1.5">
+                <span class="font-display text-3xl font-black text-slate-950" id="card-ans-score">0</span>
+                <span class="text-xs text-slate-500 font-medium"> / 42 pts</span>
+              </div>
+              <div class="mb-3.5">
+                <span id="card-ans-badge"></span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 leading-tight border-t border-slate-100 pt-2.5 mt-auto">
+              Cortes oficiales: Normal 0-7, Leve 8-9, Mod. 10-14, Sev. 15-19, Extrema 20+
+            </p>
+          </div>
+
+          <!-- Tarjeta Estrés -->
+          <div class="glass-panel p-5 shadow-sm border border-slate-200/80 bg-white rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-display font-bold text-slate-900 text-base">Estrés</span>
+                <span class="text-[11px] font-semibold text-slate-400 font-mono">DASS-21</span>
+              </div>
+              <div class="my-2.5 flex items-baseline gap-1.5">
+                <span class="font-display text-3xl font-black text-slate-950" id="card-est-score">0</span>
+                <span class="text-xs text-slate-500 font-medium"> / 42 pts</span>
+              </div>
+              <div class="mb-3.5">
+                <span id="card-est-badge"></span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 leading-tight border-t border-slate-100 pt-2.5 mt-auto">
+              Cortes oficiales: Normal 0-14, Leve 15-18, Mod. 19-25, Sev. 26-33, Extrema 34+
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Historial Evolutivo del Estudiante -->
+      <div id="seccion-historial" class="hidden glass-panel p-5 sm:p-6 mb-6 shadow-sm">
+        <div class="flex items-center gap-2 mb-2">
+          <i data-lucide="trending-up" class="w-5 h-5 text-primary"></i>
+          <h3 class="font-display text-base font-bold text-charcoal">
+            Historial Evolutivo del Estudiante
+          </h3>
+        </div>
+        <p class="text-xs text-muted mb-4">
+          Comparativa cronológica de evaluaciones DASS-21 realizadas con este código de estudiante:
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100/70 border-b border-slate-200 text-muted font-semibold">
+                <th class="p-2.5">Fecha</th>
+                <th class="p-2.5">Código Sesión</th>
+                <th class="p-2.5">Depresión</th>
+                <th class="p-2.5">Ansiedad</th>
+                <th class="p-2.5">Estrés</th>
+              </tr>
+            </thead>
+            <tbody id="historial-body" class="divide-y divide-slate-200/70"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Acordeón de las 21 Respuestas Individuales -->
+      <div class="glass-panel shadow-sm mb-6 overflow-hidden">
+        <button id="btn-toggle-respuestas" type="button"
+          class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-slate-50/50 transition-colors">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="list-checks" class="w-5 h-5 text-primary"></i>
+            <span class="font-display font-bold text-charcoal text-base">
+              Detalle de las 21 Respuestas Individuales
+            </span>
+          </div>
+          <i id="toggle-respuestas-icon" data-lucide="chevron-down" class="w-5 h-5 text-muted transition-transform"></i>
+        </button>
+
+        <div id="contenedor-respuestas" class="hidden p-5 sm:p-6 border-t border-slate-200/70 bg-white/40">
+          <div id="lista-respuestas" class="space-y-6"></div>
+        </div>
+      </div>
+
+      <!-- Sección de Criterio Profesional y Seguimiento -->
+      <div class="glass-panel p-5 sm:p-6 shadow-sm mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <i data-lucide="pen-tool" class="w-5 h-5 text-primary"></i>
+          <h3 class="font-display text-lg font-bold text-charcoal">
+            Criterio Profesional y Plan de Seguimiento
+          </h3>
+        </div>
+        <p class="text-xs text-muted mb-4">
+          Registra tus observaciones clínicas, criterio profesional, intervenciones o derivaciones pertinentes.
+        </p>
+
+        <form id="form-evaluacion" class="space-y-3 no-print">
+          <textarea id="eval-comentario" rows="4"
+            placeholder="Escribe aquí el criterio clínico, acuerdos o plan de seguimiento para este caso..."
+            class="glass-input w-full p-4 text-sm leading-relaxed"></textarea>
+
+          <div class="flex items-center justify-between">
+            <span id="eval-feedback" class="text-xs font-semibold"></span>
+            <button type="submit" id="btn-guardar-eval" class="btn-glass-sage">
+              <i data-lucide="save" class="w-4 h-4"></i>
+              <span>Guardar evaluación</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Historial de Notas guardadas -->
+        <div class="mt-6 pt-5 border-t border-slate-200/70">
+          <h4 class="text-xs font-bold text-muted uppercase tracking-wider mb-3">
+            Notas clínicas registradas anteriormente:
+          </h4>
+          <div id="lista-evaluaciones" class="space-y-3">
+            <p class="text-xs text-muted italic">No hay notas profesionales registradas aún para esta sesión.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER HOMOLOGADO (PERSISTENTE EN TODAS LAS PANTALLAS DEL PANEL) -->
+  <footer class="text-center py-4 text-xs text-muted border-t border-slate-200/60 glass-header mt-auto w-full relative z-20 no-print">
+    Seguridad, diseño y desarrollo por: Carlos Molina.
+  </footer>
+
+  <!-- Modal de Bloqueo de Modificación / Eliminación (Integridad y Trazabilidad de Evaluaciones) -->
+  <div id="modal-bloqueo-eliminacion"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm hidden"
+    role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden">
+      <!-- Encabezado de Integridad y Trazabilidad -->
+      <div class="bg-slate-50 border-b border-slate-200 p-5 flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-[#143067] text-white flex items-center justify-center shrink-0 shadow-md">
+          <i data-lucide="shield-check" class="w-7 h-7"></i>
+        </div>
+        <div class="flex-1">
+          <span
+            class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 mb-1">
+            Registro Inalterable
+          </span>
+          <h3 class="font-display font-black text-slate-950 text-lg leading-tight">
+            Integridad y Trazabilidad de Evaluaciones
+          </h3>
+        </div>
+      </div>
+
+      <!-- Contenido Explicativo -->
+      <div class="p-6 space-y-4 text-slate-800 text-sm leading-relaxed">
+        <p class="font-bold text-slate-950 text-base">
+          Por la naturaleza de los datos, las evaluaciones registradas no pueden ser alteradas ni eliminadas del sistema.
+        </p>
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2.5 text-xs text-slate-800">
+          <div class="flex items-start gap-2.5">
+            <i data-lucide="lock" class="w-4 h-4 text-slate-700 shrink-0 mt-0.5"></i>
+            <span><strong>Prevención de alteraciones:</strong> Se restringe la edición y eliminación para evitar cualquier alteración de las evaluaciones, asegurando que las respuestas y puntajes permanezcan exactamente como fueron registrados.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <i data-lucide="file-check" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+            <span><strong>Garantía de auditoría:</strong> Permite garantizar la integridad y trazabilidad de las evaluaciones en caso de una auditoría. Cada evaluación queda almacenada de forma inmutable para preservar la autenticidad y trazabilidad histórica de los resultados.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de Confirmación / Cierre -->
+      <div class="bg-slate-50 border-t border-slate-200 px-6 py-4 flex justify-end">
+        <button id="btn-cerrar-modal-bloqueo" type="button"
+          class="btn-liquid-primary !py-2.5 !px-6 text-sm font-black flex items-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Entendido</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor flotante de notificaciones toast en tiempo real -->
+  <div id="toast-notification-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts del sistema -->
+  <script src="config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/ui-components.js"></script>
+
+  <!-- Lógica Principal del Panel del Encargado -->
+  <script>
+    (function () {
+      var SUPA_URL = (window.DASS_CONFIG && window.DASS_CONFIG.SUPABASE_URL) || window.SUPABASE_URL || "https://fenuukbefxysrelplnhy.supabase.co";
+      var SUPA_KEY = (window.DASS_CONFIG && window.DASS_CONFIG.SUPABASE_KEY) || window.SUPABASE_KEY || "sb_publishable_R1DuCAhCH9zLPiMZwHc2Fw_awegzclw";
+
+      // Preguntas oficiales para referencia en el desglose
+      var PREGUNTAS_MAP = {
+        1: { escala: 'depresion', num: 1, texto: 'No podía sentir ningún sentimiento positivo' },
+        2: { escala: 'depresion', num: 2, texto: 'Se me hizo difícil tomar la iniciativa para hacer cosas' },
+        3: { escala: 'depresion', num: 3, texto: 'He sentido que no había nada que me ilusionara' },
+        4: { escala: 'depresion', num: 4, texto: 'Me sentí triste y deprimido' },
+        5: { escala: 'depresion', num: 5, texto: 'No me pude entusiasmar por nada' },
+        6: { escala: 'depresion', num: 6, texto: 'Sentí que valía muy poco como persona' },
+        7: { escala: 'depresion', num: 7, texto: 'Sentí que la vida no tenía ningún sentido' },
+        8: { escala: 'estres', num: 1, texto: 'Me ha costado mucho descargar la tensión' },
+        9: { escala: 'estres', num: 2, texto: 'Reaccioné exageradamente en ciertas situaciones' },
+        10: { escala: 'estres', num: 3, texto: 'He sentido que estaba gastando una gran cantidad de energía' },
+        11: { escala: 'estres', num: 4, texto: 'Me he sentido inquieto' },
+        12: { escala: 'estres', num: 5, texto: 'Se me hizo difícil relajarme' },
+        13: { escala: 'estres', num: 6, texto: 'No toleré nada que no me permitiera continuar con lo que estaba haciendo' },
+        14: { escala: 'estres', num: 7, texto: 'He tendido a sentirme enfadado con facilidad' },
+        15: { escala: 'ansiedad', num: 1, texto: 'Me di cuenta que tenía la boca seca' },
+        16: { escala: 'ansiedad', num: 2, texto: 'Se me hizo difícil respirar' },
+        17: { escala: 'ansiedad', num: 3, texto: 'Sentí que mis manos temblaban' },
+        18: { escala: 'ansiedad', num: 4, texto: 'Estaba preocupado por situaciones en las cuales podía tener pánico o en las que podría hacer el ridículo' },
+        19: { escala: 'ansiedad', num: 5, texto: 'Sentí que estaba al punto de pánico' },
+        20: { escala: 'ansiedad', num: 6, texto: 'Sentí los latidos de mi corazón a pesar de no haber hecho ningún esfuerzo físico' },
+        21: { escala: 'ansiedad', num: 7, texto: 'Tuve miedo sin razón' }
+      };
+
+      var OPCIONES_TEXT = {
+        0: 'No me ha ocurrido',
+        1: 'Me ha ocurrido un poco',
+        2: 'Me ha ocurrido bastante',
+        3: 'Me ha ocurrido mucho, o la mayor parte del tiempo'
+      };
+
+      // Estado
+      var state = {
+        token: null,
+        refreshToken: null,
+        user: null,
+        sesiones: [],
+        sesionActual: null
+      };
+
+      // Elementos DOM
+      var dom = {
+        screenLogin: document.getElementById('screen-login'),
+        screenDashboard: document.getElementById('screen-dashboard'),
+        formLogin: document.getElementById('form-login'),
+        loginEmail: document.getElementById('login-email'),
+        loginPass: document.getElementById('login-pass'),
+        loginError: document.getElementById('login-error'),
+        loginErrorText: document.getElementById('login-error-text'),
+        btnLoginSubmit: document.getElementById('btn-login-submit'),
+        userDisplay: document.getElementById('user-display'),
+        btnLogout: document.getElementById('btn-logout'),
+        vistaLista: document.getElementById('vista-lista'),
+        vistaDetalle: document.getElementById('vista-detalle'),
+        inboxList: document.getElementById('inbox-list'),
+        tablaBody: document.getElementById('inbox-list'),
+        mobileCardsContainer: document.getElementById('inbox-list'),
+        sinResultados: document.getElementById('sin-resultados'),
+        kpiContainer: document.getElementById('kpi-container'),
+        filtroBuscar: document.getElementById('filtro-buscar'),
+        filtroSeveridad: document.getElementById('filtro-severidad'),
+        btnRefrescar: document.getElementById('btn-refrescar'),
+        btnVolverLista: document.getElementById('btn-volver-lista'),
+        alertaCritica: document.getElementById('alerta-critica'),
+        alertaCriticaTxt: document.getElementById('alerta-critica-txt'),
+        detModalidadBadge: document.getElementById('det-modalidad-badge'),
+        detCodigoSesion: document.getElementById('det-codigo-sesion'),
+        detFecha: document.getElementById('det-fecha'),
+        detNombre: document.getElementById('det-nombre'),
+        detCodigoEst: document.getElementById('det-codigo-est'),
+        cardDepScore: document.getElementById('card-dep-score'),
+        cardDepBadge: document.getElementById('card-dep-badge'),
+        cardAnsScore: document.getElementById('card-ans-score'),
+        cardAnsBadge: document.getElementById('card-ans-badge'),
+        cardEstScore: document.getElementById('card-est-score'),
+        cardEstBadge: document.getElementById('card-est-badge'),
+        btnToggleResp: document.getElementById('btn-toggle-respuestas'),
+        toggleRespIcon: document.getElementById('toggle-respuestas-icon'),
+        contenedorResp: document.getElementById('contenedor-respuestas'),
+        listaRespuestas: document.getElementById('lista-respuestas'),
+        seccionHistorial: document.getElementById('seccion-historial'),
+        historialBody: document.getElementById('historial-body'),
+        formEval: document.getElementById('form-evaluacion'),
+        evalComentario: document.getElementById('eval-comentario'),
+        btnGuardarEval: document.getElementById('btn-guardar-eval'),
+        evalFeedback: document.getElementById('eval-feedback'),
+        listaEvaluaciones: document.getElementById('lista-evaluaciones'),
+        btnRefrescarMobile: document.getElementById('btn-refrescar-mobile'),
+        btnBorrarEvaluaciones: document.getElementById('btn-borrar-evaluaciones'),
+        btnBorrarMobile: document.getElementById('btn-borrar-mobile'),
+        btnEliminarReporte: document.getElementById('btn-eliminar-reporte'),
+        detLeidoBadge: document.getElementById('det-leido-badge'),
+        modalBloqueo: document.getElementById('modal-bloqueo-eliminacion'),
+        btnCerrarModalBloqueo: document.getElementById('btn-cerrar-modal-bloqueo')
+      };
+
+      // 1. Manejo de Autenticación y Token Lifecycle
+      function isJwtExpired(token) {
+        if (!token) return true;
+        try {
+          var parts = token.split('.');
+          if (parts.length !== 3) return true;
+          var b64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+          while (b64.length % 4) b64 += '=';
+          var payload = JSON.parse(atob(b64));
+          if (!payload.exp) return false;
+          // Considerar expirado si le quedan menos de 30 segundos
+          return (payload.exp * 1000) <= (Date.now() + 30000);
+        } catch (e) {
+          return true;
+        }
+      }
+
+      function persistirSesion() {
+        var data = JSON.stringify({
+          token: state.token,
+          refreshToken: state.refreshToken,
+          user: state.user
+        });
+        try { localStorage.setItem('dass_panel_session', data); } catch (e) {}
+        try { sessionStorage.setItem('dass_panel_session', data); } catch (e) {}
+      }
+
+      function borrarSesionPersistente() {
+        try { localStorage.removeItem('dass_panel_session'); } catch (e) {}
+        try { sessionStorage.removeItem('dass_panel_session'); } catch (e) {}
+      }
+
+      async function refrescarToken() {
+        if (!state.refreshToken) return false;
+        try {
+          var res = await fetch(SUPA_URL + '/auth/v1/token?grant_type=refresh_token', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPA_KEY
+            },
+            body: JSON.stringify({ refresh_token: state.refreshToken })
+          });
+          if (!res.ok) return false;
+          var data = await res.json();
+          if (!data.access_token) return false;
+
+          state.token = data.access_token;
+          if (data.refresh_token) state.refreshToken = data.refresh_token;
+          if (data.user) state.user = data.user;
+
+          persistirSesion();
+          return true;
+        } catch (e) {
+          console.warn('Error al intentar refrescar token:', e);
+          return false;
+        }
+      }
+
+      // Proactivo: Mantener la sesión viva indefinidamente mientras el panel esté abierto
+      setInterval(function () {
+        if (state.token && state.refreshToken) {
+          refrescarToken();
+        }
+      }, 15 * 60 * 1000); // Cada 15 minutos
+
+      function logoutConMensaje(mensaje) {
+        state.token = null;
+        state.refreshToken = null;
+        state.user = null;
+        state.sesiones = [];
+        state.sesionActual = null;
+        borrarSesionPersistente();
+
+        // Detener polling automático
+        if (typeof detenerAutoRefresh === 'function') detenerAutoRefresh();
+
+        dom.screenDashboard.classList.remove('active');
+        dom.screenLogin.classList.add('active');
+
+        var navAuth = document.getElementById('nav-auth-controls');
+        if (navAuth) navAuth.classList.add('hidden');
+
+        if (mensaje) {
+          dom.loginErrorText.textContent = mensaje;
+          dom.loginError.classList.remove('hidden');
+        } else {
+          dom.loginError.classList.add('hidden');
+        }
+
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      function logout() {
+        if (state.token) {
+          fetch(SUPA_URL + '/auth/v1/logout', {
+            method: 'POST',
+            headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + state.token }
+          }).catch(function () { });
+        }
+        logoutConMensaje('');
+      }
+
+      // Wrapper centralizado de peticiones autenticadas
+      async function authFetch(url, options) {
+        options = options || {};
+        options.headers = options.headers || {};
+        options.headers['apikey'] = SUPA_KEY;
+
+        // Si el token actual ya está expirado y tenemos refresh_token, refrescar primero
+        if (isJwtExpired(state.token) && state.refreshToken) {
+          await refrescarToken();
+        }
+
+        if (state.token) {
+          options.headers['Authorization'] = 'Bearer ' + state.token;
+        }
+
+        var res = await fetch(url, options);
+
+        // Si devolvió 401/403, intentar refresh automático de token sin expulsar abruptamente
+        if ((res.status === 401 || res.status === 403) && state.refreshToken) {
+          var refrescado = await refrescarToken();
+          if (refrescado) {
+            options.headers['Authorization'] = 'Bearer ' + state.token;
+            res = await fetch(url, options);
+          }
+        }
+
+        return res;
+      }
+
+      async function login(email, password) {
+        dom.loginError.classList.add('hidden');
+        dom.btnLoginSubmit.disabled = true;
+        dom.btnLoginSubmit.innerHTML = '<span>Verificando...</span>';
+
+        try {
+          var res = await fetch(SUPA_URL + '/auth/v1/token?grant_type=password', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPA_KEY
+            },
+            body: JSON.stringify({ email: email, password: password })
+          });
+
+          var data = await res.json();
+          if (!res.ok) throw new Error(data.error_description || data.message || 'Credenciales inválidas');
+
+          state.token = data.access_token;
+          state.refreshToken = data.refresh_token || null;
+          state.user = data.user;
+          persistirSesion();
+
+          iniciarDashboard();
+        } catch (err) {
+          console.error('Error de login:', err);
+          dom.loginErrorText.textContent = 'Correo o contraseña incorrectos. Verifica tus datos.';
+          dom.loginError.classList.remove('hidden');
+        } finally {
+          dom.btnLoginSubmit.disabled = false;
+          dom.btnLoginSubmit.innerHTML = '<span>Iniciar sesión</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+          if (window.refreshIcons) window.refreshIcons();
+        }
+      }
+
+      dom.formLogin.addEventListener('submit', function (e) {
+        e.preventDefault();
+        login(dom.loginEmail.value.trim(), dom.loginPass.value);
+      });
+
+      dom.btnLogout.addEventListener('click', logout);
+
+      // Control de sincronización en tiempo real y detección de nuevas evaluaciones
+      var idsSesionesConocidas = null;
+
+      // 2. Carga y Visualización de Sesiones (Bandeja Minimalista Estilo Gmail)
+      async function marcarComoLeido(sesionId, nuevoEstado) {
+        if (nuevoEstado === undefined) nuevoEstado = true;
+        var sesion = state.sesiones.find(function (s) { return s.id === sesionId; });
+        if (!sesion) return;
+
+        // Actualización optimista inmediata en memoria local
+        sesion.leido = nuevoEstado;
+        sesion.leido_en = nuevoEstado ? new Date().toISOString() : null;
+
+        renderTablaYCards();
+        renderKPIs();
+        actualizarBotonLeidoDetalle();
+
+        // Actualización persistente en Supabase (todos los equipos sincronizados)
+        try {
+          var payload = {
+            leido: nuevoEstado,
+            leido_en: nuevoEstado ? new Date().toISOString() : null
+          };
+          var res = await authFetch(SUPA_URL + '/rest/v1/sesiones_test?id=eq.' + sesionId, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) {
+            console.warn('Advertencia al sincronizar estado en Supabase: HTTP ' + res.status);
+          }
+        } catch (e) {
+          console.error('Error al actualizar estado en Supabase:', e);
+        }
+      }
+
+      function actualizarBotonLeidoDetalle() {
+        if (!state.sesionActual) return;
+        var esLeido = !!state.sesionActual.leido;
+
+        if (dom.detLeidoBadge) {
+          if (esLeido) {
+            dom.detLeidoBadge.className = 'sev-badge-glass bg-emerald-50 text-emerald-700 border border-emerald-200/80';
+            dom.detLeidoBadge.innerHTML = '<i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i><span>Leído</span>';
+          } else {
+            dom.detLeidoBadge.className = 'sev-badge-glass bg-blue-50 text-blue-700 border border-blue-200/80';
+            dom.detLeidoBadge.innerHTML = '<i data-lucide="bell" class="w-3.5 h-3.5 text-blue-600"></i><span>No leído</span>';
+          }
+        }
+
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      async function cargarSesiones() {
+        if (dom.inboxList) dom.inboxList.innerHTML = '<div class="p-8 text-center text-xs font-semibold text-slate-400">Cargando evaluaciones...</div>';
+        if (dom.sinResultados) dom.sinResultados.classList.add('hidden');
+
+        try {
+          var res = await authFetch(SUPA_URL + '/rest/v1/sesiones_test?select=*,resultados(*)&completado=eq.true&order=fecha_aplicacion.desc');
+
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+
+          state.sesiones = await res.json();
+          idsSesionesConocidas = new Set(state.sesiones.map(function (s) { return s.id; }));
+          renderTablaYCards();
+          renderKPIs();
+        } catch (err) {
+          console.error('Error cargando sesiones:', err);
+          if (err.message && err.message.indexOf('Sesión expirada') !== -1) return;
+          if (dom.inboxList) dom.inboxList.innerHTML = '<div class="p-8 text-center text-xs font-semibold text-rose-600">Error al cargar las evaluaciones. Revisa tu conexión.</div>';
+        }
+      }
+
+      function renderKPIs() {
+        var total = state.sesiones.length;
+        var noLeidas = state.sesiones.filter(function (s) { return !s.leido; }).length;
+        var leidas = total - noLeidas;
+        var identificadas = state.sesiones.filter(function (s) { return s.modalidad === 'identificado'; }).length;
+        var anonimas = total - identificadas;
+
+        var currentTab = state.activeTab || 'todas';
+
+        dom.kpiContainer.innerHTML =
+          '<button type="button" class="kpi-tab ' + (currentTab === 'todas' ? 'active' : '') + '" data-tab="todas">' +
+          '<span>Todas</span>' +
+          '<span class="kpi-tab-count">' + total + '</span>' +
+          '</button>' +
+          '<button type="button" class="kpi-tab ' + (currentTab === 'no_leidas' ? 'active' : '') + '" data-tab="no_leidas">' +
+          '<span class="w-2 h-2 rounded-full bg-blue-600 inline-block mr-0.5"></span>' +
+          '<span>No leídas</span>' +
+          '<span class="kpi-tab-count ' + (noLeidas > 0 ? 'is-unread' : '') + '">' + noLeidas + '</span>' +
+          '</button>' +
+          '<button type="button" class="kpi-tab ' + (currentTab === 'leidas' ? 'active' : '') + '" data-tab="leidas">' +
+          '<span>Leídas</span>' +
+          '<span class="kpi-tab-count">' + leidas + '</span>' +
+          '</button>' +
+          '<button type="button" class="kpi-tab ' + (currentTab === 'identificadas' ? 'active' : '') + '" data-tab="identificadas">' +
+          '<span>Identificadas</span>' +
+          '<span class="kpi-tab-count">' + identificadas + '</span>' +
+          '</button>' +
+          '<button type="button" class="kpi-tab ' + (currentTab === 'anonimas' ? 'active' : '') + '" data-tab="anonimas">' +
+          '<span>Anónimas</span>' +
+          '<span class="kpi-tab-count">' + anonimas + '</span>' +
+          '</button>';
+
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      function renderTablaYCards() {
+        var filtroTxt = dom.filtroBuscar.value.trim().toLowerCase();
+        var filtroSev = dom.filtroSeveridad.value;
+        var currentTab = state.activeTab || 'todas';
+
+        var filtradas = state.sesiones.filter(function (s) {
+          // Filtro por pestaña seleccionada
+          if (currentTab === 'no_leidas' && s.leido) return false;
+          if (currentTab === 'leidas' && !s.leido) return false;
+          if (currentTab === 'identificadas' && s.modalidad !== 'identificado') return false;
+          if (currentTab === 'anonimas' && s.modalidad !== 'anonimo') return false;
+
+          var r = s.resultados || {};
+          var maxSev = window.getMaxSeverity ? window.getMaxSeverity(r) : '';
+
+          // Filtro por dropdown de severidad
+          if (filtroSev === 'criticas') {
+            if (!window.isCriticalSeverity(maxSev)) return false;
+          } else if (filtroSev && maxSev !== filtroSev) {
+            return false;
+          }
+
+          if (filtroTxt) {
+            var n = (s.nombre_completo || '').toLowerCase();
+            var c = (s.codigo_estudiante || '').toLowerCase();
+            var cod = (s.codigo_sesion || '').toLowerCase();
+            if (n.indexOf(filtroTxt) === -1 && c.indexOf(filtroTxt) === -1 && cod.indexOf(filtroTxt) === -1) {
+              return false;
+            }
+          }
+
+          return true;
+        });
+
+        // Ordenamiento: En la vista principal 'todas', las evaluaciones NO LEÍDAS se agrupan al inicio
+        filtradas.sort(function (a, b) {
+          if (currentTab === 'todas') {
+            var aLeido = !!a.leido;
+            var bLeido = !!b.leido;
+            if (!aLeido && bLeido) return -1;
+            if (aLeido && !bLeido) return 1;
+          }
+          return new Date(b.fecha_aplicacion || 0) - new Date(a.fecha_aplicacion || 0);
+        });
+
+        if (filtradas.length === 0) {
+          if (dom.inboxList) dom.inboxList.innerHTML = '';
+          dom.sinResultados.classList.remove('hidden');
+          return;
+        }
+
+        dom.sinResultados.classList.add('hidden');
+
+        function getPriorityDot(sev) {
+          var s = (sev || 'Normal').trim();
+          switch (s) {
+            case 'Extremadamente severa':
+              return {
+                color: 'bg-rose-600',
+                label: 'Extr. Severa',
+                title: 'Prioridad Máxima: Extremadamente severa'
+              };
+            case 'Severa':
+              return {
+                color: 'bg-rose-500',
+                label: 'Severa',
+                title: 'Prioridad Alta: Severa'
+              };
+            case 'Moderada':
+              return {
+                color: 'bg-amber-500',
+                label: 'Moderada',
+                title: 'Prioridad Media: Moderada'
+              };
+            case 'Leve':
+              return {
+                color: 'bg-yellow-400',
+                label: 'Leve',
+                title: 'Prioridad Leve'
+              };
+            case 'Normal':
+            default:
+              return {
+                color: 'bg-emerald-500',
+                label: 'Normal',
+                title: 'Prioridad Normal'
+              };
+          }
+        }
+
+        dom.inboxList.innerHTML = filtradas.map(function (s) {
+          var r = s.resultados || {};
+          var maxSev = window.getMaxSeverity ? window.getMaxSeverity(r) : 'Normal';
+          var prio = getPriorityDot(maxSev);
+          var esLeido = !!s.leido;
+
+          // La burbuja de lectura cambia de color: azul para no leída, gris suave para leída
+          var readDot = esLeido
+            ? { color: 'bg-slate-300', title: 'Evaluación leída' }
+            : { color: 'bg-blue-600', title: 'Nueva evaluación no leída' };
+
+          var remitente = s.modalidad === 'identificado'
+            ? (s.nombre_completo || 'Estudiante Identificado')
+            : ('Anónimo (' + s.codigo_sesion + ')');
+
+          var asunto = 'Tamizaje DASS-21';
+
+          var depScore = r.puntaje_depresion !== undefined ? r.puntaje_depresion : 0;
+          var ansScore = r.puntaje_ansiedad !== undefined ? r.puntaje_ansiedad : 0;
+          var estScore = r.puntaje_estres !== undefined ? r.puntaje_estres : 0;
+
+          var snippet = 'D: ' + depScore + '  A: ' + ansScore + '  E: ' + estScore + (maxSev && maxSev !== 'Normal' ? ' — ' + maxSev : '');
+          var fechaStr = window.formatDateTime(s.fecha_aplicacion);
+
+          return (
+            '<!-- Fila Desktop (hidden md:flex) -->' +
+            '<div class="inbox-row group hidden md:flex items-center px-5 py-3 border-b border-slate-100/80 cursor-pointer transition-colors ' + (esLeido ? 'is-read' : 'is-unread') + '" data-id="' + s.id + '">' +
+            '<!-- Indicadores de Estado: Prioridad clínica + Estado de lectura -->' +
+            '<div class="w-8 shrink-0 flex items-center gap-1.5" title="' + prio.title + ' · ' + readDot.title + '">' +
+            '<span class="w-2 h-2 rounded-full ' + prio.color + ' shrink-0 shadow-xs" title="' + prio.title + '"></span>' +
+            '<span class="w-2 h-2 rounded-full ' + readDot.color + ' shrink-0 shadow-xs" title="' + readDot.title + '"></span>' +
+            '</div>' +
+
+            '<!-- 1. Remitente -->' +
+            '<div class="w-52 shrink-0 ' + (esLeido ? 'font-medium text-slate-700' : 'font-bold text-slate-950') + ' text-sm truncate pr-3 tracking-tight" title="' + remitente + '">' +
+            remitente +
+            '</div>' +
+
+            '<!-- 2 y 3. Asunto + Preview breve inline -->' +
+            '<div class="flex-1 min-w-0 flex items-center text-sm truncate pr-4">' +
+            '<span class="' + (esLeido ? 'font-normal text-slate-600' : 'font-semibold text-slate-900') + ' shrink-0">' + asunto + '</span>' +
+            '<span class="' + (esLeido ? 'text-slate-400 font-normal' : 'text-slate-500 font-medium') + ' truncate ml-2">' + snippet + '</span>' +
+            '</div>' +
+
+            '<!-- 4. Fecha / Acciones Rápidas en Hover -->' +
+            '<div class="shrink-0 text-right min-w-[140px] flex items-center justify-end">' +
+            '<span class="text-xs ' + (esLeido ? 'font-normal text-slate-400' : 'font-bold text-slate-800') + ' group-hover:hidden transition-opacity whitespace-nowrap">' +
+            fechaStr +
+            '</span>' +
+            '<div class="hidden group-hover:flex items-center gap-1">' +
+            '<button type="button" class="btn-hover-action" data-action="view" data-id="' + s.id + '" title="Ver evaluación completa">' +
+            '<i data-lucide="eye" class="w-4 h-4"></i>' +
+            '</button>' +
+            '<button type="button" class="btn-hover-action" data-action="print" data-id="' + s.id + '" title="Imprimir reporte">' +
+            '<i data-lucide="printer" class="w-4 h-4"></i>' +
+            '</button>' +
+            '<button type="button" class="btn-hover-action is-danger" data-action="delete" data-id="' + s.id + '" title="Eliminar reporte (Protegido)">' +
+            '<i data-lucide="trash-2" class="w-4 h-4"></i>' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+
+            '<!-- Fila Móvil (md:hidden) -->' +
+            '<div class="inbox-row-mobile md:hidden px-4 py-3.5 border-b border-slate-100/80 cursor-pointer transition-colors flex flex-col gap-2 ' + (esLeido ? 'is-read' : 'is-unread') + '" data-id="' + s.id + '">' +
+            '<div class="flex items-center justify-between gap-2">' +
+            '<div class="flex items-center gap-2 min-w-0 flex-1">' +
+            '<!-- Burbujas de Estado: Prioridad clínica + Estado de lectura -->' +
+            '<div class="flex items-center gap-1.5 shrink-0" title="' + prio.title + ' · ' + readDot.title + '">' +
+            '<span class="w-2.5 h-2.5 rounded-full ' + prio.color + ' shrink-0 shadow-xs" title="' + prio.title + '"></span>' +
+            '<span class="w-2.5 h-2.5 rounded-full ' + readDot.color + ' shrink-0 shadow-xs" title="' + readDot.title + '"></span>' +
+            '</div>' +
+            '<span class="' + (esLeido ? 'font-medium text-slate-700' : 'font-bold text-slate-950') + ' text-sm truncate">' + remitente + '</span>' +
+            '</div>' +
+            '<div class="flex items-center gap-1.5 shrink-0">' +
+            (!esLeido ? '<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">Nuevo</span>' : '') +
+            '<span class="text-[11px] ' + (esLeido ? 'font-normal text-slate-400' : 'font-bold text-slate-700') + ' whitespace-nowrap">' + fechaStr + '</span>' +
+            '</div>' +
+            '</div>' +
+
+            '<div class="text-xs text-slate-500 truncate pl-6 flex items-center gap-1.5">' +
+            '<span class="' + (esLeido ? 'font-normal text-slate-600' : 'font-semibold text-slate-800') + '">' + asunto + '</span> ' +
+            '<span class="text-slate-300 font-normal">·</span>' +
+            '<span class="' + (esLeido ? 'text-slate-400' : 'text-slate-600 font-medium') + ' truncate">' + snippet + '</span>' +
+            '</div>' +
+
+            '<!-- Acciones Rápidas en Móvil -->' +
+            '<div class="flex items-center justify-between pt-1.5 border-t border-slate-100/80 pl-6">' +
+            '<span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1.5">' +
+            '<span class="w-1.5 h-1.5 rounded-full ' + prio.color + '"></span>' +
+            '<span>' + prio.label + '</span>' +
+            '</span>' +
+            '<div class="flex items-center gap-1">' +
+            '<button type="button" class="btn-hover-action !w-8 !h-8 text-slate-600 hover:text-slate-900 active:bg-slate-200 rounded-lg transition-colors" data-action="view" data-id="' + s.id + '" title="Ver evaluación completa">' +
+            '<i data-lucide="eye" class="w-4 h-4"></i>' +
+            '</button>' +
+            '<button type="button" class="btn-hover-action !w-8 !h-8 text-slate-600 hover:text-slate-900 active:bg-slate-200 rounded-lg transition-colors" data-action="print" data-id="' + s.id + '" title="Imprimir reporte">' +
+            '<i data-lucide="printer" class="w-4 h-4"></i>' +
+            '</button>' +
+            '<button type="button" class="btn-hover-action is-danger !w-8 !h-8 text-slate-400 hover:text-rose-600 active:bg-rose-100 rounded-lg transition-colors" data-action="delete" data-id="' + s.id + '" title="Eliminar reporte (Protegido)">' +
+            '<i data-lucide="trash-2" class="w-4 h-4"></i>' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+          );
+        }).join('');
+
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      // Sincronización de Filtros y Pestañas
+      function handleDropdownFilterChange() {
+        state.activeTab = null;
+        if (dom.kpiContainer) {
+          dom.kpiContainer.querySelectorAll('.kpi-tab').forEach(function (b) {
+            b.classList.remove('active');
+          });
+        }
+        renderTablaYCards();
+      }
+
+      dom.filtroBuscar.addEventListener('input', renderTablaYCards);
+      dom.filtroSeveridad.addEventListener('change', handleDropdownFilterChange);
+      dom.btnRefrescar.addEventListener('click', cargarSesiones);
+
+      // Pestañas interactivas de conteo y filtrado rápido
+      if (dom.kpiContainer) {
+        dom.kpiContainer.addEventListener('click', function (e) {
+          var tabBtn = e.target.closest('[data-tab]');
+          if (!tabBtn) return;
+          var tab = tabBtn.getAttribute('data-tab');
+          state.activeTab = tab;
+
+          dom.kpiContainer.querySelectorAll('.kpi-tab').forEach(function (b) {
+            b.classList.toggle('active', b.getAttribute('data-tab') === tab);
+          });
+
+          renderTablaYCards();
+        });
+      }
+
+      // Event delegation para abrir detalle o ejecutar acción rápida en hover y móvil
+      function handleClickSesion(e) {
+        var actionBtn = e.target.closest('[data-action]');
+        var rowEl = e.target.closest('[data-id]');
+        if (!rowEl) return;
+        var id = rowEl.getAttribute('data-id');
+
+        if (actionBtn) {
+          e.stopPropagation();
+          e.preventDefault();
+          var action = actionBtn.getAttribute('data-action');
+          if (action === 'delete') {
+            mostrarBloqueoEliminacion(e);
+            return;
+          }
+          if (action === 'print') {
+            abrirDetalle(id).then(function () {
+              setTimeout(function () { window.print(); }, 400);
+            });
+            return;
+          }
+          if (action === 'view') {
+            abrirDetalle(id);
+            return;
+          }
+        }
+
+        abrirDetalle(id);
+      }
+
+      if (dom.inboxList) {
+        dom.inboxList.addEventListener('click', handleClickSesion);
+      }
+
+      // Bloqueo de Eliminación por Integridad y Trazabilidad de Evaluaciones
+      function mostrarBloqueoEliminacion(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        if (dom.modalBloqueo) {
+          dom.modalBloqueo.classList.remove('hidden');
+          if (window.refreshIcons) window.refreshIcons();
+        }
+      }
+
+      function ocultarBloqueoEliminacion() {
+        if (dom.modalBloqueo) {
+          dom.modalBloqueo.classList.add('hidden');
+        }
+      }
+
+      if (dom.btnRefrescarMobile) {
+        dom.btnRefrescarMobile.addEventListener('click', cargarSesiones);
+      }
+      if (dom.btnBorrarEvaluaciones) {
+        dom.btnBorrarEvaluaciones.addEventListener('click', mostrarBloqueoEliminacion);
+      }
+      if (dom.btnBorrarMobile) {
+        dom.btnBorrarMobile.addEventListener('click', mostrarBloqueoEliminacion);
+      }
+      if (dom.btnEliminarReporte) {
+        dom.btnEliminarReporte.addEventListener('click', mostrarBloqueoEliminacion);
+      }
+      if (dom.btnCerrarModalBloqueo) {
+        dom.btnCerrarModalBloqueo.addEventListener('click', ocultarBloqueoEliminacion);
+      }
+      if (dom.modalBloqueo) {
+        dom.modalBloqueo.addEventListener('click', function (e) {
+          if (e.target === dom.modalBloqueo) ocultarBloqueoEliminacion();
+        });
+      }
+
+      // 3. Vista de Detalle de la Sesión
+      async function abrirDetalle(sesionId) {
+        var sesion = state.sesiones.find(function (s) { return s.id === sesionId; });
+        if (!sesion) return;
+        state.sesionActual = sesion;
+
+        // Si estaba sin leer, marcarla inmediatamente como leída en Supabase
+        if (!sesion.leido) {
+          marcarComoLeido(sesionId, true);
+        } else {
+          actualizarBotonLeidoDetalle();
+        }
+
+        var r = sesion.resultados || {};
+        var depCrit = window.isCriticalSeverity(r.nivel_depresion);
+        var ansCrit = window.isCriticalSeverity(r.nivel_ansiedad);
+        var estCrit = window.isCriticalSeverity(r.nivel_estres);
+
+        // Alerta Crítica Visual de Alto Impacto
+        if (depCrit || ansCrit || estCrit) {
+          dom.alertaCritica.classList.remove('hidden');
+          var motivos = [];
+          if (depCrit) motivos.push('Depresión en nivel <strong>' + r.nivel_depresion + '</strong> (' + r.puntaje_depresion + ' pts)');
+          if (ansCrit) motivos.push('Ansiedad en nivel <strong>' + r.nivel_ansiedad + '</strong> (' + r.puntaje_ansiedad + ' pts)');
+          if (estCrit) motivos.push('Estrés en nivel <strong>' + r.nivel_estres + '</strong> (' + r.puntaje_estres + ' pts)');
+          dom.alertaCriticaTxt.innerHTML = 'Este estudiante presenta puntajes en rango crítico en: ' + motivos.join(', ') + '. Se recomienda priorizar de forma inmediata la intervención clínica y el contacto según criterio profesional.';
+        } else {
+          dom.alertaCritica.classList.add('hidden');
+        }
+
+        // Datos Generales
+        dom.detModalidadBadge.className = 'sev-badge-glass ' + (sesion.modalidad === 'identificado' ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-slate-100 text-slate-700 border border-slate-200');
+        dom.detModalidadBadge.innerHTML = '<i data-lucide="' + (sesion.modalidad === 'identificado' ? 'graduation-cap' : 'user-x') + '" class="w-3.5 h-3.5"></i><span>' + (sesion.modalidad === 'identificado' ? 'Identificado' : 'Anónimo') + '</span>';
+        dom.detCodigoSesion.textContent = sesion.codigo_sesion;
+        dom.detFecha.textContent = 'Fecha: ' + window.formatDateTime(sesion.fecha_aplicacion);
+        dom.detNombre.textContent = sesion.nombre_completo || 'Anónimo (No proporcionado)';
+        dom.detCodigoEst.textContent = sesion.codigo_estudiante || 'No aplica (Anónimo)';
+
+        // Tarjetas de Resultados (3 Escalas)
+        dom.cardDepScore.textContent = r.puntaje_depresion !== undefined ? r.puntaje_depresion : 0;
+        dom.cardDepBadge.innerHTML = window.renderSeverityBadge(r.nivel_depresion);
+
+        dom.cardAnsScore.textContent = r.puntaje_ansiedad !== undefined ? r.puntaje_ansiedad : 0;
+        dom.cardAnsBadge.innerHTML = window.renderSeverityBadge(r.nivel_ansiedad);
+
+        dom.cardEstScore.textContent = r.puntaje_estres !== undefined ? r.puntaje_estres : 0;
+        dom.cardEstBadge.innerHTML = window.renderSeverityBadge(r.nivel_estres);
+
+        // Cargar respuestas individuales, evaluaciones e historial
+        await Promise.all([
+          cargarRespuestas(sesion.id),
+          cargarEvaluaciones(sesion.id),
+          cargarHistorialEstudiante(sesion)
+        ]);
+
+        dom.vistaLista.classList.add('hidden');
+        dom.vistaDetalle.classList.remove('hidden');
+        window.scrollTo(0, 0);
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      dom.btnVolverLista.addEventListener('click', function () {
+        dom.vistaDetalle.classList.add('hidden');
+        dom.vistaLista.classList.remove('hidden');
+        window.scrollTo(0, 0);
+        if (window.refreshIcons) window.refreshIcons();
+      });
+
+      // Desglose de Respuestas Individuales
+      async function cargarRespuestas(sesionId) {
+        dom.listaRespuestas.innerHTML = '<p class="text-xs text-muted">Cargando respuestas...</p>';
+        try {
+          var res = await authFetch(SUPA_URL + '/rest/v1/respuestas?sesion_id=eq.' + sesionId + '&order=escala.asc,numero_item.asc');
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var items = await res.json();
+          if (!Array.isArray(items)) throw new Error('Formato de respuestas inválido');
+
+          var escalas = [
+            { id: 'depresion', label: 'Escala Depresión (7 ítems)' },
+            { id: 'estres', label: 'Escala Estrés (7 ítems)' },
+            { id: 'ansiedad', label: 'Escala Ansiedad (7 ítems)' }
+          ];
+
+          dom.listaRespuestas.innerHTML = escalas.map(function (esc) {
+            var itemsEscala = items.filter(function (it) { return it.escala === esc.id; });
+            return (
+              '<div class="glass-card p-4">' +
+              '<h4 class="font-display font-bold text-sm text-charcoal mb-3 pb-2 border-b border-slate-200/70 flex items-center gap-2">' +
+              '<i data-lucide="activity" class="w-4 h-4 text-primary"></i>' +
+              '<span>' + esc.label + '</span>' +
+              '</h4>' +
+              '<div class="space-y-2.5">' +
+              itemsEscala.map(function (it) {
+                var pregId = (esc.id === 'depresion' ? 0 : esc.id === 'estres' ? 7 : 14) + it.numero_item;
+                var pData = PREGUNTAS_MAP[pregId] || { texto: 'Ítem ' + it.numero_item };
+                var valTxt = OPCIONES_TEXT[it.valor] || 'Valor ' + it.valor;
+                return (
+                  '<div class="flex items-start justify-between gap-3 text-xs p-2 rounded-lg bg-white/50 border border-slate-200/40">' +
+                  '<div class="flex-1">' +
+                  '<p class="text-charcoal font-semibold">' + it.numero_item + '. &ldquo;' + pData.texto + '&rdquo;</p>' +
+                  '<p class="text-muted mt-0.5">Respuesta: <span class="font-bold text-charcoal">' + valTxt + '</span></p>' +
+                  '</div>' +
+                  '<span class="px-2 py-0.5 rounded-full bg-primary/10 font-mono font-bold text-primary shrink-0 text-xs">' + it.valor + ' pts</span>' +
+                  '</div>'
+                );
+              }).join('') +
+              '</div>' +
+              '</div>'
+            );
+          }).join('');
+
+          if (window.refreshIcons) window.refreshIcons();
+        } catch (err) {
+          console.error('Error cargando respuestas:', err);
+          if (err.message && err.message.indexOf('Sesión expirada') !== -1) return;
+          dom.listaRespuestas.innerHTML = '<p class="text-xs text-rose-700 font-medium">No se pudieron cargar las respuestas.</p>';
+        }
+      }
+
+      // Acordeón toggle
+      dom.btnToggleResp.addEventListener('click', function () {
+        var abierto = !dom.contenedorResp.classList.contains('hidden');
+        if (abierto) {
+          dom.contenedorResp.classList.add('hidden');
+          dom.toggleRespIcon.setAttribute('data-lucide', 'chevron-down');
+        } else {
+          dom.contenedorResp.classList.remove('hidden');
+          dom.toggleRespIcon.setAttribute('data-lucide', 'chevron-up');
+        }
+        if (window.refreshIcons) window.refreshIcons();
+      });
+
+      // Historial evolutivo si es identificado
+      async function cargarHistorialEstudiante(sesion) {
+        if (sesion.modalidad !== 'identificado' || !sesion.codigo_estudiante) {
+          dom.seccionHistorial.classList.add('hidden');
+          return;
+        }
+
+        try {
+          var res = await authFetch(SUPA_URL + '/rest/v1/sesiones_test?codigo_estudiante=eq.' + encodeURIComponent(sesion.codigo_estudiante) + '&completado=eq.true&select=*,resultados(*)&order=fecha_aplicacion.asc');
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var historial = await res.json();
+
+          if (!Array.isArray(historial) || historial.length <= 1) {
+            dom.seccionHistorial.classList.add('hidden');
+            return;
+          }
+
+          dom.seccionHistorial.classList.remove('hidden');
+          dom.historialBody.innerHTML = historial.map(function (h) {
+            var r = h.resultados || {};
+            var esActual = h.id === sesion.id;
+            return (
+              '<tr class="' + (esActual ? 'bg-primary/10 font-bold' : '') + '">' +
+              '<td class="p-2.5 whitespace-nowrap">' + window.formatDateTime(h.fecha_aplicacion) + (esActual ? ' (Actual)' : '') + '</td>' +
+              '<td class="p-2.5 font-mono">' + h.codigo_sesion + '</td>' +
+              '<td class="p-2.5">' + (r.puntaje_depresion || 0) + ' (' + (r.nivel_depresion || 'Normal') + ')</td>' +
+              '<td class="p-2.5">' + (r.puntaje_ansiedad || 0) + ' (' + (r.nivel_ansiedad || 'Normal') + ')</td>' +
+              '<td class="p-2.5">' + (r.puntaje_estres || 0) + ' (' + (r.nivel_estres || 'Normal') + ')</td>' +
+              '</tr>'
+            );
+          }).join('');
+        } catch (err) {
+          console.error('Error cargando historial:', err);
+          dom.seccionHistorial.classList.add('hidden');
+        }
+      }
+
+      // Evaluaciones Profesionales
+      async function cargarEvaluaciones(sesionId) {
+        dom.listaEvaluaciones.innerHTML = '<p class="text-xs text-muted">Cargando notas...</p>';
+        try {
+          var res = await authFetch(SUPA_URL + '/rest/v1/evaluaciones_profesional?sesion_id=eq.' + sesionId + '&order=fecha.desc');
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var evals = await res.json();
+
+          if (!Array.isArray(evals) || !evals.length) {
+            dom.listaEvaluaciones.innerHTML = '<p class="text-xs text-muted italic">No hay notas profesionales registradas aún para esta sesión.</p>';
+            return;
+          }
+
+          dom.listaEvaluaciones.innerHTML = evals.map(function (ev) {
+            return (
+              '<div class="glass-card p-3.5 text-xs">' +
+              '<div class="flex items-center justify-between text-muted mb-1 font-medium">' +
+              '<span class="font-display font-bold text-charcoal flex items-center gap-1"><i data-lucide="user-check" class="w-3.5 h-3.5 text-primary"></i> Encargado de Psicopedagogía</span>' +
+              '<span>' + window.formatDateTime(ev.fecha) + '</span>' +
+              '</div>' +
+              '<p class="text-charcoal whitespace-pre-wrap leading-relaxed mt-1">' + (ev.comentario || '') + '</p>' +
+              '</div>'
+            );
+          }).join('');
+
+          if (window.refreshIcons) window.refreshIcons();
+        } catch (err) {
+          console.error('Error cargando notas:', err);
+          if (err.message && err.message.indexOf('Sesión expirada') !== -1) return;
+          dom.listaEvaluaciones.innerHTML = '<p class="text-xs text-rose-700">Error al cargar notas clínicas.</p>';
+        }
+      }
+
+      dom.formEval.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var texto = dom.evalComentario.value.trim();
+        if (!texto || !state.sesionActual) return;
+
+        dom.btnGuardarEval.disabled = true;
+        dom.btnGuardarEval.innerHTML = '<span>Guardando...</span>';
+        dom.evalFeedback.textContent = '';
+
+        try {
+          var res = await authFetch(SUPA_URL + '/rest/v1/evaluaciones_profesional', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+              sesion_id: state.sesionActual.id,
+              encargado_id: state.user.id,
+              comentario: texto
+            })
+          });
+
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+
+          dom.evalComentario.value = '';
+          dom.evalFeedback.textContent = '✓ Nota guardada correctamente';
+          dom.evalFeedback.className = 'text-xs font-semibold text-emerald-700';
+
+          // Recargar lista de notas para reflejar la nueva inmediatamente
+          await cargarEvaluaciones(state.sesionActual.id);
+
+          // Scroll a la sección de notas para que el usuario vea el resultado
+          if (dom.listaEvaluaciones) {
+            dom.listaEvaluaciones.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        } catch (err) {
+          console.error('Error guardando evaluación:', err);
+          if (err.message && err.message.indexOf('Sesión expirada') !== -1) return;
+          dom.evalFeedback.textContent = 'Error al guardar la nota. Intenta de nuevo.';
+          dom.evalFeedback.className = 'text-xs font-semibold text-rose-700';
+        } finally {
+          dom.btnGuardarEval.disabled = false;
+          dom.btnGuardarEval.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i><span>Guardar evaluación</span>';
+          if (window.refreshIcons) window.refreshIcons();
+          setTimeout(function () { dom.evalFeedback.textContent = ''; }, 4000);
+        }
+      });
+
+      // 4. Notificaciones en Tiempo Real y Auto-Refresh Sincronizado
+      function mostrarToastNuevaEvaluacion(s) {
+        var container = document.getElementById('toast-notification-container');
+        if (!container) return;
+
+        var r = s.resultados || {};
+        var maxSev = window.getMaxSeverity ? window.getMaxSeverity(r) : '';
+        var crit = window.isCriticalSeverity ? window.isCriticalSeverity(maxSev) : false;
+
+        var remitente = s.modalidad === 'identificado'
+          ? (s.nombre_completo || 'Estudiante Identificado')
+          : ('Anónimo (' + s.codigo_sesion + ')');
+
+        var toast = document.createElement('div');
+        toast.className = 'realtime-toast ' + (crit ? 'is-critical' : '');
+        toast.setAttribute('role', 'alert');
+
+        toast.innerHTML =
+          '<div class="w-9 h-9 rounded-xl ' + (crit ? 'bg-rose-600 text-white' : 'bg-primary text-white') + ' flex items-center justify-center shrink-0 shadow-sm">' +
+            '<i data-lucide="' + (crit ? 'alert-triangle' : 'bell') + '" class="w-4 h-4"></i>' +
+          '</div>' +
+          '<div class="flex-1 min-w-0 pr-1">' +
+            '<div class="flex items-center justify-between gap-2 mb-0.5">' +
+              '<span class="text-[11px] font-bold text-white tracking-wider uppercase flex items-center gap-1.5">' +
+                '<span class="w-2 h-2 rounded-full ' + (crit ? 'bg-rose-400' : 'bg-blue-400') + ' animate-ping inline-block"></span>' +
+                'Nueva evaluación' +
+              '</span>' +
+              '<span class="text-[10px] text-slate-400 font-mono">Ahora</span>' +
+            '</div>' +
+            '<p class="text-sm font-semibold text-slate-100 truncate">' + remitente + '</p>' +
+            '<p class="text-xs ' + (crit ? 'text-rose-300 font-bold' : 'text-slate-300') + ' truncate mt-0.5">' +
+              (crit ? 'Atención Prioritaria: Severidad Crítica' : 'Tamizaje DASS-21 recibido') +
+            '</p>' +
+          '</div>' +
+          '<button type="button" class="btn-cerrar-toast text-slate-400 hover:text-white p-1 rounded-lg transition-colors shrink-0" title="Cerrar">' +
+            '<i data-lucide="x" class="w-4 h-4"></i>' +
+          '</button>';
+
+        function cerrarToast() {
+          toast.style.animation = 'toastSlideOut 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 250);
+        }
+
+        toast.addEventListener('click', function (e) {
+          if (e.target.closest('.btn-cerrar-toast')) {
+            e.stopPropagation();
+            cerrarToast();
+            return;
+          }
+          cerrarToast();
+          abrirDetalle(s.id);
+        });
+
+        var timeout = setTimeout(cerrarToast, 6000);
+        toast.addEventListener('mouseenter', function () { clearTimeout(timeout); });
+        toast.addEventListener('mouseleave', function () { timeout = setTimeout(cerrarToast, 3000); });
+
+        container.appendChild(toast);
+        if (window.refreshIcons) window.refreshIcons();
+
+        // Audio chime suave
+        try {
+          var AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            var ctx = new AudioContext();
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(crit ? 880 : 587.33, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(crit ? 1174.66 : 880, ctx.currentTime + 0.12);
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.32);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.32);
+          }
+        } catch (e) { }
+      }
+
+      var autoRefreshInterval = null;
+
+      function iniciarAutoRefresh() {
+        detenerAutoRefresh();
+        autoRefreshInterval = setInterval(async function () {
+          if (!state.token) return;
+
+          try {
+            var res = await authFetch(SUPA_URL + '/rest/v1/sesiones_test?select=*,resultados(*)&completado=eq.true&order=fecha_aplicacion.desc');
+            if (!res.ok) return;
+            var nuevasSesiones = await res.json();
+
+            // Primera inicialización de IDs conocidos
+            if (!idsSesionesConocidas) {
+              idsSesionesConocidas = new Set(nuevasSesiones.map(function (s) { return s.id; }));
+              state.sesiones = nuevasSesiones;
+              renderTablaYCards();
+              renderKPIs();
+              return;
+            }
+
+            // Detectar evaluaciones recién recibidas
+            var sesionesNuevas = nuevasSesiones.filter(function (s) {
+              return !idsSesionesConocidas.has(s.id);
+            });
+
+            // Detectar cambios en los datos o en el estado de lectura (sincronización multi-dispositivo con Supabase)
+            var huboCambio = false;
+            if (nuevasSesiones.length !== state.sesiones.length || sesionesNuevas.length > 0) {
+              huboCambio = true;
+            } else {
+              for (var i = 0; i < nuevasSesiones.length; i++) {
+                var ns = nuevasSesiones[i];
+                var os = state.sesiones.find(function (s) { return s.id === ns.id; });
+                if (os && (os.leido !== ns.leido)) {
+                  huboCambio = true;
+                  break;
+                }
+              }
+            }
+
+            if (huboCambio) {
+              state.sesiones = nuevasSesiones;
+              nuevasSesiones.forEach(function (s) { idsSesionesConocidas.add(s.id); });
+
+              // Disparar toasts para las evaluaciones recién ingresadas
+              if (sesionesNuevas.length > 0) {
+                sesionesNuevas.forEach(function (s) {
+                  mostrarToastNuevaEvaluacion(s);
+                });
+              }
+
+              // Re-renderizar si estamos en la vista de lista
+              if (!dom.vistaLista.classList.contains('hidden')) {
+                renderTablaYCards();
+              }
+              renderKPIs();
+            }
+          } catch (e) {
+            // Silencioso
+          }
+        }, 1000);
+      }
+
+      function detenerAutoRefresh() {
+        if (autoRefreshInterval) {
+          clearInterval(autoRefreshInterval);
+          autoRefreshInterval = null;
+        }
+      }
+
+      // 5. Inicialización y Recuperación de Sesión
+      function iniciarDashboard() {
+        dom.screenLogin.classList.remove('active');
+        dom.screenDashboard.classList.add('active');
+        var navAuth = document.getElementById('nav-auth-controls');
+        if (navAuth) navAuth.classList.remove('hidden');
+        dom.userDisplay.textContent = state.user ? state.user.email : '';
+        dom.vistaDetalle.classList.add('hidden');
+        dom.vistaLista.classList.remove('hidden');
+        cargarSesiones();
+        iniciarAutoRefresh();
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      async function inicializarApp() {
+        var sesionGuardada = null;
+        try {
+          sesionGuardada = localStorage.getItem('dass_panel_session') || sessionStorage.getItem('dass_panel_session');
+        } catch (e) {}
+
+        if (sesionGuardada) {
+          try {
+            var parsed = JSON.parse(sesionGuardada);
+            if (parsed && parsed.token && parsed.user) {
+              state.token = parsed.token;
+              state.refreshToken = parsed.refreshToken || null;
+              state.user = parsed.user;
+
+              // Entrar directamente al dashboard (sesión permanente, sin cierre por inactividad)
+              iniciarDashboard();
+
+              // Si el token necesita refrescarse, se hace en segundo plano sin interrumpir al usuario
+              if (isJwtExpired(state.token) && state.refreshToken) {
+                refrescarToken();
+              }
+              return;
+            }
+          } catch (e) {
+            console.warn('Error al leer sesión persistente:', e);
+          }
+        }
+
+        dom.screenLogin.classList.add('active');
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      // Sincronización instantánea en tiempo real entre pestañas
+      window.addEventListener('storage', function (e) {
+        if (e.key === 'dass_panel_session') {
+          if (e.newValue) {
+            try {
+              var parsed = JSON.parse(e.newValue);
+              if (parsed && parsed.token && parsed.user) {
+                state.token = parsed.token;
+                state.refreshToken = parsed.refreshToken || null;
+                state.user = parsed.user;
+                iniciarDashboard();
+              }
+            } catch (err) {}
+          } else {
+            logoutConMensaje('');
+          }
+        }
+      });
+
+      // Al enfocar cualquier pestaña, si ya hay sesión iniciada en el navegador, entrar automáticamente
+      window.addEventListener('focus', function () {
+        if (!state.token) {
+          inicializarApp();
+        }
+      });
+
+      inicializarApp();
+    })();
+  </script>
+</body>
+
+</html>

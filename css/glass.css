@@ -1,0 +1,1077 @@
+/* =====================================================================
+   glass.css -- Apple Liquid Glass Design System
+   Tema: Septiembre Amarillo (Prevención y Salud Mental — IEPROES)
+   Alto Rendimiento (120 FPS sin lag de GPU), Refracción Visible y Alto Contraste
+   ===================================================================== */
+
+/* --- 1. Lienzo Septiembre Amarillo y Orbes Ligeros Tridimensionales --- */
+body,
+.liquid-canvas,
+.ambient-bg {
+  background: var(--mesh-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+  color: var(--color-text-main);
+  font-family: var(--font-family-body);
+  overflow-x: hidden;
+}
+
+.panel-ambient-bg {
+  background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 35%, #EEF2F7 100%) !important;
+  min-height: 100vh;
+  position: relative;
+  color: #0F172A;
+  font-family: var(--font-family-body);
+  overflow-x: hidden;
+}
+
+.ambient-orbs-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ambient-orb-1 {
+  width: 650px;
+  height: 650px;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #FACC15 0%, #F59E0B 45%, transparent 75%);
+  filter: blur(75px);
+  opacity: 0.60;
+}
+
+.ambient-orb-2 {
+  width: 540px;
+  height: 540px;
+  top: 58%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #FEF08A 0%, #FDE047 50%, transparent 75%);
+  filter: blur(65px);
+  opacity: 0.65;
+}
+
+.ambient-orb-3 {
+  width: 460px;
+  height: 460px;
+  top: -60px;
+  right: 5%;
+  background: radial-gradient(circle, #FDE68A 0%, #FBBF24 50%, transparent 80%);
+  filter: blur(70px);
+  opacity: 0.40;
+}
+
+.ambient-orb-4 {
+  width: 500px;
+  height: 500px;
+  bottom: -60px;
+  left: 5%;
+  background: radial-gradient(circle, #FEF08A 0%, #F59E0B 45%, transparent 80%);
+  filter: blur(75px);
+  opacity: 0.35;
+}
+
+/* Píldora Conmemorativa Septiembre Amarillo */
+.pill-septiembre-amarillo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #FEF08A 0%, #FACC15 100%);
+  color: #78350F;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1.5px solid #EAB308;
+  box-shadow: 0 2px 10px rgba(234, 179, 8, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  letter-spacing: 0.01em;
+}
+
+.pill-septiembre-amarillo i,
+.pill-septiembre-amarillo svg {
+  color: #78350F;
+}
+
+/* --- 2. Ventana Maestra Apple Liquid Glass (Idéntica a la Referencia) --- */
+.apple-liquid-window,
+.liquid-window,
+.liquid-panel,
+.glass-panel {
+  background: var(--liquid-window-bg);
+  backdrop-filter: var(--liquid-window-blur);
+  -webkit-backdrop-filter: var(--liquid-window-blur);
+  border: var(--liquid-window-border);
+  border-top: 2px solid rgba(255, 255, 255, 0.95);
+  border-left: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--liquid-window-shadow);
+  border-radius: var(--radius-lg);
+  position: relative;
+  z-index: 1;
+}
+
+/* Bisel especular superior de cristal líquido */
+.apple-liquid-window::before,
+.liquid-panel::before,
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.10) 70%, transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.apple-liquid-window>*,
+.liquid-panel>*,
+.glass-panel>* {
+  position: relative;
+  z-index: 1;
+}
+
+.apple-window-bar,
+.liquid-header,
+.glass-header {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.03);
+  position: relative;
+  z-index: 40;
+}
+
+.logo-capsule {
+  background: #FFFFFF;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.logo-img {
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .logo-img {
+    max-height: 56px;
+  }
+}
+
+/* --- 4. Tabla de Evaluaciones: Integrada en Ventana Apple (Cero Cajas Flotantes) --- */
+table {
+  background: transparent !important;
+  width: 100%;
+}
+
+thead th {
+  background: rgba(248, 250, 252, 0.75) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+tbody tr.tbl-row {
+  background: rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  transition: all 0.15s ease;
+}
+
+tbody tr.tbl-row:hover {
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+tbody tr.tbl-row.bg-rose-50\/50,
+tbody tr.tbl-row.is-critical-row {
+  background: rgba(254, 242, 242, 0.65);
+  border-left: 4px solid #E11D48;
+}
+
+tbody tr.tbl-row.bg-rose-50\/50:hover,
+tbody tr.tbl-row.is-critical-row:hover {
+  background: rgba(254, 242, 242, 0.95) !important;
+}
+
+/* --- 5. Cinta Segmentada de Calificación (0, 1, 2, 3) --- */
+.liquid-scale-ribbon {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin: 1.25rem 0;
+}
+
+@media (min-width: 640px) {
+  .liquid-scale-ribbon {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.liquid-scale-item {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.15s ease;
+}
+
+.liquid-scale-item:hover {
+  background: #FFFFFF;
+  border-color: rgba(203, 213, 225, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.liquid-scale-num {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.liquid-scale-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  line-height: 1.25;
+}
+
+/* --- 6. Bloque de Confidencialidad Clínico --- */
+.liquid-notice {
+  background: rgba(248, 250, 252, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin: 1.25rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.liquid-notice-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* --- 7. Selector de Modalidad (Tiles Elegantes) --- */
+.liquid-selector-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  margin: 1.25rem 0;
+}
+
+@media (min-width: 640px) {
+  .liquid-selector-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.liquid-mode-card,
+.glass-card {
+  background: var(--liquid-card-bg);
+  border: var(--liquid-card-border);
+  box-shadow: var(--liquid-card-shadow);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: block;
+}
+
+.liquid-mode-card::before,
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.05) 70%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.liquid-mode-card>*,
+.glass-card>* {
+  position: relative;
+  z-index: 1;
+}
+
+.liquid-mode-card:hover,
+.glass-card:hover {
+  background: var(--liquid-card-bg-hover);
+  box-shadow: var(--liquid-card-shadow-hover);
+  border-color: rgba(255, 255, 255, 1);
+  transform: translateY(-1.5px);
+}
+
+.liquid-mode-card.is-selected {
+  background: var(--liquid-card-bg-selected);
+  border: var(--liquid-card-border-selected);
+  box-shadow:
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 1),
+    0 10px 25px -4px rgba(124, 58, 237, 0.16);
+}
+
+/* --- 8. Inputs de Cristal Líquido (Alto Contraste) --- */
+.liquid-input,
+.glass-input {
+  background: #FFFFFF;
+  border: 1.5px solid #94A3B8;
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+  font-size: 0.95rem;
+  color: #0F172A;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.liquid-input:focus,
+.glass-input:focus {
+  background: #FFFFFF;
+  border-color: #143067;
+  box-shadow:
+    0 0 0 3px rgba(20, 48, 103, 0.18),
+    inset 0 1px 2px rgba(0, 0, 0, 0.02);
+  outline: none;
+}
+
+/* Botón Danger / Destructivo (Bloqueo de Seguridad) */
+.btn-liquid-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  min-height: 38px;
+  background: #DC2626;
+  color: #FFFFFF;
+  border: 1.5px solid #B91C1C;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.825rem;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-liquid-danger:hover {
+  background: #B91C1C;
+  border-color: #991B1B;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.35);
+}
+
+.btn-liquid-danger:active {
+  transform: scale(0.98);
+}
+
+/* --- 9. Botones Ejecutivos (#143067) --- */
+/* Botón Primario y Sage (#143067) */
+.btn-liquid-primary,
+.btn-glass-primary,
+.btn-liquid-sage,
+.btn-glass-sage {
+  background: linear-gradient(180deg, #1C3E82 0%, #143067 100%);
+  color: #FFFFFF;
+  min-height: var(--touch-target-min, 44px);
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius-md, 1rem);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 1px solid rgba(20, 48, 103, 0.35);
+  box-shadow: 0 4px 16px rgba(20, 48, 103, 0.35);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.btn-liquid-primary:hover:not(:disabled),
+.btn-glass-primary:hover:not(:disabled),
+.btn-liquid-sage:hover:not(:disabled),
+.btn-glass-sage:hover:not(:disabled) {
+  background: linear-gradient(180deg, #244E9E 0%, #183A7A 100%);
+  box-shadow:
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.6),
+    0 6px 20px rgba(20, 48, 103, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-liquid-primary:active:not(:disabled),
+.btn-glass-primary:active:not(:disabled),
+.btn-liquid-sage:active:not(:disabled),
+.btn-glass-sage:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(20, 48, 103, 0.28);
+}
+
+.btn-liquid-primary:disabled,
+.btn-glass-primary:disabled,
+.btn-liquid-sage:disabled,
+.btn-glass-sage:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Botón Secundario Frosted Glass */
+.btn-liquid-secondary,
+.btn-glass-secondary {
+  background: rgba(255, 255, 255, 0.95);
+  color: #143067;
+  border: 1.5px solid rgba(20, 48, 103, 0.3);
+  min-height: var(--touch-target-min, 44px);
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-md, 1rem);
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(20, 48, 103, 0.05);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-liquid-secondary:hover:not(:disabled),
+.btn-glass-secondary:hover:not(:disabled) {
+  background: #FFFFFF;
+  border-color: #143067;
+  color: #143067;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 48, 103, 0.12);
+}
+
+/* Botón de Acción de Fila de Tabla (Apple Frosted Pill — Cero Neón) */
+.btn-table-action {
+  background: var(--btn-action-bg);
+  color: var(--btn-action-text);
+  border: var(--btn-action-border);
+  padding: 0.45rem 1rem;
+  min-height: 34px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-table-action:hover {
+  background: var(--btn-action-hover-bg);
+  color: var(--btn-action-hover-text);
+  border-color: var(--btn-action-hover-bg);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
+  transform: translateY(-1px);
+}
+
+/* --- 10. Carrusel de Preguntas: Opciones de Cristal Cálido --- */
+.liquid-option-card,
+.test-option-card {
+  background: var(--liquid-card-bg);
+  border: var(--liquid-card-border);
+  box-shadow: var(--liquid-card-shadow);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+  width: 100%;
+  min-height: 46px;
+  position: relative;
+}
+
+.liquid-option-card::before,
+.test-option-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.05) 70%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.liquid-option-card>*,
+.test-option-card>* {
+  position: relative;
+  z-index: 1;
+}
+
+.liquid-option-card:hover,
+.test-option-card:hover {
+  background: var(--liquid-card-bg-hover);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: var(--liquid-card-shadow-hover);
+  transform: translateY(-1.5px);
+}
+
+.liquid-option-card.selected,
+.test-option-card.selected {
+  background: var(--liquid-card-bg-selected);
+  border: var(--liquid-card-border-selected);
+  box-shadow:
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 1),
+    0 8px 20px -4px rgba(180, 83, 9, 0.20);
+}
+
+.liquid-opt-num,
+.test-opt-num {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  color: var(--color-text-title);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.liquid-option-card.selected .liquid-opt-num,
+.test-option-card.selected .test-opt-num {
+  background: #143067;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(20, 48, 103, 0.35);
+}
+
+/* --- 11. Badges de Severidad DASS-21 (Alto Contraste AAA y Diseño Clínico Refinado) --- */
+.sev-pill,
+.sev-badge-glass {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.sev-pill-normal,
+.sev-badge-normal {
+  background: var(--sev-normal-bg);
+  color: var(--sev-normal-text);
+  border: 1px solid var(--sev-normal-border);
+}
+
+.sev-pill-leve,
+.sev-badge-leve {
+  background: var(--sev-leve-bg);
+  color: var(--sev-leve-text);
+  border: 1px solid var(--sev-leve-border);
+}
+
+.sev-pill-moderada,
+.sev-badge-moderada {
+  background: var(--sev-moderada-bg);
+  color: var(--sev-moderada-text);
+  border: 1px solid var(--sev-moderada-border);
+}
+
+.sev-pill-severa,
+.sev-badge-severa {
+  background: var(--sev-severa-bg);
+  color: var(--sev-severa-text);
+  border: 1px solid var(--sev-severa-border);
+}
+
+/* Alerta Máxima: Ruby Glass Sobrio y Clínico */
+.sev-pill-extrema,
+.sev-badge-extrema {
+  background: var(--sev-extrema-bg);
+  color: var(--sev-extrema-text);
+  border: 1px solid var(--sev-extrema-border);
+  box-shadow: 0 1px 3px rgba(225, 29, 72, 0.12);
+  font-weight: 700;
+}
+
+/* Banner de Alerta Crítica para Encargado */
+.critical-banner-liquid,
+.critical-alert-glass {
+  background: #FFF1F2;
+  border: 1.5px solid #FECDD3;
+  border-left: 4px solid #DC2626;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+}
+
+/* --- 12. Mobile Stack Cards (Panel en Celular - Alto Contraste) --- */
+.mobile-glass-card,
+.mobile-session-card {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+  border-radius: 1rem;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 0.95rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.mobile-glass-card:active,
+.mobile-session-card:active {
+  transform: scale(0.99);
+}
+
+.mobile-glass-card.is-critical,
+.mobile-session-card.is-critical {
+  /* Borde simétrico y uniforme, sin raya roja lateral */
+  border: 1.5px solid #CBD5E1;
+  background: #FFFFFF;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+}
+
+/* --- 13. Barra Unificada de Telemetría KPI (Apple Glass) --- */
+.liquid-kpi-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: var(--radius-md);
+  padding: 0.35rem 0.55rem;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);
+}
+
+.liquid-kpi-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: #FFFFFF;
+  font-size: 0.825rem;
+  font-weight: 800;
+  color: #0F172A;
+  border: 1.5px solid #CBD5E1;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+.liquid-kpi-item.is-critical {
+  background: #FFE4E6;
+  color: #4C0519;
+  border: 1.5px solid #E11D48;
+  box-shadow: 0 1px 3px rgba(225, 29, 72, 0.15);
+}
+
+@media (max-width: 640px) {
+  .liquid-kpi-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .liquid-kpi-item {
+    justify-content: center;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* --- 14. Animaciones Suaves de 120 FPS --- */
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(225, 29, 72, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 12px rgba(225, 29, 72, 0.25);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+/* --- 15. Screen Loader Inicial (Splash Screen Institucional) --- */
+#screen-loader {
+  background: var(--mesh-gradient);
+  background-attachment: fixed;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
+}
+
+#screen-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-shimmer-track {
+  width: 140px;
+  height: 6px;
+  background: rgba(245, 158, 11, 0.20);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.loader-shimmer-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 45%;
+  background: linear-gradient(90deg, #F59E0B, #FDE047, #F59E0B);
+  border-radius: 9999px;
+  animation: shimmerSlide 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes shimmerSlide {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+/* Modal Glassmorphism Overlay y Animación */
+.modal-backdrop-blur {
+  background: rgba(15, 23, 42, 0.60);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-scale-in {
+  animation: modalScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Modal de Alto Contraste y Legibilidad Superior */
+.apple-liquid-modal {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow:
+    0 25px 50px -12px rgba(15, 23, 42, 0.35),
+    0 0 0 1px rgba(15, 23, 42, 0.06);
+  border-radius: var(--radius-lg, 1.5rem);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* --- 16. Bandeja de Entrada Profesional (Refinada) --- */
+.inbox-container {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.04),
+    0 4px 12px -4px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+}
+
+.inbox-row {
+  position: relative;
+  transition: background-color 0.18s ease, box-shadow 0.18s ease;
+  user-select: none;
+}
+
+.inbox-row:hover {
+  background-color: #F8FAFC !important;
+  box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.4);
+}
+
+.inbox-row-mobile {
+  position: relative;
+  transition: background-color 0.18s ease;
+  user-select: none;
+}
+
+.inbox-row-mobile:hover {
+  background-color: #F8FAFC !important;
+}
+
+.inbox-row-mobile:active {
+  background-color: #F1F5F9 !important;
+}
+
+/* Pestañas de Conteo / Filtro (KPI Tabs — Refinadas) */
+.kpi-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #64748B;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.kpi-tab:hover {
+  color: #334155;
+  background: #F1F5F9;
+}
+
+.kpi-tab.active {
+  color: #0F172A;
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.07);
+  font-weight: 700;
+}
+
+.kpi-tab-count {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: #E2E8F0;
+  color: #334155;
+  min-width: 20px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.kpi-tab.active .kpi-tab-count {
+  background: #143067;
+  color: #FFFFFF;
+}
+
+.kpi-tab-count.is-critical {
+  background: #FEE2E2 !important;
+  color: #9F1239 !important;
+}
+
+.kpi-tab.active .kpi-tab-count.is-critical {
+  background: #DC2626 !important;
+  color: #FFFFFF !important;
+}
+
+/* Botones de acción rápida en hover */
+.btn-hover-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  color: #64748B;
+  transition: all 0.18s ease;
+}
+
+.btn-hover-action:hover {
+  color: #0F172A;
+  background-color: #F1F5F9;
+}
+
+.btn-hover-action.is-danger:hover {
+  color: #DC2626;
+  background-color: #FFF1F2;
+}
+
+/* Ocultar barra de scroll nativa en contenedores horizontales */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Indicadores de No Leídos y Estado de Lectura */
+.kpi-tab-count.is-unread {
+  background: #DBEAFE !important;
+  color: #1D4ED8 !important;
+}
+
+.kpi-tab.active .kpi-tab-count.is-unread {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+}
+
+.inbox-row.is-unread {
+  background-color: #FFFFFF !important;
+  border-left: 3px solid #2563EB;
+}
+
+.inbox-row.is-read {
+  background-color: rgba(248, 250, 252, 0.65) !important;
+  border-left: 3px solid transparent;
+}
+
+.inbox-row.is-read:hover {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+.inbox-row-mobile.is-unread {
+  background-color: #FFFFFF !important;
+  border-left: 3px solid #2563EB;
+}
+
+.inbox-row-mobile.is-read {
+  background-color: rgba(248, 250, 252, 0.65) !important;
+  border-left: 3px solid transparent;
+}
+
+/* Contenedor de Toasts de Notificación en Tiempo Real */
+#toast-notification-container {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+  max-width: 420px;
+  width: calc(100vw - 2.5rem);
+}
+
+.realtime-toast {
+  pointer-events: auto;
+  background: rgba(15, 23, 42, 0.94);
+  color: #FFFFFF;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.realtime-toast:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.45);
+}
+
+.realtime-toast.is-critical {
+  border-color: rgba(225, 29, 72, 0.6);
+  box-shadow: 0 12px 32px -4px rgba(225, 29, 72, 0.35), 0 0 0 1px rgba(225, 29, 72, 0.4);
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+}

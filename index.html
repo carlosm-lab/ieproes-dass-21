@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test DASS-21 — Unidad de Psicopedagogía, IEPROES Centro Regional de San Miguel</title>
+  <meta name="description" content="Test DASS-21 de tamizaje psicológico. Escalas de Depresión, Ansiedad y Estrés. Unidad de Psicopedagogía, IEPROES Centro Regional de San Miguel." />
+
+  <!-- Tipografía: Plus Jakarta Sans para títulos + Inter para cuerpo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#F8F6F2',
+            primary: { DEFAULT: '#143067', dark: '#0E2147', light: '#EBF0FA' },
+            sage: { DEFAULT: '#143067', dark: '#0E2147', light: '#EBF0FA' },
+            charcoal: '#1E293B',
+            muted: '#64748B'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- Sistema de Diseño Glassmorphism y Tokens -->
+  <link rel="stylesheet" href="css/tokens.css?v=2.1.0_septiembre_amarillo" />
+  <link rel="stylesheet" href="css/glass.css?v=2.1.0_septiembre_amarillo" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font-family-body); color: var(--color-text-main); }
+    h1, h2, h3, .font-display { font-family: var(--font-family-display); }
+
+    .screen { display: none; }
+    .screen.active { display: flex; flex-direction: column; flex: 1 0 auto; width: 100%; }
+
+    .slide-viewport { overflow: hidden; width: 100%; position: relative; transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1); padding-top: 0.35rem; padding-bottom: 1.25rem; margin-top: -0.35rem; margin-bottom: -0.75rem; }
+    .slide-track { display: flex; align-items: flex-start; transition: transform 0.32s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform; width: 100%; }
+    .slide-item { flex: 0 0 100%; width: 100%; min-width: 100%; box-sizing: border-box; }
+
+    .scale-badge-dep { background: rgba(219, 234, 254, 0.85); color: #1E40AF; border: 1px solid #BFDBFE; }
+    .scale-badge-ans { background: rgba(220, 252, 231, 0.85); color: #166534; border: 1px solid #BBF7D0; }
+    .scale-badge-est { background: rgba(254, 243, 199, 0.85); color: #92400E; border: 1px solid #FDE68A; }
+
+    .logo-capsule {
+      background: #FFFFFF;
+      padding: 0.3rem 0.6rem;
+      border-radius: 9999px;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      transition: transform 0.2s ease;
+    }
+    @media (min-width: 640px) {
+      .logo-capsule { padding: 0.35rem 0.75rem; }
+    }
+    .logo-img { max-height: 44px; width: auto; object-fit: contain; }
+    @media (min-width: 640px) { .logo-img { max-height: 58px; } }
+
+    .spin { animation: spin 0.85s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .fade-in { animation: fadeIn 0.3s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Timer Visual de Auto-avance en Opciones */
+    .test-option-card.auto-advancing .auto-timer-badge {
+      display: inline-flex !important;
+      animation: timerBadgePop 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .test-option-card.auto-advancing .timer-circle {
+      animation: circleCountdown 2000ms linear forwards;
+    }
+
+    @keyframes timerBadgePop {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes circleCountdown {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 56.54; }
+    }
+
+    /* Botones Ejecutivos (#143067) */
+    .btn-liquid-primary, .btn-glass-primary,
+    .btn-liquid-sage, .btn-glass-sage {
+      background: linear-gradient(180deg, #1C3E82 0%, #143067 100%) !important;
+      color: #FFFFFF !important;
+      min-height: var(--touch-target-min, 44px);
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--radius-md, 1rem);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 1px solid rgba(20, 48, 103, 0.35);
+      box-shadow: 0 4px 16px rgba(20, 48, 103, 0.35);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .btn-liquid-primary:hover:not(:disabled), .btn-glass-primary:hover:not(:disabled),
+    .btn-liquid-sage:hover:not(:disabled), .btn-glass-sage:hover:not(:disabled) {
+      background: linear-gradient(180deg, #244E9E 0%, #183A7A 100%) !important;
+      box-shadow: 
+        inset 0 1.5px 1.5px rgba(255, 255, 255, 0.6),
+        0 6px 20px rgba(20, 48, 103, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .btn-liquid-primary:active:not(:disabled), .btn-glass-primary:active:not(:disabled),
+    .btn-liquid-sage:active:not(:disabled), .btn-glass-sage:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(20, 48, 103, 0.28);
+    }
+
+    .btn-liquid-secondary, .btn-glass-secondary {
+      background: rgba(255, 255, 255, 0.95);
+      color: #143067;
+      border: 1.5px solid rgba(20, 48, 103, 0.3);
+      min-height: var(--touch-target-min, 44px);
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-md, 1rem);
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 6px rgba(20, 48, 103, 0.05);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-liquid-secondary:hover:not(:disabled), .btn-glass-secondary:hover:not(:disabled) {
+      background: #FFFFFF;
+      border-color: #143067;
+      color: #143067;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(20, 48, 103, 0.12);
+    }
+
+    /* Modal de Alto Contraste y Legibilidad Superior (Sin cinta arriba) */
+    .apple-liquid-modal {
+      background: #FFFFFF !important;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 
+        0 25px 50px -12px rgba(15, 23, 42, 0.35), 
+        0 0 0 1px rgba(15, 23, 42, 0.06);
+      border-radius: var(--radius-lg, 1.5rem);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="ambient-bg flex flex-col min-h-screen relative overflow-x-hidden">
+  <!-- SCREEN LOADER / SPLASH SCREEN INICIAL (1.8s) -->
+  <div id="screen-loader" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Orbes Ambientales del Loader -->
+    <div class="ambient-orbs-container" aria-hidden="true">
+      <div class="ambient-orb ambient-orb-1"></div>
+      <div class="ambient-orb ambient-orb-2"></div>
+    </div>
+
+    <!-- Tarjeta Glass del Loader -->
+    <div class="apple-liquid-window max-w-sm w-full p-8 text-center flex flex-col items-center justify-center shadow-2xl relative z-10">
+      <!-- Logos Institucionales Destacados -->
+      <div class="flex items-center justify-center gap-5 mb-4">
+        <div class="logo-capsule p-2.5 shadow-sm">
+          <img src="logo-ieproes.png" alt="IEPROES" class="h-16 w-16 object-contain" style="image-rendering: -webkit-optimize-contrast; image-rendering: smooth;" />
+        </div>
+        <div class="w-px h-12 bg-amber-400/50"></div>
+        <div class="logo-capsule p-2.5 shadow-sm">
+          <img src="logo-psico.png" alt="Unidad de Psicopedagogía" class="h-16 w-16 object-contain" style="image-rendering: -webkit-optimize-contrast; image-rendering: smooth;" />
+        </div>
+      </div>
+
+      <!-- Píldora Conmemorativa y Títulos -->
+      <div class="pill-septiembre-amarillo mb-3 shadow-xs">
+        <i data-lucide="ribbon" class="w-3.5 h-3.5"></i>
+        <span class="text-xs font-bold">Septiembre Amarillo</span>
+      </div>
+      <h2 class="font-display text-base sm:text-lg font-extrabold text-charcoal tracking-tight">
+        IEPROES — San Miguel
+      </h2>
+      <p class="text-xs text-muted font-medium mt-0.5">
+        Unidad de Psicopedagogía • Tamizaje DASS-21
+      </p>
+
+      <!-- Shimmer animado elegante -->
+      <div class="mt-5 flex flex-col items-center gap-2">
+        <div class="loader-shimmer-track">
+          <div class="loader-shimmer-bar"></div>
+        </div>
+        <span class="text-[11px] text-slate-500 font-medium tracking-wide">Iniciando plataforma...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orbes Ligeros de Ambiente (Luz Tridimensional de Septiembre Amarillo) -->
+  <div class="ambient-orbs-container" aria-hidden="true">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+    <div class="ambient-orb ambient-orb-4"></div>
+  </div>
+
+  <!-- BARRA DE NAVEGACIÓN HOMOLOGADA (PERSISTENTE EN TODAS LAS PANTALLAS) -->
+  <header id="main-navbar" class="glass-header sticky top-0 z-30 w-full">
+    <div class="max-w-3xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+      <!-- Identidad y Marca -->
+      <div class="flex items-center gap-2">
+        <div class="logo-capsule !p-1 !border-0 shadow-xs">
+          <img src="logo-ieproes.png" alt="IEPROES" class="h-6 w-auto object-contain" />
+        </div>
+        <span class="font-display text-xs font-bold text-charcoal hidden sm:inline">DASS-21 IEPROES</span>
+      </div>
+
+      <!-- Indicadores dinámicos durante el test (Escala + Contador) -->
+      <div id="nav-test-indicators" class="flex items-center gap-2.5 hidden">
+        <span id="escala-badge" class="sev-badge-glass scale-badge-dep text-xs">
+          <i data-lucide="activity" class="w-3 h-3"></i>
+          <span>Depresión</span>
+        </span>
+        <span class="text-xs text-muted font-mono font-semibold" id="prog-num">1 de 21</span>
+      </div>
+
+      <!-- Píldora Conmemorativa institucional (Visible en Bienvenida y Fin) -->
+      <div id="nav-brand-badge" class="flex items-center">
+        <div class="pill-septiembre-amarillo !py-0.5 !px-2.5 text-xs shadow-xs">
+          <i data-lucide="ribbon" class="w-3.5 h-3.5 shrink-0"></i>
+          <span class="hidden sm:inline font-bold">Septiembre Amarillo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de progreso con gradiente y glow (solo activa durante el test) -->
+    <div id="nav-progress-container" class="w-full bg-slate-200/60 h-1.5 overflow-hidden hidden">
+      <div id="progress-bar" class="bg-gradient-to-r from-primary to-sage h-full transition-all duration-300 ease-out" style="width: 4.76%;"></div>
+    </div>
+  </header>
+
+  <div id="screen-welcome" class="screen active relative z-10">
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-8 sm:py-12 fade-in flex items-center justify-center">
+      <div class="apple-liquid-window w-full p-6 sm:p-10">
+        <!-- Encabezado y Título Limpio y Centrado -->
+        <div class="text-center mb-6">
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-charcoal tracking-tight">
+            Test DASS-21
+          </h1>
+          <p class="text-muted text-sm sm:text-base mt-1 font-medium">
+            Escalas de Depresión, Ansiedad y Estrés
+          </p>
+          <div class="flex items-center justify-center gap-2 mt-2.5">
+            <span class="font-display font-bold text-xs text-charcoal tracking-wide">IEPROES — San Miguel</span>
+          </div>
+        </div>
+
+        <!-- Instrucciones Oficiales (Integradas con tipografía limpia, sin cajas anidadas) -->
+        <div class="mb-6">
+          <p class="text-sm sm:text-base leading-relaxed text-charcoal font-medium italic border-l-2 border-primary/60 pl-3.5 my-3">
+            &ldquo;Por favor lea las siguientes afirmaciones. La escala de calificación de cada ítem es de 0, 1, 2 o 3, e indica en qué grado le ha ocurrido la afirmación durante la semana anterior.&rdquo;
+          </p>
+
+          <!-- Cinta Horizontal Segmentada Apple (0, 1, 2, 3) -->
+          <div class="liquid-scale-ribbon" role="region" aria-label="Escala de respuestas">
+            <div class="liquid-scale-item">
+              <span class="liquid-scale-num">0</span>
+              <span class="liquid-scale-text">No me ha ocurrido</span>
+            </div>
+            <div class="liquid-scale-item">
+              <span class="liquid-scale-num">1</span>
+              <span class="liquid-scale-text">Me ha ocurrido un poco</span>
+            </div>
+            <div class="liquid-scale-item">
+              <span class="liquid-scale-num">2</span>
+              <span class="liquid-scale-text">Me ha ocurrido bastante</span>
+            </div>
+            <div class="liquid-scale-item">
+              <span class="liquid-scale-num">3</span>
+              <span class="liquid-scale-text">Mucho o casi siempre</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aviso Integrado de Confidencialidad -->
+        <div class="liquid-notice">
+          <div class="liquid-notice-icon">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-charcoal text-sm mb-0.5">
+              Aviso de Confidencialidad
+            </h2>
+            <p class="text-xs sm:text-sm text-charcoal/80 leading-relaxed">
+              Este test es un instrumento de evaluación psicológica y por si solo no representa un diagnóstico. Tus respuestas son confidenciales y serán revisadas únicamente por el personal profesional de Psicopedagogía para validar y aplicar el criterio clínico correspondiente.
+            </p>
+          </div>
+        </div>
+
+        <!-- Identificación del Estudiante (Directa) -->
+        <div class="my-6">
+          <div class="mb-4">
+            <h2 class="font-display text-base font-bold text-charcoal mb-1 flex items-center gap-2">
+              <i data-lucide="user-check" class="w-4 h-4 text-[#143067]"></i>
+              <span>Datos del estudiante</span>
+            </h2>
+            <p class="text-xs text-muted leading-relaxed">
+              Ingresa tu nombre y código institucional para que Psicopedagogía pueda brindarte acompañamiento personalizado.
+            </p>
+          </div>
+
+          <!-- Campos de Entrada -->
+          <div id="campos-id" class="space-y-3.5">
+            <div>
+              <label for="nombre-completo" class="block text-xs font-bold text-charcoal mb-1">
+                Nombre completo
+              </label>
+              <div class="relative">
+                <input type="text" id="nombre-completo" placeholder="Carlos José Molina" autocomplete="name"
+                  class="liquid-input w-full px-4 py-2.5 pl-10" />
+                <i data-lucide="user" class="w-4 h-4 text-[#143067] absolute left-3.5 top-3"></i>
+              </div>
+            </div>
+
+            <div>
+              <label for="codigo-est" class="block text-xs font-bold text-charcoal mb-1">
+                Código de estudiante
+              </label>
+              <div class="relative">
+                <input type="text" id="codigo-est" placeholder="U320230158" autocomplete="off"
+                  class="liquid-input w-full px-4 py-2.5 pl-10 font-mono tracking-wider uppercase" />
+                <i data-lucide="id-card" class="w-4 h-4 text-[#143067] absolute left-3.5 top-3"></i>
+              </div>
+              <p id="codigo-hint" class="text-xs text-rose-600 font-medium hidden mt-1">El código no debe contener espacios ni caracteres especiales.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón Comenzar -->
+        <div class="text-center pt-2">
+          <button id="btn-comenzar" class="btn-liquid-primary w-full sm:w-auto sm:min-w-[280px]">
+            <span>Comenzar el test</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+          <p id="btn-hint" class="text-xs text-muted mt-2 font-medium min-h-[1.25rem]">Completa los datos para continuar</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PANTALLA 2: CARRUSEL DE PREGUNTAS (1 A LA VEZ) -->
+  <div id="screen-test" class="screen relative z-10">
+    <main class="flex-1 max-w-2xl mx-auto w-full px-4 py-3 sm:py-5 flex flex-col justify-center">
+      <div class="apple-liquid-window w-full p-4 sm:p-6">
+        <!-- Carrusel -->
+        <div class="slide-viewport">
+          <div id="slide-track" class="slide-track"></div>
+        </div>
+
+        <!-- Aviso de selección requerida -->
+        <div id="aviso-requerido" class="hidden text-center text-rose-600 text-xs font-semibold my-1 items-center justify-center gap-1">
+          <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+          <span>Por favor selecciona una opción para continuar</span>
+        </div>
+
+        <!-- Botones de Navegación -->
+        <div class="flex items-center justify-between gap-3 pt-3 border-t border-white/50 mt-2.5 px-3 sm:px-4">
+          <button id="btn-ant" disabled class="btn-liquid-secondary text-sm px-4 py-2">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Anterior</span>
+          </button>
+          <button id="btn-sig" disabled class="btn-liquid-primary text-sm px-5 py-2">
+            <span>Continuar</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PANTALLA 3: AGRADECIMIENTO Y CIERRE -->
+  <div id="screen-fin" class="screen relative z-10">
+    <main class="flex-1 max-w-xl mx-auto w-full px-4 py-8 sm:py-12 text-center fade-in flex items-center justify-center">
+      <div class="apple-liquid-window w-full p-5 sm:p-8 text-center">
+        <div class="w-16 h-16 rounded-2xl bg-amber-500/15 text-amber-600 flex items-center justify-center mx-auto mb-4 border border-amber-500/30 shadow-sm backdrop-blur-md">
+          <i data-lucide="ribbon" class="w-8 h-8 text-amber-500"></i>
+        </div>
+
+        <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-charcoal mb-4">
+          ¡Respuestas recibidas con éxito!
+        </h1>
+
+        <!-- Mensaje oficial de agradecimiento -->
+        <div class="p-5 text-left mb-6 rounded-2xl bg-white/40 border border-white/60 backdrop-blur-md">
+          <p class="text-base text-charcoal leading-relaxed">
+            &ldquo;Gracias por tomarte el tiempo de responder con honestidad. Si sientes que últimamente las cosas han pesado más de lo normal, no tienes que enfrentarlo solo/a, la Unidad de Psicopedagogía está aquí para acompañarte.&rdquo;
+          </p>
+        </div>
+
+        <!-- Código de sesión anónimo con botón copiar -->
+        <div id="codigo-box" class="hidden p-4 sm:p-6 mb-6 text-center rounded-2xl bg-[#143067]/5 border border-[#143067]/20 backdrop-blur-md">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#143067]/10 text-[#143067] text-[11px] font-bold uppercase tracking-wider mb-2.5">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            <span>Código de sesión</span>
+          </div>
+
+          <!-- Tarjeta del Código: diseño hero vertical que garantiza espacio total sin solapamiento -->
+          <div class="max-w-xs mx-auto bg-white/95 border border-[#143067]/20 rounded-xl p-3.5 sm:p-4 shadow-sm flex flex-col items-center justify-center gap-2.5 my-2">
+            <span id="codigo-display" class="font-mono text-xl sm:text-2xl font-black text-[#143067] tracking-wider whitespace-nowrap select-all leading-tight"></span>
+
+            <button id="btn-copiar-codigo" type="button" title="Copiar código" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#143067]/10 hover:bg-[#143067] hover:text-white text-[#143067] text-xs font-bold transition-all active:scale-95 shadow-xs">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span id="btn-copiar-texto">Copiar código</span>
+            </button>
+          </div>
+
+          <p class="text-xs text-charcoal/80 leading-relaxed mt-2.5 max-w-sm mx-auto">
+            Te sugerimos guardarlo o copiarlo. Es la única referencia para consultar tu tamizaje con Psicopedagogía de manera anónima.
+          </p>
+        </div>
+
+        <div class="pt-2 flex justify-center">
+          <button id="btn-finalizar-salir" type="button" class="btn-liquid-primary w-full sm:w-auto px-8 py-3">
+            <span>Volver a Inicio</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- FOOTER HOMOLOGADO (PERSISTENTE EN TODAS LAS PANTALLAS) -->
+  <footer class="text-center py-4 text-xs text-muted border-t border-slate-200/60 glass-header mt-auto w-full relative z-20">
+    Seguridad, diseño y desarrollo por: Carlos Molina.
+  </footer>
+
+  <!-- MODAL DE ADVERTENCIA PARA MODALIDAD ANÓNIMA -->
+  <div id="modal-anonimo-alerta" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-4">
+    <div class="apple-liquid-modal p-6 sm:p-8 max-w-md w-full text-center shadow-2xl modal-scale-in">
+      <div class="w-16 h-16 rounded-2xl bg-[#143067]/10 border border-[#143067]/20 text-[#143067] flex items-center justify-center mx-auto mb-4 shadow-sm">
+        <i data-lucide="shield-alert" class="w-8 h-8 text-[#143067]"></i>
+      </div>
+      <h3 class="font-display font-extrabold text-slate-900 text-xl tracking-tight mb-3">
+        ¿Deseas continuar sin identificarte?
+      </h3>
+      <p class="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-6 text-center">
+        Has dejado los campos de identificación vacíos. Tu evaluación se registrará de forma <strong class="text-slate-900 font-bold">anónima</strong> y recibirás un <strong class="text-slate-900 font-bold">código único de sesión</strong> al finalizar para que puedas consultar tus resultados con Psicopedagogía si lo requieres.
+      </p>
+      <div class="flex items-center gap-3">
+        <button id="btn-cancelar-anonimo" type="button" class="btn-liquid-secondary flex-1 py-2.5 text-sm font-bold text-[#143067] justify-center">
+          <i data-lucide="arrow-left" class="w-4 h-4 text-[#143067]"></i>
+          <span>Volver</span>
+        </button>
+        <button id="btn-confirmar-anonimo" type="button" class="btn-liquid-primary flex-1 py-2.5 text-sm font-bold justify-center">
+          <span>Continuar</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CARGA -->
+  <div id="modal-loading" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="glass-panel p-6 max-w-xs w-full text-center shadow-xl border border-white/80">
+      <div class="w-12 h-12 border-3 border-primary border-t-transparent rounded-full spin mx-auto mb-4"></div>
+      <p class="font-display font-bold text-charcoal text-base">Guardando respuestas...</p>
+      <p class="text-xs text-muted mt-1">Por favor espera un momento.</p>
+    </div>
+  </div>
+
+  <!-- TOAST DE NOTIFICACIÓN -->
+  <div id="toast" class="fixed bottom-4 left-4 right-4 max-w-md mx-auto z-50 hidden items-start gap-3 p-4 rounded-xl shadow-lg border text-sm font-medium transition-all backdrop-blur-md">
+    <span id="toast-icon-wrap" class="shrink-0 mt-0.5"></span>
+    <div class="flex-1">
+      <p id="toast-title" class="font-display font-bold"></p>
+      <p id="toast-msg" class="text-xs mt-0.5 opacity-90"></p>
+    </div>
+  </div>
+
+  <!-- Scripts del sistema -->
+  <script src="config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/ui-components.js"></script>
+
+  <!-- Lógica Principal del Test DASS-21 -->
+  <script>
+    (function () {
+      // 1. Configuración de API Supabase
+      var SUPA_URL = (window.DASS_CONFIG && window.DASS_CONFIG.SUPABASE_URL) || window.SUPABASE_URL || "https://fenuukbefxysrelplnhy.supabase.co";
+      var SUPA_KEY = (window.DASS_CONFIG && window.DASS_CONFIG.SUPABASE_KEY) || window.SUPABASE_KEY || "sb_publishable_R1DuCAhCH9zLPiMZwHc2Fw_awegzclw";
+
+      // 2. Definición exacta de los 21 ítems del DASS-21
+      var PREGUNTAS = [
+        // Depresión (1-7)
+        { id: 1, escala: 'depresion', num: 1, texto: 'No podía sentir ningún sentimiento positivo' },
+        { id: 2, escala: 'depresion', num: 2, texto: 'Se me hizo difícil tomar la iniciativa para hacer cosas' },
+        { id: 3, escala: 'depresion', num: 3, texto: 'He sentido que no había nada que me ilusionara' },
+        { id: 4, escala: 'depresion', num: 4, texto: 'Me sentí triste y deprimido' },
+        { id: 5, escala: 'depresion', num: 5, texto: 'No me pude entusiasmar por nada' },
+        { id: 6, escala: 'depresion', num: 6, texto: 'Sentí que valía muy poco como persona' },
+        { id: 7, escala: 'depresion', num: 7, texto: 'Sentí que la vida no tenía ningún sentido' },
+
+        // Estrés (8-14)
+        { id: 8, escala: 'estres', num: 1, texto: 'Me ha costado mucho descargar la tensión' },
+        { id: 9, escala: 'estres', num: 2, texto: 'Reaccioné exageradamente en ciertas situaciones' },
+        { id: 10, escala: 'estres', num: 3, texto: 'He sentido que estaba gastando una gran cantidad de energía' },
+        { id: 11, escala: 'estres', num: 4, texto: 'Me he sentido inquieto' },
+        { id: 12, escala: 'estres', num: 5, texto: 'Se me hizo difícil relajarme' },
+        { id: 13, escala: 'estres', num: 6, texto: 'No toleré nada que no me permitiera continuar con lo que estaba haciendo' },
+        { id: 14, escala: 'estres', num: 7, texto: 'He tendido a sentirme enfadado con facilidad' },
+
+        // Ansiedad (15-21)
+        { id: 15, escala: 'ansiedad', num: 1, texto: 'Me di cuenta que tenía la boca seca' },
+        { id: 16, escala: 'ansiedad', num: 2, texto: 'Se me hizo difícil respirar' },
+        { id: 17, escala: 'ansiedad', num: 3, texto: 'Sentí que mis manos temblaban' },
+        { id: 18, escala: 'ansiedad', num: 4, texto: 'Estaba preocupado por situaciones en las cuales podía tener pánico o en las que podría hacer el ridículo' },
+        { id: 19, escala: 'ansiedad', num: 5, texto: 'Sentí que estaba al punto de pánico' },
+        { id: 20, escala: 'ansiedad', num: 6, texto: 'Sentí los latidos de mi corazón a pesar de no haber hecho ningún esfuerzo físico' },
+        { id: 21, escala: 'ansiedad', num: 7, texto: 'Tuve miedo sin razón' }
+      ];
+
+      var OPCIONES = [
+        { valor: 0, texto: 'No me ha ocurrido' },
+        { valor: 1, texto: 'Me ha ocurrido un poco' },
+        { valor: 2, texto: 'Me ha ocurrido bastante' },
+        { valor: 3, texto: 'Me ha ocurrido mucho, o la mayor parte del tiempo' }
+      ];
+
+      var ESCALAS_INFO = {
+        depresion: { label: 'Depresión', cls: 'scale-badge-dep' },
+        estres: { label: 'Estrés', cls: 'scale-badge-est' },
+        ansiedad: { label: 'Ansiedad', cls: 'scale-badge-ans' }
+      };
+
+      // 3. Estado
+      var state = {
+        modalidad: null,
+        nombreCompleto: '',
+        codigoEstudiante: '',
+        sesionId: null,
+        codigoSesion: null,
+        preguntaActual: 0,
+        respuestas: {}
+      };
+      var autoAdvanceTimer = null;
+      var STORAGE_KEY = 'dass21_sesion_activa';
+
+      // 4. Elementos del DOM
+      var dom = {
+        screens: {
+          welcome: document.getElementById('screen-welcome'),
+          test: document.getElementById('screen-test'),
+          fin: document.getElementById('screen-fin')
+        },
+        camposId: document.getElementById('campos-id'),
+        nombreCompleto: document.getElementById('nombre-completo'),
+        codigoEst: document.getElementById('codigo-est'),
+        codigoHint: document.getElementById('codigo-hint'),
+        btnComenzar: document.getElementById('btn-comenzar'),
+        btnHint: document.getElementById('btn-hint'),
+        modalAnonimoAlerta: document.getElementById('modal-anonimo-alerta'),
+        btnConfirmarAnonimo: document.getElementById('btn-confirmar-anonimo'),
+        btnCancelarAnonimo: document.getElementById('btn-cancelar-anonimo'),
+        slideViewport: document.querySelector('.slide-viewport'),
+        slideTrack: document.getElementById('slide-track'),
+        btnAnt: document.getElementById('btn-ant'),
+        btnSig: document.getElementById('btn-sig'),
+        progNum: document.getElementById('prog-num'),
+        progressBar: document.getElementById('progress-bar'),
+        escalaBadge: document.getElementById('escala-badge'),
+        avisoReq: document.getElementById('aviso-requerido'),
+        modalLoading: document.getElementById('modal-loading'),
+        toast: document.getElementById('toast'),
+        toastTitle: document.getElementById('toast-title'),
+        toastMsg: document.getElementById('toast-msg'),
+        toastIconWrap: document.getElementById('toast-icon-wrap'),
+        codigoBox: document.getElementById('codigo-box'),
+        codigoDisplay: document.getElementById('codigo-display'),
+        btnCopiarCodigo: document.getElementById('btn-copiar-codigo')
+      };
+
+      // 5. Utilidades
+      function showToast(msg, title, type) {
+        title = title || 'Información';
+        type = type || 'error';
+        dom.toastTitle.textContent = title;
+        dom.toastMsg.textContent = msg;
+
+        if (type === 'error') {
+          dom.toast.className = 'fixed bottom-4 left-4 right-4 max-w-md mx-auto z-50 flex items-start gap-3 p-4 rounded-xl shadow-lg border text-sm font-medium bg-rose-50/95 border-rose-300 text-rose-950 backdrop-blur-md';
+          dom.toastIconWrap.innerHTML = '<i data-lucide="alert-triangle" class="w-5 h-5 text-rose-600"></i>';
+        } else {
+          dom.toast.className = 'fixed bottom-4 left-4 right-4 max-w-md mx-auto z-50 flex items-start gap-3 p-4 rounded-xl shadow-lg border text-sm font-medium bg-emerald-50/95 border-emerald-300 text-emerald-950 backdrop-blur-md';
+          dom.toastIconWrap.innerHTML = '<i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>';
+        }
+
+        if (window.refreshIcons) window.refreshIcons();
+        dom.toast.classList.remove('hidden');
+        setTimeout(function () { dom.toast.classList.add('hidden'); }, 5000);
+      }
+
+      function showScreen(screenKey) {
+        Object.keys(dom.screens).forEach(function (k) {
+          dom.screens[k].classList.remove('active');
+        });
+        dom.screens[screenKey].classList.add('active');
+
+        // Homologación de Header: alternar estado según pantalla activa
+        var navTestInd = document.getElementById('nav-test-indicators');
+        var navBrandBadge = document.getElementById('nav-brand-badge');
+        var navProgCont = document.getElementById('nav-progress-container');
+        if (screenKey === 'test') {
+          if (navTestInd) navTestInd.classList.remove('hidden');
+          if (navBrandBadge) navBrandBadge.classList.add('hidden');
+          if (navProgCont) navProgCont.classList.remove('hidden');
+        } else {
+          if (navTestInd) navTestInd.classList.add('hidden');
+          if (navBrandBadge) navBrandBadge.classList.remove('hidden');
+          if (navProgCont) navProgCont.classList.add('hidden');
+        }
+
+        if (screenKey === 'welcome' && dom.btnComenzar) {
+          dom.btnComenzar.disabled = false;
+          dom.btnComenzar.innerHTML = '<span>Comenzar el test</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+        }
+        window.scrollTo(0, 0);
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      function generateUUID() {
+        if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+          return crypto.randomUUID();
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      }
+
+      function generateSessionCode() {
+        var y = new Date().getFullYear();
+        var n = String(Math.floor(Math.random() * 9000) + 1000);
+        return 'DASS-' + y + '-' + n;
+      }
+
+      // 5.1 Persistencia en LocalStorage
+      function guardarProgresoLocal() {
+        if (!state.sesionId) return;
+        try {
+          var data = {
+            sesionId: state.sesionId,
+            codigoSesion: state.codigoSesion,
+            modalidad: state.modalidad,
+            nombreCompleto: state.nombreCompleto || (dom.nombreCompleto ? dom.nombreCompleto.value.trim() : ''),
+            codigoEstudiante: state.codigoEstudiante || (dom.codigoEst ? dom.codigoEst.value.trim().toUpperCase() : ''),
+            preguntaActual: state.preguntaActual,
+            respuestas: state.respuestas,
+            timestamp: Date.now()
+          };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {
+          console.warn('Error al guardar en localStorage:', e);
+        }
+      }
+
+      function limpiarProgresoLocal() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {}
+      }
+
+      function restaurarProgresoLocal() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return false;
+          var data = JSON.parse(raw);
+          if (!data || !data.sesionId || (Date.now() - (data.timestamp || 0) > 86400000)) {
+            limpiarProgresoLocal();
+            return false;
+          }
+
+          // Si el test ya fue completado o se respondieron todas las preguntas, iniciar como sesión nueva
+          var totalRespuestas = Object.keys(data.respuestas || {}).length;
+          var ultimaPregId = PREGUNTAS[PREGUNTAS.length - 1].id;
+          var ultimaRespondida = data.respuestas && data.respuestas[ultimaPregId] !== undefined;
+
+          if (data.completado || totalRespuestas >= PREGUNTAS.length || (data.preguntaActual >= PREGUNTAS.length - 1 && ultimaRespondida)) {
+            limpiarProgresoLocal();
+            return false;
+          }
+
+          state.sesionId = data.sesionId;
+          state.codigoSesion = data.codigoSesion;
+          state.modalidad = data.modalidad;
+          state.nombreCompleto = data.nombreCompleto || '';
+          state.codigoEstudiante = data.codigoEstudiante || '';
+          state.preguntaActual = typeof data.preguntaActual === 'number' ? data.preguntaActual : 0;
+          state.respuestas = data.respuestas || {};
+
+          if (dom.nombreCompleto && data.nombreCompleto) dom.nombreCompleto.value = data.nombreCompleto;
+          if (dom.codigoEst && data.codigoEstudiante) dom.codigoEst.value = data.codigoEstudiante;
+
+          construirSlides();
+
+          // Marcar respuestas seleccionadas
+          Object.keys(state.respuestas).forEach(function (pregId) {
+            var val = state.respuestas[pregId];
+            var btn = dom.slideTrack.querySelector('.test-option-card[data-preg-id="' + pregId + '"][data-val="' + val + '"]');
+            if (btn) btn.classList.add('selected');
+          });
+
+          showScreen('test');
+          irAPregunta(state.preguntaActual);
+          showToast('Progreso recuperado: puedes continuar tu test.', 'Sesión activa', 'success');
+          return true;
+        } catch (e) {
+          console.warn('Error al restaurar desde localStorage:', e);
+          return false;
+        }
+      }
+
+      // 6. Validación de Datos y Modal de Modalidad Anónima
+      function abrirModalAnonimo() {
+        dom.modalAnonimoAlerta.classList.remove('hidden');
+        dom.modalAnonimoAlerta.classList.add('flex');
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      function cerrarModalAnonimo() {
+        dom.modalAnonimoAlerta.classList.add('hidden');
+        dom.modalAnonimoAlerta.classList.remove('flex');
+      }
+
+      function evaluarEstadoFormulario() {
+        var nombre = dom.nombreCompleto.value.trim();
+        var codigo = dom.codigoEst.value.trim().toUpperCase();
+
+        if (nombre === '' && codigo === '') {
+          dom.codigoHint.classList.add('hidden');
+          dom.btnHint.className = 'text-xs text-muted mt-2 font-medium min-h-[1.25rem]';
+          dom.btnHint.textContent = 'Completa los datos para continuar';
+          dom.nombreCompleto.classList.remove('border-emerald-500/60');
+          dom.codigoEst.classList.remove('border-emerald-500/60');
+          return;
+        }
+
+        var esCodigoValido = codigo.length > 0 && /^[A-Za-z0-9\-_]+$/.test(codigo);
+        var esNombreValido = nombre.length >= 2;
+
+        if (codigo.length > 0 && !esCodigoValido) {
+          dom.codigoHint.classList.remove('hidden');
+        } else {
+          dom.codigoHint.classList.add('hidden');
+        }
+
+        if (esNombreValido) {
+          dom.nombreCompleto.classList.add('border-emerald-500/60');
+        } else {
+          dom.nombreCompleto.classList.remove('border-emerald-500/60');
+        }
+
+        if (esCodigoValido) {
+          dom.codigoEst.classList.add('border-emerald-500/60');
+        } else {
+          dom.codigoEst.classList.remove('border-emerald-500/60');
+        }
+
+        if (esNombreValido && esCodigoValido) {
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem]';
+          dom.btnHint.textContent = '';
+        } else if (!esNombreValido && codigo.length > 0) {
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-slate-500';
+          dom.btnHint.textContent = 'Falta el nombre';
+        } else if (esNombreValido && codigo.length === 0) {
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-slate-500';
+          dom.btnHint.textContent = 'Falta el código';
+        } else {
+          dom.btnHint.className = 'text-xs text-muted mt-2 font-medium min-h-[1.25rem]';
+          dom.btnHint.textContent = 'Completa los datos para continuar';
+        }
+      }
+
+      dom.nombreCompleto.addEventListener('input', evaluarEstadoFormulario);
+      dom.codigoEst.addEventListener('input', function () {
+        this.value = this.value.toUpperCase();
+        evaluarEstadoFormulario();
+      });
+
+      if (dom.btnCancelarAnonimo) {
+        dom.btnCancelarAnonimo.addEventListener('click', function () {
+          cerrarModalAnonimo();
+          dom.nombreCompleto.focus();
+        });
+      }
+
+      if (dom.btnConfirmarAnonimo) {
+        dom.btnConfirmarAnonimo.addEventListener('click', function () {
+          cerrarModalAnonimo();
+          iniciarSesionTest('anonimo');
+        });
+      }
+
+      // 7. Renderizado del Carrusel de Preguntas
+      function construirSlides() {
+        dom.slideTrack.innerHTML = '';
+        PREGUNTAS.forEach(function (p, index) {
+          var slide = document.createElement('div');
+          slide.className = 'slide-item';
+          slide.id = 'slide-' + index;
+
+          var escalaData = ESCALAS_INFO[p.escala];
+
+          slide.innerHTML =
+            '<div class="py-1 px-3 sm:px-4">' +
+              '<div class="flex items-center justify-between mb-2">' +
+                '<span class="sev-badge-glass ' + escalaData.cls + ' text-xs">' +
+                  '<i data-lucide="activity" class="w-3.5 h-3.5"></i>' +
+                  '<span>' + escalaData.label + ' — Ítem ' + p.num + ' de 7</span>' +
+                '</span>' +
+                '<span class="text-xs text-muted font-mono font-semibold">Pregunta ' + (index + 1) + ' de 21</span>' +
+              '</div>' +
+              '<p class="font-display text-lg sm:text-xl font-bold text-charcoal leading-snug mb-3">' +
+                '&ldquo;' + p.texto + '&rdquo;' +
+              '</p>' +
+              '<div class="flex flex-col gap-2" role="radiogroup" aria-label="Opciones para ítem ' + (index + 1) + '">' +
+                OPCIONES.map(function (op) {
+                  var isSel = (state.respuestas[p.id] === op.valor) ? ' selected' : '';
+                  return (
+                    '<button type="button" class="liquid-option-card test-option-card' + isSel + '" data-preg-id="' + p.id + '" data-val="' + op.valor + '">' +
+                      '<span class="liquid-opt-num test-opt-num">' + op.valor + '</span>' +
+                      '<span class="text-sm sm:text-base text-charcoal font-semibold leading-snug flex-1 text-left">' + op.texto + '</span>' +
+                      '<span class="auto-timer-badge hidden shrink-0 text-xs font-bold text-[#143067] items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-[#143067]/10 border border-[#143067]/25 shadow-xs">' +
+                        '<svg class="w-3.5 h-3.5 -rotate-90 text-[#143067] shrink-0" viewBox="0 0 24 24">' +
+                          '<circle cx="12" cy="12" r="9" stroke="rgba(20, 48, 103, 0.25)" stroke-width="2.5" fill="none" />' +
+                          '<circle class="timer-circle" cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" fill="none" stroke-dasharray="56.54" stroke-dashoffset="0" stroke-linecap="round" />' +
+                        '</svg>' +
+                        '<span class="auto-timer-badge-text text-[11px] hidden sm:inline">Continuar...</span>' +
+                      '</span>' +
+                    '</button>'
+                  );
+                }).join('') +
+              '</div>' +
+            '</div>';
+
+          dom.slideTrack.appendChild(slide);
+        });
+
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      // Event listener delegado para selección de opciones con auto-avance y persistencia
+      dom.slideTrack.addEventListener('click', function (e) {
+        var card = e.target.closest('.test-option-card');
+        if (!card) return;
+
+        var pregId = parseInt(card.getAttribute('data-preg-id'), 10);
+        var valor = parseInt(card.getAttribute('data-val'), 10);
+
+        state.respuestas[pregId] = valor;
+        var isUltima = (state.preguntaActual === PREGUNTAS.length - 1);
+        if (!isUltima) {
+          guardarProgresoLocal();
+        } else {
+          limpiarProgresoLocal();
+        }
+
+        var slide = card.closest('.slide-item');
+        if (slide) {
+          slide.querySelectorAll('.test-option-card').forEach(function (c) {
+            c.classList.remove('selected');
+            c.classList.remove('auto-advancing');
+          });
+        }
+        card.classList.add('selected');
+
+        var isUltima = (state.preguntaActual === PREGUNTAS.length - 1);
+        var timerBadgeText = card.querySelector('.auto-timer-badge-text');
+        if (timerBadgeText) {
+          timerBadgeText.textContent = isUltima ? 'Finalizando...' : 'Continuar...';
+        }
+
+        // Activar animación del timer visual en la opción y reajustar altura dinámica inmediatamente
+        requestAnimationFrame(function () {
+          card.classList.add('auto-advancing');
+          actualizarAlturaSlide(state.preguntaActual);
+        });
+        setTimeout(function () {
+          actualizarAlturaSlide(state.preguntaActual);
+        }, 30);
+
+        dom.btnSig.disabled = false;
+        dom.avisoReq.classList.add('hidden');
+
+        // Mantener siempre el texto del botón en "Continuar" (o "Finalizar test" si es el último)
+        if (isUltima) {
+          dom.btnSig.innerHTML = '<span>Finalizar test</span><i data-lucide="check" class="w-4 h-4"></i>';
+        } else {
+          dom.btnSig.innerHTML = '<span>Continuar</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+        }
+        if (window.refreshIcons) window.refreshIcons();
+
+        // Auto-avanzar a la siguiente pregunta tras el timer visual (2 segundos)
+        if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+          card.classList.remove('auto-advancing');
+          if (state.preguntaActual < PREGUNTAS.length - 1) {
+            irAPregunta(state.preguntaActual + 1);
+          } else {
+            guardarYFinalizar();
+          }
+        }, 2000);
+      });
+
+      function actualizarAlturaSlide(index) {
+        if (typeof index !== 'number') index = state.preguntaActual;
+        var activeSlide = document.getElementById('slide-' + index);
+        if (activeSlide && dom.slideViewport) {
+          var inner = activeSlide.firstElementChild || activeSlide.querySelector('div') || activeSlide;
+          if (inner) {
+            var h = Math.max(inner.scrollHeight || 0, inner.offsetHeight || 0);
+            if (h > 0) {
+              dom.slideViewport.style.height = (h + 16) + 'px';
+            }
+          }
+        }
+      }
+
+      // ResizeObserver para adaptar la altura en tiempo real ante cualquier cambio de texto o layout
+      if (typeof ResizeObserver !== 'undefined' && dom.slideTrack) {
+        var slideRO = new ResizeObserver(function () {
+          if (typeof state.preguntaActual === 'number') {
+            actualizarAlturaSlide(state.preguntaActual);
+          }
+        });
+        slideRO.observe(dom.slideTrack);
+      }
+
+      window.addEventListener('resize', function () {
+        if (typeof state.preguntaActual === 'number') {
+          actualizarAlturaSlide(state.preguntaActual);
+        }
+      });
+
+      function irAPregunta(index) {
+        if (index < 0 || index >= PREGUNTAS.length) return;
+        if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+        document.querySelectorAll('.test-option-card.auto-advancing').forEach(function (c) {
+          c.classList.remove('auto-advancing');
+        });
+
+        state.preguntaActual = index;
+        guardarProgresoLocal();
+
+        dom.slideTrack.style.transform = 'translateX(-' + (index * 100) + '%)';
+
+        // Ajustar altura del contenedor al slide actual sin espacios vacíos
+        actualizarAlturaSlide(index);
+        setTimeout(function () { actualizarAlturaSlide(index); }, 25);
+        setTimeout(function () { actualizarAlturaSlide(index); }, 120);
+
+        var p = PREGUNTAS[index];
+        var progPct = Math.round(((index + 1) / 21) * 100);
+        dom.progressBar.style.width = progPct + '%';
+        dom.progNum.textContent = (index + 1) + ' de 21';
+
+        var escalaData = ESCALAS_INFO[p.escala];
+        dom.escalaBadge.innerHTML = '<i data-lucide="activity" class="w-3 h-3"></i><span>' + escalaData.label + '</span>';
+        dom.escalaBadge.className = 'sev-badge-glass ' + escalaData.cls + ' text-xs';
+
+        dom.btnAnt.disabled = (index === 0);
+
+        var respondida = (state.respuestas[p.id] !== undefined);
+        dom.btnSig.disabled = !respondida;
+
+        if (index === PREGUNTAS.length - 1) {
+          dom.btnSig.innerHTML = '<span>Finalizar test</span><i data-lucide="check" class="w-4 h-4"></i>';
+          dom.btnSig.className = 'btn-liquid-primary text-sm px-5 py-2';
+        } else {
+          dom.btnSig.innerHTML = '<span>Continuar</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+          dom.btnSig.className = 'btn-liquid-primary text-sm px-5 py-2';
+        }
+
+        var slide = document.getElementById('slide-' + index);
+        if (slide) {
+          slide.querySelectorAll('.test-option-card').forEach(function (card) {
+            var val = parseInt(card.getAttribute('data-val'), 10);
+            if (state.respuestas[p.id] === val) {
+              card.classList.add('selected');
+            } else {
+              card.classList.remove('selected');
+            }
+          });
+        }
+
+        dom.avisoReq.classList.add('hidden');
+        if (window.refreshIcons) window.refreshIcons();
+      }
+
+      // 8. Botones de Navegación
+      dom.btnAnt.addEventListener('click', function () {
+        if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+        document.querySelectorAll('.test-option-card.auto-advancing').forEach(function (c) {
+          c.classList.remove('auto-advancing');
+        });
+        if (state.preguntaActual > 0) irAPregunta(state.preguntaActual - 1);
+      });
+
+      dom.btnSig.addEventListener('click', function () {
+        if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+        document.querySelectorAll('.test-option-card.auto-advancing').forEach(function (c) {
+          c.classList.remove('auto-advancing');
+        });
+        var p = PREGUNTAS[state.preguntaActual];
+        if (state.respuestas[p.id] === undefined) {
+          dom.avisoReq.classList.remove('hidden');
+          dom.avisoReq.classList.add('flex');
+          return;
+        }
+        if (state.preguntaActual < PREGUNTAS.length - 1) {
+          irAPregunta(state.preguntaActual + 1);
+        } else {
+          guardarYFinalizar();
+        }
+      });
+
+      // 9. Iniciar el Test
+      async function iniciarSesionTest(modalidadElegida) {
+        dom.btnComenzar.disabled = true;
+        dom.btnComenzar.innerHTML = '<span>Iniciando test...</span>';
+
+        state.modalidad = modalidadElegida;
+        state.sesionId = generateUUID();
+        state.codigoSesion = generateSessionCode();
+
+        var payload = {
+          id: state.sesionId,
+          modalidad: state.modalidad,
+          codigo_sesion: state.codigoSesion
+        };
+
+        if (state.modalidad === 'identificado') {
+          state.nombreCompleto = dom.nombreCompleto.value.trim();
+          state.codigoEstudiante = dom.codigoEst.value.trim().toUpperCase();
+          payload.nombre_completo = state.nombreCompleto;
+          payload.codigo_estudiante = state.codigoEstudiante;
+        } else {
+          state.nombreCompleto = '';
+          state.codigoEstudiante = '';
+        }
+
+        try {
+          var response = await fetch(SUPA_URL + '/rest/v1/sesiones_test', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPA_KEY,
+              'Authorization': 'Bearer ' + SUPA_KEY
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+
+          guardarProgresoLocal();
+          construirSlides();
+          showScreen('test');
+          irAPregunta(0);
+
+          // Restablecer botón de inicio a su estado original listo para cuando se regrese
+          dom.btnComenzar.disabled = false;
+          dom.btnComenzar.innerHTML = '<span>Comenzar el test</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+          if (window.refreshIcons) window.refreshIcons();
+
+        } catch (err) {
+          console.error('Error al iniciar sesión:', err);
+          showToast('No se pudo conectar con el servidor. Verifica tu conexión a internet.', 'Error al iniciar');
+          dom.btnComenzar.disabled = false;
+          dom.btnComenzar.innerHTML = '<span>Comenzar el test</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+          if (window.refreshIcons) window.refreshIcons();
+        }
+      }
+
+      dom.btnComenzar.addEventListener('click', function () {
+        var nombre = dom.nombreCompleto.value.trim();
+        var codigo = dom.codigoEst.value.trim().toUpperCase();
+
+        // Si ambos campos están vacíos -> Desplegar modal de advertencia anónima
+        if (nombre === '' && codigo === '') {
+          abrirModalAnonimo();
+          return;
+        }
+
+        // Si completó ambos campos
+        var esCodigoValido = codigo.length > 0 && /^[A-Za-z0-9\-_]+$/.test(codigo);
+        var esNombreValido = nombre.length >= 2;
+
+        if (esNombreValido && esCodigoValido) {
+          iniciarSesionTest('identificado');
+          return;
+        }
+
+        // Si dejó un campo incompleto o con error
+        if (!esNombreValido) {
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-rose-600';
+          dom.btnHint.textContent = 'Falta el nombre';
+          dom.nombreCompleto.focus();
+        } else if (!esCodigoValido) {
+          dom.codigoHint.classList.remove('hidden');
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-rose-600';
+          dom.btnHint.textContent = 'Falta el código';
+          dom.codigoEst.focus();
+        }
+      });
+
+      // 10. Guardar Respuestas y Finalizar
+      async function guardarYFinalizar() {
+        if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+        limpiarProgresoLocal();
+        dom.modalLoading.classList.remove('hidden');
+        dom.modalLoading.classList.add('flex');
+        dom.btnSig.disabled = true;
+
+        var rows = PREGUNTAS.map(function (p) {
+          return {
+            sesion_id: state.sesionId,
+            escala: p.escala,
+            numero_item: p.num,
+            valor: state.respuestas[p.id] !== undefined ? state.respuestas[p.id] : 0
+          };
+        });
+
+        try {
+          var response = await fetch(SUPA_URL + '/rest/v1/respuestas', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPA_KEY,
+              'Authorization': 'Bearer ' + SUPA_KEY
+            },
+            body: JSON.stringify(rows)
+          });
+
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+
+          limpiarProgresoLocal();
+
+          dom.modalLoading.classList.remove('flex');
+          dom.modalLoading.classList.add('hidden');
+
+          if (state.modalidad === 'anonimo') {
+            dom.codigoBox.classList.remove('hidden');
+            dom.codigoDisplay.textContent = state.codigoSesion;
+          } else {
+            dom.codigoBox.classList.add('hidden');
+          }
+
+          showScreen('fin');
+
+        } catch (err) {
+          console.error('Error al guardar respuestas:', err);
+          dom.modalLoading.classList.remove('flex');
+          dom.modalLoading.classList.add('hidden');
+          dom.btnSig.disabled = false;
+          showToast('Hubo un problema al guardar tus respuestas. Por favor intenta de nuevo.', 'Error al guardar');
+        }
+      }
+
+      // Botón "Guardar y salir" en pantalla final
+      var btnFinSalir = document.getElementById('btn-finalizar-salir');
+      if (btnFinSalir) {
+        btnFinSalir.addEventListener('click', function () {
+          limpiarProgresoLocal();
+          if (dom.nombreCompleto) dom.nombreCompleto.value = '';
+          if (dom.codigoEst) dom.codigoEst.value = '';
+          state.modalidad = null;
+          state.nombreCompleto = '';
+          state.codigoEstudiante = '';
+          state.sesionId = null;
+          state.codigoSesion = null;
+          state.preguntaActual = 0;
+          state.respuestas = {};
+
+          // Restablecer botón de inicio al estado inicial completamente
+          dom.btnComenzar.disabled = false;
+          dom.btnComenzar.innerHTML = '<span>Comenzar el test</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+          evaluarEstadoFormulario();
+          showScreen('welcome');
+          if (window.refreshIcons) window.refreshIcons();
+        });
+      }
+
+      // Copiar código de sesión al portapapeles con retroalimentación visual
+      if (dom.btnCopiarCodigo) {
+        dom.btnCopiarCodigo.addEventListener('click', function () {
+          if (state.codigoSesion) {
+            navigator.clipboard.writeText(state.codigoSesion).then(function () {
+              var txt = document.getElementById('btn-copiar-texto');
+              if (txt) txt.textContent = '¡Copiado!';
+              dom.btnCopiarCodigo.classList.add('bg-emerald-600', 'text-white');
+              dom.btnCopiarCodigo.classList.remove('text-[#143067]', 'bg-[#143067]/10');
+              showToast('Código copiado al portapapeles: ' + state.codigoSesion, 'Copiado', 'success');
+              setTimeout(function () {
+                if (txt) txt.textContent = 'Copiar código';
+                dom.btnCopiarCodigo.classList.remove('bg-emerald-600', 'text-white');
+                dom.btnCopiarCodigo.classList.add('text-[#143067]', 'bg-[#143067]/10');
+              }, 2000);
+            }).catch(function () {});
+          }
+        });
+      }
+
+      // Restaurar progreso previo si existe o iniciar en pantalla de bienvenida
+      if (!restaurarProgresoLocal()) {
+        showScreen('welcome');
+      }
+
+      // Control del Screen Loader inicial (+2 segundos adicionales: 3.8 segundos en total)
+      setTimeout(function () {
+        var loader = document.getElementById('screen-loader');
+        if (loader) {
+          loader.classList.add('is-hidden');
+          setTimeout(function () {
+            loader.style.display = 'none';
+          }, 550);
+        }
+      }, 3800);
+    })();
+  </script>
+</body>
+</html>

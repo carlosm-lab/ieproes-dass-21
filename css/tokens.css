@@ -1,0 +1,105 @@
+/* =====================================================================
+   tokens.css -- Apple Liquid Glass Design Tokens para DASS-21 IEPROES
+   Tema: Septiembre Amarillo (Prevención del Suicidio y Salud Mental)
+   Estilo: Apple Frosted Liquid Glass, Monocromático Cálido, 120 FPS
+   ===================================================================== */
+
+:root {
+  /* --- Lienzo Monocromático Ecléctico Septiembre Amarillo --- */
+  --canvas-bg: #FFFDF5;
+  --mesh-gradient: 
+    radial-gradient(circle at 50% 45%, rgba(253, 224, 71, 0.45) 0%, transparent 60%),
+    radial-gradient(circle at 45% 55%, rgba(245, 158, 11, 0.35) 0%, transparent 65%),
+    radial-gradient(circle at 15% 15%, #FEF9C3 0%, transparent 50%),
+    radial-gradient(circle at 85% 20%, #FDE68A 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, #FEF08A 0%, transparent 50%),
+    #FFFDF5;
+
+  /* --- Marca Institucional IEPROES (Ejecutiva, Sobria y Respetuosa) --- */
+  --color-primary: #143067;             /* Azul #143067 */
+  --color-primary-hover: #1C3E82;       /* Azul hover */
+  --color-primary-accent: #244C9E;      /* Azul acento */
+  
+  --color-amber-gold: #B45309;          /* Dorado noble Septiembre Amarillo */
+  --color-amber-hover: #92400E;         /* Ámbar profundo */
+  --color-amber-light: rgba(254, 243, 199, 0.70);
+
+  --color-sage: #065F46;                /* Esmeralda clínico sereno */
+  --color-sage-hover: #044E39;
+
+  /* --- Tipografía Apple SF / Plus Jakarta Sans (Máximo Contraste AAA) --- */
+  --font-family-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --color-text-title: #0F172A;          /* Slate 900 */
+  --color-text-main: #1E293B;           /* Slate 800 */
+  --color-text-muted: #64748B;          /* Slate 600 */
+  --color-text-subtle: #94A3B8;         /* Slate 400 */
+
+  /* --- FÓRMULA ÓPTICA APPLE LIQUID GLASS (Idéntica a la Referencia 1) --- */
+  /* Ventana Maestra: translucidez cristalina, refracción visible de orbes traseros y bisel físico superior */
+  --liquid-window-bg: rgba(255, 255, 255, 0.50);
+  --liquid-window-blur: blur(32px) saturate(200%);
+  --liquid-window-border: 1.5px solid rgba(255, 255, 255, 0.85);
+  --liquid-window-shadow: 
+    0 30px 70px -15px rgba(217, 119, 6, 0.15),
+    0 10px 25px -5px rgba(0, 0, 0, 0.04),
+    inset 0 2px 2px #FFFFFF,
+    inset 0 -1px 1px rgba(255, 255, 255, 0.5);
+
+  /* Tarjetas Flotantes Blancas de Alto Contraste (como en las referencias 1 y 2) */
+  --liquid-card-bg: #FFFFFF;
+  --liquid-card-bg-hover: #FFFFFF;
+  --liquid-card-bg-selected: #FFFFFF;
+  --liquid-card-border: 1.5px solid rgba(255, 255, 255, 0.95);
+  --liquid-card-border-selected: 2px solid #143067;
+  --liquid-card-shadow: 
+    0 10px 28px -4px rgba(217, 119, 6, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.02),
+    inset 0 1px 1px #FFFFFF;
+  --liquid-card-shadow-hover: 
+    0 16px 36px -6px rgba(217, 119, 6, 0.12),
+    0 4px 10px rgba(0, 0, 0, 0.03),
+    inset 0 1.5px 1.5px #FFFFFF;
+
+  /* Elementos de Navegación y Entradas */
+  --liquid-bar-bg: rgba(255, 255, 255, 0.55);
+  --liquid-input-bg: #FFFFFF;
+
+  /* Botón de Acción de Fila de Tabla (Apple Pill) */
+  --btn-action-bg: #143067;
+  --btn-action-border: 1px solid #143067;
+  --btn-action-text: #FFFFFF;
+  --btn-action-hover-bg: #1C3E82;
+  --btn-action-hover-text: #FFFFFF;
+
+  /* --- Escala Oficial de Severidad DASS-21 (Lovibond & Lovibond, 1995) - Alto Contraste AAA --- */
+  --sev-normal-bg: #F0FDF4;
+  --sev-normal-text: #166534;
+  --sev-normal-border: #BBF7D0;
+
+  --sev-leve-bg: #EFF6FF;
+  --sev-leve-text: #1E40AF;
+  --sev-leve-border: #BFDBFE;
+
+  --sev-moderada-bg: #FFFBEB;
+  --sev-moderada-text: #92400E;
+  --sev-moderada-border: #FDE68A;
+
+  --sev-severa-bg: #FFF7ED;
+  --sev-severa-text: #9A3412;
+  --sev-severa-border: #FED7AA;
+
+  /* Extremadamente Severa (Alerta Crítica: Máximo Contraste y Visibilidad) */
+  --sev-extrema-bg: #FFF1F2;
+  --sev-extrema-text: #9F1239;
+  --sev-extrema-border: #FECDD3;
+  --sev-extrema-glow: 0 1px 3px rgba(225, 29, 72, 0.1);
+
+  /* Geometría */
+  --touch-target-min: 48px;
+  --radius-sm: 0.75rem;    /* 12px */
+  --radius-md: 1.125rem;   /* 18px */
+  --radius-lg: 1.5rem;     /* 24px */
+  --radius-pill: 9999px;
+}
