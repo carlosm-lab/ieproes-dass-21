@@ -355,7 +355,7 @@
           </div>
         </div>
 
-        <!-- Identificación del Estudiante (Directa) -->
+        <!-- Identificación del Estudiante (Obligatoria) -->
         <div class="my-6">
           <div class="mb-4">
             <h2 class="font-display text-base font-bold text-charcoal mb-1 flex items-center gap-2">
@@ -363,7 +363,7 @@
               <span>Datos del estudiante</span>
             </h2>
             <p class="text-xs text-muted leading-relaxed">
-              Ingresa tu nombre y código institucional para que Psicopedagogía pueda brindarte acompañamiento personalizado.
+              Ingresa tu nombre completo y código institucional para comenzar tu evaluación. Ambos campos son estrictamente obligatorios.
             </p>
           </div>
 
@@ -371,22 +371,22 @@
           <div id="campos-id" class="space-y-3.5">
             <div>
               <label for="nombre-completo" class="block text-xs font-bold text-charcoal mb-1">
-                Nombre completo
+                Nombre completo <span class="text-rose-500 font-bold">*</span>
               </label>
               <div class="relative">
-                <input type="text" id="nombre-completo" placeholder="Carlos José Molina" autocomplete="name"
-                  class="liquid-input w-full px-4 py-2.5 pl-10" />
+                <input type="text" id="nombre-completo" placeholder="Carlos José Molina" autocomplete="name" required
+                  class="liquid-input w-full px-4 py-2.5 pl-10 transition-colors" />
                 <i data-lucide="user" class="w-4 h-4 text-[#143067] absolute left-3.5 top-3"></i>
               </div>
             </div>
 
             <div>
               <label for="codigo-est" class="block text-xs font-bold text-charcoal mb-1">
-                Código de estudiante
+                Código de estudiante <span class="text-rose-500 font-bold">*</span>
               </label>
               <div class="relative">
-                <input type="text" id="codigo-est" placeholder="U320230158" autocomplete="off"
-                  class="liquid-input w-full px-4 py-2.5 pl-10 font-mono tracking-wider uppercase" />
+                <input type="text" id="codigo-est" placeholder="U320230158" autocomplete="off" required
+                  class="liquid-input w-full px-4 py-2.5 pl-10 font-mono tracking-wider uppercase transition-colors" />
                 <i data-lucide="id-card" class="w-4 h-4 text-[#143067] absolute left-3.5 top-3"></i>
               </div>
               <p id="codigo-hint" class="text-xs text-rose-600 font-medium hidden mt-1">El código no debe contener espacios ni caracteres especiales.</p>
@@ -400,7 +400,7 @@
             <span>Comenzar el test</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
-          <p id="btn-hint" class="text-xs text-muted mt-2 font-medium min-h-[1.25rem]">Completa los datos para continuar</p>
+          <p id="btn-hint" class="text-xs text-muted mt-2 font-medium min-h-[1.25rem]">Completa tus datos para continuar</p>
         </div>
       </div>
     </main>
@@ -455,28 +455,6 @@
           </p>
         </div>
 
-        <!-- Código de sesión anónimo con botón copiar -->
-        <div id="codigo-box" class="hidden p-4 sm:p-6 mb-6 text-center rounded-2xl bg-[#143067]/5 border border-[#143067]/20 backdrop-blur-md">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#143067]/10 text-[#143067] text-[11px] font-bold uppercase tracking-wider mb-2.5">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-            <span>Código de sesión</span>
-          </div>
-
-          <!-- Tarjeta del Código: diseño hero vertical que garantiza espacio total sin solapamiento -->
-          <div class="max-w-xs mx-auto bg-white/95 border border-[#143067]/20 rounded-xl p-3.5 sm:p-4 shadow-sm flex flex-col items-center justify-center gap-2.5 my-2">
-            <span id="codigo-display" class="font-mono text-xl sm:text-2xl font-black text-[#143067] tracking-wider whitespace-nowrap select-all leading-tight"></span>
-
-            <button id="btn-copiar-codigo" type="button" title="Copiar código" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#143067]/10 hover:bg-[#143067] hover:text-white text-[#143067] text-xs font-bold transition-all active:scale-95 shadow-xs">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-              <span id="btn-copiar-texto">Copiar código</span>
-            </button>
-          </div>
-
-          <p class="text-xs text-charcoal/80 leading-relaxed mt-2.5 max-w-sm mx-auto">
-            Te sugerimos guardarlo o copiarlo. Es la única referencia para consultar tu tamizaje con Psicopedagogía de manera anónima.
-          </p>
-        </div>
-
         <div class="pt-2 flex justify-center">
           <button id="btn-finalizar-salir" type="button" class="btn-liquid-primary w-full sm:w-auto px-8 py-3">
             <span>Volver a Inicio</span>
@@ -491,30 +469,7 @@
     By: Carlos Molina | Psic. &amp; Web Dev
   </footer>
 
-  <!-- MODAL DE ADVERTENCIA PARA MODALIDAD ANÓNIMA -->
-  <div id="modal-anonimo-alerta" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-4">
-    <div class="apple-liquid-modal p-6 sm:p-8 max-w-md w-full text-center shadow-2xl modal-scale-in">
-      <div class="w-16 h-16 rounded-2xl bg-[#143067]/10 border border-[#143067]/20 text-[#143067] flex items-center justify-center mx-auto mb-4 shadow-sm">
-        <i data-lucide="shield-alert" class="w-8 h-8 text-[#143067]"></i>
-      </div>
-      <h3 class="font-display font-extrabold text-slate-900 text-xl tracking-tight mb-3">
-        ¿Deseas continuar sin identificarte?
-      </h3>
-      <p class="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-6 text-center">
-        Has dejado los campos de identificación vacíos. Tu evaluación se registrará de forma <strong class="text-slate-900 font-bold">anónima</strong> y recibirás un <strong class="text-slate-900 font-bold">código único de sesión</strong> al finalizar para que puedas consultar tus resultados con Psicopedagogía si lo requieres.
-      </p>
-      <div class="flex items-center gap-3">
-        <button id="btn-cancelar-anonimo" type="button" class="btn-liquid-secondary flex-1 py-2.5 text-sm font-bold text-[#143067] justify-center">
-          <i data-lucide="arrow-left" class="w-4 h-4 text-[#143067]"></i>
-          <span>Volver</span>
-        </button>
-        <button id="btn-confirmar-anonimo" type="button" class="btn-liquid-primary flex-1 py-2.5 text-sm font-bold justify-center">
-          <span>Continuar</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </button>
-      </div>
-    </div>
-  </div>
+
 
   <!-- MODAL DE CARGA -->
   <div id="modal-loading" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
@@ -591,7 +546,7 @@
 
       // 3. Estado
       var state = {
-        modalidad: null,
+        modalidad: 'identificado',
         nombreCompleto: '',
         codigoEstudiante: '',
         sesionId: null,
@@ -615,9 +570,6 @@
         codigoHint: document.getElementById('codigo-hint'),
         btnComenzar: document.getElementById('btn-comenzar'),
         btnHint: document.getElementById('btn-hint'),
-        modalAnonimoAlerta: document.getElementById('modal-anonimo-alerta'),
-        btnConfirmarAnonimo: document.getElementById('btn-confirmar-anonimo'),
-        btnCancelarAnonimo: document.getElementById('btn-cancelar-anonimo'),
         slideViewport: document.querySelector('.slide-viewport'),
         slideTrack: document.getElementById('slide-track'),
         btnAnt: document.getElementById('btn-ant'),
@@ -630,10 +582,7 @@
         toast: document.getElementById('toast'),
         toastTitle: document.getElementById('toast-title'),
         toastMsg: document.getElementById('toast-msg'),
-        toastIconWrap: document.getElementById('toast-icon-wrap'),
-        codigoBox: document.getElementById('codigo-box'),
-        codigoDisplay: document.getElementById('codigo-display'),
-        btnCopiarCodigo: document.getElementById('btn-copiar-codigo')
+        toastIconWrap: document.getElementById('toast-icon-wrap')
       };
 
       // 5. Utilidades
@@ -776,64 +725,49 @@
         }
       }
 
-      // 6. Validación de Datos y Modal de Modalidad Anónima
-      function abrirModalAnonimo() {
-        dom.modalAnonimoAlerta.classList.remove('hidden');
-        dom.modalAnonimoAlerta.classList.add('flex');
-        if (window.refreshIcons) window.refreshIcons();
-      }
-
-      function cerrarModalAnonimo() {
-        dom.modalAnonimoAlerta.classList.add('hidden');
-        dom.modalAnonimoAlerta.classList.remove('flex');
-      }
-
+      // 6. Validación Estricta de Identificación Obligatoria
       function evaluarEstadoFormulario() {
         var nombre = dom.nombreCompleto.value.trim();
         var codigo = dom.codigoEst.value.trim().toUpperCase();
-
-        if (nombre === '' && codigo === '') {
-          dom.codigoHint.classList.add('hidden');
-          dom.btnHint.className = 'text-xs text-muted mt-2 font-medium min-h-[1.25rem]';
-          dom.btnHint.textContent = 'Completa los datos para continuar';
-          dom.nombreCompleto.classList.remove('border-emerald-500/60');
-          dom.codigoEst.classList.remove('border-emerald-500/60');
-          return;
-        }
 
         var esCodigoValido = codigo.length > 0 && /^[A-Za-z0-9\-_]+$/.test(codigo);
         var esNombreValido = nombre.length >= 2;
 
         if (codigo.length > 0 && !esCodigoValido) {
           dom.codigoHint.classList.remove('hidden');
+          dom.codigoEst.classList.add('border-rose-400');
+          dom.codigoEst.classList.remove('border-emerald-500/60');
         } else {
           dom.codigoHint.classList.add('hidden');
+          dom.codigoEst.classList.remove('border-rose-400');
         }
 
         if (esNombreValido) {
           dom.nombreCompleto.classList.add('border-emerald-500/60');
-        } else {
+          dom.nombreCompleto.classList.remove('border-rose-400');
+        } else if (nombre.length === 0) {
           dom.nombreCompleto.classList.remove('border-emerald-500/60');
         }
 
         if (esCodigoValido) {
           dom.codigoEst.classList.add('border-emerald-500/60');
-        } else {
+          dom.codigoEst.classList.remove('border-rose-400');
+        } else if (codigo.length === 0) {
           dom.codigoEst.classList.remove('border-emerald-500/60');
         }
 
         if (esNombreValido && esCodigoValido) {
-          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem]';
-          dom.btnHint.textContent = '';
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-emerald-600';
+          dom.btnHint.textContent = 'Datos listos para comenzar';
         } else if (!esNombreValido && codigo.length > 0) {
           dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-slate-500';
-          dom.btnHint.textContent = 'Falta el nombre';
+          dom.btnHint.textContent = 'Falta tu nombre completo';
         } else if (esNombreValido && codigo.length === 0) {
           dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-slate-500';
-          dom.btnHint.textContent = 'Falta el código';
+          dom.btnHint.textContent = 'Falta tu código de estudiante';
         } else {
           dom.btnHint.className = 'text-xs text-muted mt-2 font-medium min-h-[1.25rem]';
-          dom.btnHint.textContent = 'Completa los datos para continuar';
+          dom.btnHint.textContent = 'Completa tus datos para continuar';
         }
       }
 
@@ -842,20 +776,6 @@
         this.value = this.value.toUpperCase();
         evaluarEstadoFormulario();
       });
-
-      if (dom.btnCancelarAnonimo) {
-        dom.btnCancelarAnonimo.addEventListener('click', function () {
-          cerrarModalAnonimo();
-          dom.nombreCompleto.focus();
-        });
-      }
-
-      if (dom.btnConfirmarAnonimo) {
-        dom.btnConfirmarAnonimo.addEventListener('click', function () {
-          cerrarModalAnonimo();
-          iniciarSesionTest('anonimo');
-        });
-      }
 
       // 7. Renderizado del Carrusel de Preguntas
       function construirSlides() {
@@ -1040,30 +960,24 @@
         }
       });
 
-      // 9. Iniciar el Test
-      async function iniciarSesionTest(modalidadElegida) {
+      // 9. Iniciar el Test (Modalidad Identificada Obligatoria)
+      async function iniciarSesionTest() {
         dom.btnComenzar.disabled = true;
         dom.btnComenzar.innerHTML = '<span>Iniciando test...</span>';
 
-        state.modalidad = modalidadElegida;
+        state.modalidad = 'identificado';
         state.sesionId = generateUUID();
         state.codigoSesion = generateSessionCode();
+        state.nombreCompleto = dom.nombreCompleto.value.trim();
+        state.codigoEstudiante = dom.codigoEst.value.trim().toUpperCase();
 
         var payload = {
           id: state.sesionId,
-          modalidad: state.modalidad,
-          codigo_sesion: state.codigoSesion
+          modalidad: 'identificado',
+          codigo_sesion: state.codigoSesion,
+          nombre_completo: state.nombreCompleto,
+          codigo_estudiante: state.codigoEstudiante
         };
-
-        if (state.modalidad === 'identificado') {
-          state.nombreCompleto = dom.nombreCompleto.value.trim();
-          state.codigoEstudiante = dom.codigoEst.value.trim().toUpperCase();
-          payload.nombre_completo = state.nombreCompleto;
-          payload.codigo_estudiante = state.codigoEstudiante;
-        } else {
-          state.nombreCompleto = '';
-          state.codigoEstudiante = '';
-        }
 
         try {
           var response = await fetch(SUPA_URL + '/rest/v1/sesiones_test', {
@@ -1101,30 +1015,34 @@
         var nombre = dom.nombreCompleto.value.trim();
         var codigo = dom.codigoEst.value.trim().toUpperCase();
 
-        // Si ambos campos están vacíos -> Desplegar modal de advertencia anónima
-        if (nombre === '' && codigo === '') {
-          abrirModalAnonimo();
-          return;
-        }
-
-        // Si completó ambos campos
         var esCodigoValido = codigo.length > 0 && /^[A-Za-z0-9\-_]+$/.test(codigo);
         var esNombreValido = nombre.length >= 2;
 
         if (esNombreValido && esCodigoValido) {
-          iniciarSesionTest('identificado');
+          iniciarSesionTest();
           return;
         }
 
-        // Si dejó un campo incompleto o con error
+        // Validación estricta con feedback al usuario
+        if (nombre === '' && codigo === '') {
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-rose-600 font-bold';
+          dom.btnHint.textContent = 'Nombre y código de estudiante son obligatorios';
+          dom.nombreCompleto.classList.add('border-rose-400');
+          dom.codigoEst.classList.add('border-rose-400');
+          dom.nombreCompleto.focus();
+          return;
+        }
+
         if (!esNombreValido) {
-          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-rose-600';
-          dom.btnHint.textContent = 'Falta el nombre';
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-rose-600 font-bold';
+          dom.btnHint.textContent = nombre.length === 0 ? 'El nombre completo es obligatorio' : 'El nombre debe tener al menos 2 caracteres';
+          dom.nombreCompleto.classList.add('border-rose-400');
           dom.nombreCompleto.focus();
         } else if (!esCodigoValido) {
           dom.codigoHint.classList.remove('hidden');
-          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-rose-600';
-          dom.btnHint.textContent = 'Falta el código';
+          dom.btnHint.className = 'text-xs mt-2 font-medium min-h-[1.25rem] text-rose-600 font-bold';
+          dom.btnHint.textContent = codigo.length === 0 ? 'El código de estudiante es obligatorio' : 'El código no debe tener espacios ni caracteres especiales';
+          dom.codigoEst.classList.add('border-rose-400');
           dom.codigoEst.focus();
         }
       });
@@ -1164,13 +1082,6 @@
           dom.modalLoading.classList.remove('flex');
           dom.modalLoading.classList.add('hidden');
 
-          if (state.modalidad === 'anonimo') {
-            dom.codigoBox.classList.remove('hidden');
-            dom.codigoDisplay.textContent = state.codigoSesion;
-          } else {
-            dom.codigoBox.classList.add('hidden');
-          }
-
           showScreen('fin');
 
         } catch (err) {
@@ -1189,7 +1100,7 @@
           limpiarProgresoLocal();
           if (dom.nombreCompleto) dom.nombreCompleto.value = '';
           if (dom.codigoEst) dom.codigoEst.value = '';
-          state.modalidad = null;
+          state.modalidad = 'identificado';
           state.nombreCompleto = '';
           state.codigoEstudiante = '';
           state.sesionId = null;
@@ -1203,26 +1114,6 @@
           evaluarEstadoFormulario();
           showScreen('welcome');
           if (window.refreshIcons) window.refreshIcons();
-        });
-      }
-
-      // Copiar código de sesión al portapapeles con retroalimentación visual
-      if (dom.btnCopiarCodigo) {
-        dom.btnCopiarCodigo.addEventListener('click', function () {
-          if (state.codigoSesion) {
-            navigator.clipboard.writeText(state.codigoSesion).then(function () {
-              var txt = document.getElementById('btn-copiar-texto');
-              if (txt) txt.textContent = '¡Copiado!';
-              dom.btnCopiarCodigo.classList.add('bg-emerald-600', 'text-white');
-              dom.btnCopiarCodigo.classList.remove('text-[#143067]', 'bg-[#143067]/10');
-              showToast('Código copiado al portapapeles: ' + state.codigoSesion, 'Copiado', 'success');
-              setTimeout(function () {
-                if (txt) txt.textContent = 'Copiar código';
-                dom.btnCopiarCodigo.classList.remove('bg-emerald-600', 'text-white');
-                dom.btnCopiarCodigo.classList.add('text-[#143067]', 'bg-[#143067]/10');
-              }, 2000);
-            }).catch(function () {});
-          }
         });
       }
 

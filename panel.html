@@ -1056,8 +1056,6 @@
         var total = state.sesiones.length;
         var noLeidas = state.sesiones.filter(function (s) { return !s.leido; }).length;
         var leidas = total - noLeidas;
-        var identificadas = state.sesiones.filter(function (s) { return s.modalidad === 'identificado'; }).length;
-        var anonimas = total - identificadas;
 
         var currentTab = state.activeTab || 'todas';
 
@@ -1074,14 +1072,6 @@
           '<button type="button" class="kpi-tab ' + (currentTab === 'leidas' ? 'active' : '') + '" data-tab="leidas">' +
           '<span>Leídas</span>' +
           '<span class="kpi-tab-count">' + leidas + '</span>' +
-          '</button>' +
-          '<button type="button" class="kpi-tab ' + (currentTab === 'identificadas' ? 'active' : '') + '" data-tab="identificadas">' +
-          '<span>Identificadas</span>' +
-          '<span class="kpi-tab-count">' + identificadas + '</span>' +
-          '</button>' +
-          '<button type="button" class="kpi-tab ' + (currentTab === 'anonimas' ? 'active' : '') + '" data-tab="anonimas">' +
-          '<span>Anónimas</span>' +
-          '<span class="kpi-tab-count">' + anonimas + '</span>' +
           '</button>';
 
         if (window.refreshIcons) window.refreshIcons();
@@ -1096,8 +1086,6 @@
           // Filtro por pestaña seleccionada
           if (currentTab === 'no_leidas' && s.leido) return false;
           if (currentTab === 'leidas' && !s.leido) return false;
-          if (currentTab === 'identificadas' && s.modalidad !== 'identificado') return false;
-          if (currentTab === 'anonimas' && s.modalidad !== 'anonimo') return false;
 
           var r = s.resultados || {};
           var maxSev = window.getMaxSeverity ? window.getMaxSeverity(r) : '';
@@ -1188,9 +1176,7 @@
             ? { color: 'bg-slate-300', title: 'Evaluación leída' }
             : { color: 'bg-blue-600', title: 'Nueva evaluación no leída' };
 
-          var remitente = s.modalidad === 'identificado'
-            ? (s.nombre_completo || 'Estudiante Identificado')
-            : ('Anónimo (' + s.codigo_sesion + ')');
+          var remitente = s.nombre_completo || (s.codigo_estudiante ? ('Estudiante ' + s.codigo_estudiante) : ('Sesión ' + s.codigo_sesion));
 
           var asunto = 'Tamizaje DASS-21';
 
@@ -1423,12 +1409,12 @@
         }
 
         // Datos Generales
-        dom.detModalidadBadge.className = 'sev-badge-glass ' + (sesion.modalidad === 'identificado' ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-slate-100 text-slate-700 border border-slate-200');
-        dom.detModalidadBadge.innerHTML = '<i data-lucide="' + (sesion.modalidad === 'identificado' ? 'graduation-cap' : 'user-x') + '" class="w-3.5 h-3.5"></i><span>' + (sesion.modalidad === 'identificado' ? 'Identificado' : 'Anónimo') + '</span>';
+        dom.detModalidadBadge.className = 'sev-badge-glass bg-primary/10 text-primary border border-primary/20';
+        dom.detModalidadBadge.innerHTML = '<i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i><span>Identificado</span>';
         dom.detCodigoSesion.textContent = sesion.codigo_sesion;
         dom.detFecha.textContent = 'Fecha: ' + window.formatDateTime(sesion.fecha_aplicacion);
-        dom.detNombre.textContent = sesion.nombre_completo || 'Anónimo (No proporcionado)';
-        dom.detCodigoEst.textContent = sesion.codigo_estudiante || 'No aplica (Anónimo)';
+        dom.detNombre.textContent = sesion.nombre_completo || 'Estudiante';
+        dom.detCodigoEst.textContent = sesion.codigo_estudiante || 'No registrado';
 
         // Tarjetas de Resultados (3 Escalas)
         dom.cardDepScore.textContent = r.puntaje_depresion !== undefined ? r.puntaje_depresion : 0;
@@ -1527,9 +1513,9 @@
         if (window.refreshIcons) window.refreshIcons();
       });
 
-      // Historial evolutivo si es identificado
+      // Historial evolutivo del estudiante
       async function cargarHistorialEstudiante(sesion) {
-        if (sesion.modalidad !== 'identificado' || !sesion.codigo_estudiante) {
+        if (!sesion.codigo_estudiante) {
           dom.seccionHistorial.classList.add('hidden');
           return;
         }
@@ -1697,9 +1683,7 @@
         var maxSev = window.getMaxSeverity ? window.getMaxSeverity(r) : '';
         var crit = window.isCriticalSeverity ? window.isCriticalSeverity(maxSev) : false;
 
-        var remitente = s.modalidad === 'identificado'
-          ? (s.nombre_completo || 'Estudiante Identificado')
-          : ('Anónimo (' + s.codigo_sesion + ')');
+        var remitente = s.nombre_completo || (s.codigo_estudiante ? ('Estudiante ' + s.codigo_estudiante) : ('Sesión ' + s.codigo_sesion));
 
         var toast = document.createElement('div');
         toast.className = 'realtime-toast ' + (crit ? 'is-critical' : '');
