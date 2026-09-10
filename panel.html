@@ -42,8 +42,8 @@
   <meta http-equiv="Expires" content="0" />
 
   <!-- Sistema de Diseño Glassmorphism y Tokens -->
-  <link rel="stylesheet" href="css/tokens.css?v=2.1.0_septiembre_amarillo" />
-  <link rel="stylesheet" href="css/glass.css?v=2.1.0_septiembre_amarillo" />
+  <link rel="stylesheet" href="css/tokens.css?v=2.1.1_bg_fix" />
+  <link rel="stylesheet" href="css/glass.css?v=2.1.1_bg_fix" />
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -52,16 +52,16 @@
     html {
       font-size: 16px;
       scroll-behavior: smooth;
-      height: 100%;
-      height: -webkit-fill-available;
+      min-height: 100%;
+      min-height: 100dvh;
+      background-color: #F8FAFC;
     }
 
     body {
       font-family: var(--font-family-body);
       color: var(--color-text-main);
-      min-height: 100vh;
+      min-height: 100%;
       min-height: 100dvh;
-      min-height: -webkit-fill-available;
     }
 
     h1,
